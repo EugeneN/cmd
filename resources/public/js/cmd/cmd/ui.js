@@ -518,5 +518,9 @@ return c__6261__auto__;
 });
 cmd.ui.subscribe_appbus.call(null);
 cmd.ui.load_gists.call(null);
+goog.events.listen(cmd.ui.input,goog.events.EventType.SCROLL,(function (){return cmd.ui.preview.scrollTop = cmd.ui.input.scrollTop;
+}));
+goog.events.listen(cmd.ui.preview,goog.events.EventType.SCROLL,(function (){return cmd.ui.input.scrollTop = cmd.ui.preview.scrollTop;
+}));
 
 //# sourceMappingURL=ui.js.map

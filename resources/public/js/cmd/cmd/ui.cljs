@@ -215,4 +215,11 @@
 (subscribe-appbus)
 (load-gists)
 
+; misc -------------------------------------------------------------------------
+
+(events/listen input
+  goog.events.EventType.SCROLL #(set! (.-scrollTop preview) (.-scrollTop input)))
+
+(events/listen preview
+  goog.events.EventType.SCROLL #(set! (.-scrollTop input) (.-scrollTop preview)))
 

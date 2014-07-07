@@ -2,15 +2,17 @@
 <body>
     <style type="text/css">
         body {
-            background-color: #ccc;
+            background-color: #fff;
+            overflow: hidden;
         }
         #input {
-            width: 48%;
-            height: 800px;
+            width: 49%;
+            height: 95vh;
             display: inline-block;
-            border: 2px solid grey;
+            border: 0px solid grey;
             margin: auto;
             padding: 0;
+            border-right: 1px solid #aaa;
         }
         #editor {
             width: 100%;
@@ -21,13 +23,13 @@
             font-size: 110%;
         }
         #preview {
-            width: 48%;
-            height: 800px;
+            width: 49%;
+            height: 95vh;
             float: right;
             display: inline-block;
-            border: 2px solid grey;
+            border: 0px solid grey;
             margin: auto;
-            padding: 1em;
+            padding: 0;
             background-color: white;
             overflow: auto;
         }
@@ -36,14 +38,61 @@
         }
         button {
             padding: 5px;
+            background-color: #fff;
+            border: 0px;
+            cursor: pointer;
+            color: rgb(0,96,250);
+            font-weight: lighter;
+            font-size: 100%;
+            font-family: Tahoma;
         }
+        .ios7 {
+            font-weight: lighter;
+            font-size: 100%;
+            font-family: Tahoma;
+
+        }
+        #gist-list {
+            border: 0px;
+            border-bottom: 1px solid #aaa;
+
+        }
+        #gist-list select {
+            width: 500px;
+            background-color: #fff;
+            border: 0px;
+        }
+        #foo {
+            font-family: Tahoma;
+            font-size: 10pt;
+            text-align: center;
+
+            border-bottom: 0px solid #aaa;
+            padding-bottom: 10px;
+
+            width: 100%;
+            height: auto;
+
+
+
+            z-index: 100;
+
+            /*-webkit-filter: blur(20px);*/
+            /*-moz-filter: blur(20px);*/
+            /*-o-filter: blur(20px);*/
+            /*-ms-filter: blur(20px);*/
+            /*filter: blur(20px);*/
+            /*opacity: 0.95;*/
+        }
+
+        select, textarea, input { outline: none; }
     </style>
 
     <div id="foo">
 
-        <div style="margin-bottom: 10px;">
-            <i>Select gist:</i>
-            <div style="display: inline-block" id="gist-list"></div>
+        <div style="margin: 0px;">
+            <span class="ios7">Select gist:</span>
+            <div style="display: inline-block; width: 500px;" id="gist-list"></div>
 
             <button id='pull'>&darr;&nbsp;Pull</button>
             <button id='push'>&uarr;&nbsp;Push</button>
@@ -54,8 +103,7 @@
 
 
 
-    <div id="preview">
-    </div>
+    <div id="preview"></div>
 
     <div id="input">
         <textarea id="editor"></textarea>
