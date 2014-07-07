@@ -1,0 +1,8 @@
+{"version":3,
+ "file":
+ "/Users/eugene/github/cmd/resources/public/js/cmd/cmd/core.js",
+ "sources":["core.cljs"],
+ "lineCount":10,
+ "mappings":
+ ";AAAA;;AAEA;;;iBAAA,mBAAA,pCAAMA,iCAEHC,GACD,qCAAA,9BAACC,4BAAQD",
+ "names":["cmd.core/hello", "x", "cljs.core/println"]}
