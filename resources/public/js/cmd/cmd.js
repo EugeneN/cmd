@@ -3,6 +3,7 @@ goog.addDependency("../cljs/core.js", ['cljs.core'], ['goog.string', 'goog.objec
 goog.addDependency("../clojure/string.js", ['clojure.string'], ['goog.string', 'cljs.core', 'goog.string.StringBuffer']);
 goog.addDependency("../markdown/transformers.js", ['markdown.transformers'], ['cljs.core', 'clojure.string']);
 goog.addDependency("../markdown/core.js", ['markdown.core'], ['cljs.core', 'markdown.transformers']);
+goog.addDependency("../om/dom.js", ['om.dom'], ['cljs.core']);
 goog.addDependency("../cljs/core/async/impl/protocols.js", ['cljs.core.async.impl.protocols'], ['cljs.core']);
 goog.addDependency("../cljs/core/async/impl/buffers.js", ['cljs.core.async.impl.buffers'], ['cljs.core', 'cljs.core.async.impl.protocols']);
 goog.addDependency("../cljs/core/async/impl/dispatch.js", ['cljs.core.async.impl.dispatch'], ['cljs.core', 'cljs.core.async.impl.buffers']);
@@ -10,4 +11,5 @@ goog.addDependency("../cljs/core/async/impl/channels.js", ['cljs.core.async.impl
 goog.addDependency("../cljs/core/async/impl/ioc_helpers.js", ['cljs.core.async.impl.ioc_helpers'], ['cljs.core', 'cljs.core.async.impl.protocols']);
 goog.addDependency("../cljs/core/async/impl/timers.js", ['cljs.core.async.impl.timers'], ['cljs.core.async.impl.channels', 'cljs.core.async.impl.dispatch', 'cljs.core', 'cljs.core.async.impl.protocols']);
 goog.addDependency("../cljs/core/async.js", ['cljs.core.async'], ['cljs.core.async.impl.channels', 'cljs.core.async.impl.dispatch', 'cljs.core', 'cljs.core.async.impl.buffers', 'cljs.core.async.impl.protocols', 'cljs.core.async.impl.ioc_helpers', 'cljs.core.async.impl.timers']);
-goog.addDependency("../cmd/ui.js", ['cmd.ui'], ['goog.dom', 'markdown.core', 'goog.net.XhrIo', 'cljs.core', 'goog.events.KeyHandler', 'cljs.core.async', 'goog.events.EventType', 'goog.events.KeyCodes', 'goog.events']);
+goog.addDependency("../om/core.js", ['om.core'], ['cljs.core', 'om.dom', 'goog.ui.IdGenerator']);
+goog.addDependency("../cmd/ui.js", ['cmd.ui'], ['markdown.core', 'goog.net.XhrIo', 'cljs.core', 'om.dom', 'goog.events.KeyHandler', 'cljs.core.async', 'goog.events.EventType', 'om.core', 'goog.events.KeyCodes', 'goog.events']);
