@@ -18,6 +18,7 @@
             margin: 0;
             padding: 1em;
             border: 0px;
+            font-size: 110%;
         }
         #preview {
             width: 48%;
@@ -28,20 +29,26 @@
             margin: auto;
             padding: 1em;
             background-color: white;
+            overflow: auto;
         }
         #clear {
             float: none;
+        }
+        button {
+            padding: 5px;
         }
     </style>
 
     <div id="foo">
 
-        <i>Select gist:</i>
-        <div id="gist-list">
+        <div style="margin-bottom: 10px;">
+            <i>Select gist:</i>
+            <div style="display: inline-block" id="gist-list"></div>
+
+            <button id='pull'>&darr;&nbsp;Pull</button>
+            <button id='push'>&uarr;&nbsp;Push</button>
         </div>
 
-        <button id='pull'>Pull</button>
-        <button id='push'>Push</button>
 
     </div>
 

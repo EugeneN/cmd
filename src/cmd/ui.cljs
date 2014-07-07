@@ -169,7 +169,7 @@
   (let [md-raw (.-value input)
         gist-id (get-state state :current-gist-id)
         file-name (get-state state :current-file-id)
-        new-content {:description "cmd push" :files {(keyword file-name) {:content md-raw}}}
+        new-content {:description file-name :files {(keyword file-name) {:content md-raw}}}
         result (save-gist gist-id new-content)]
     (set-state state :current-gist result)))
 
