@@ -12,4 +12,4 @@ goog.addDependency("../cljs/core/async/impl/ioc_helpers.js", ['cljs.core.async.i
 goog.addDependency("../cljs/core/async/impl/timers.js", ['cljs.core.async.impl.timers'], ['cljs.core.async.impl.channels', 'cljs.core.async.impl.dispatch', 'cljs.core', 'cljs.core.async.impl.protocols']);
 goog.addDependency("../cljs/core/async.js", ['cljs.core.async'], ['cljs.core.async.impl.channels', 'cljs.core.async.impl.dispatch', 'cljs.core', 'cljs.core.async.impl.buffers', 'cljs.core.async.impl.protocols', 'cljs.core.async.impl.ioc_helpers', 'cljs.core.async.impl.timers']);
 goog.addDependency("../om/core.js", ['om.core'], ['cljs.core', 'om.dom', 'goog.ui.IdGenerator']);
-goog.addDependency("../cmd/ui.js", ['cmd.ui'], ['markdown.core', 'goog.net.XhrIo', 'cljs.core', 'om.dom', 'goog.events.KeyHandler', 'cljs.core.async', 'goog.events.EventType', 'om.core', 'goog.events.KeyCodes', 'goog.events']);
+goog.addDependency("../cmd/ui.js", ['cmd.ui'], ['markdown.core', 'goog.net.cookies', 'goog.net.XhrIo', 'cljs.core', 'om.dom', 'goog.events.KeyHandler', 'cljs.core.async', 'goog.events.EventType', 'om.core', 'goog.events.KeyCodes', 'goog.events']);

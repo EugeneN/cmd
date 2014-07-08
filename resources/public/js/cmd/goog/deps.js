@@ -5,6 +5,7 @@ goog.addDependency("debug/error.js", ['goog.debug.Error'], []);
 goog.addDependency("dom/nodetype.js", ['goog.dom.NodeType'], []);
 goog.addDependency("asserts/asserts.js", ['goog.asserts', 'goog.asserts.AssertionError'], ['goog.debug.Error', 'goog.dom.NodeType', 'goog.string']);
 goog.addDependency("array/array.js", ['goog.array', 'goog.array.ArrayLike'], ['goog.asserts']);
+goog.addDependency("net/cookies.js", ['goog.net.Cookies', 'goog.net.cookies'], []);
 goog.addDependency("disposable/idisposable.js", ['goog.disposable.IDisposable'], []);
 goog.addDependency("disposable/disposable.js", ['goog.Disposable', 'goog.dispose', 'goog.disposeAll'], ['goog.disposable.IDisposable']);
 goog.addDependency("debug/entrypointregistry.js", ['goog.debug.EntryPointMonitor', 'goog.debug.entryPointRegistry'], ['goog.asserts']);

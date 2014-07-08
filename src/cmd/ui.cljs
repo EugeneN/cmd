@@ -7,6 +7,7 @@
             [om.dom :as dom :include-macros true]
 
             [goog.net.XhrIo :as io]
+            [goog.net.cookies :as cookie]
             [cljs.core.async :refer [chan close! >! <!]])
   (:require-macros
     [cljs.core.async.macros :refer [go alt!]]
@@ -14,16 +15,6 @@
   (:import [goog.events KeyHandler KeyCodes EventType]))
 
 (enable-console-print!)
-
-;; api section -----------------------------------------------------------------
-
-; this is the real token
-(def auth-token "ea69c0bf54df678124e1788d87efaf94374e149b")
-; ea69c0bf54df678124e1788d87efaf94374e149b:x-oauth-basic -> base64
-(def auth-token-b64 "ZWE2OWMwYmY1NGRmNjc4MTI0ZTE3ODhkODdlZmFmOTQzNzRlMTQ5Yjp4LW9hdXRoLWJhc2lj")
-(def auth-param (js-obj "Authorization" (str "Basic " auth-token-b64)
-                        "Content-Type" "application/json"))
-
 
 ;; utils section ---------------------------------------------------------------
 
@@ -37,11 +28,16 @@
 
 (defn join-gist-names
   [file-keys]
-  (apply str (interpose " <;> " file-keys)))
+  (apply str (interpose " <*> " file-keys)))
 
 (defn raw->clj
   [raw]
-  (js->clj (.parse js/JSON raw)))
+  (let [json (.parse js/JSON raw)
+        clj (js->clj json)]
+    (say json)
+    (say clj)
+    clj
+    ))
 
 (defn md->html
   [text]
@@ -51,45 +47,13 @@
   [html]
   html)
 
+(defn ^:export setcookie [name value]
+  (.set goog.net.cookies name value -1))
 
-;; io section ------------------------------------------------------------------
+(defn ^:export getcookie [name]
+  (.get goog.net.cookies name))
 
-(defn resp-handler
-  [ch event]
-  (let [res (-> event .-target .getResponseText)]
-    (go (>! ch res)
-      (close! ch))))
 
-(defn api-url
-  [suffix]
-  (str "https://api.github.com" suffix))
-
-(defn GET [url]
-  (let [ch (chan 1)]
-    (io/send (api-url url)
-             (partial resp-handler ch)
-             "GET"
-             nil
-             auth-param)
-    ch))
-
-(defn POST [url data]
-  (let [ch (chan 1)]
-    (io/send (api-url url)
-             (partial resp-handler ch)
-             "POST"
-             (.serialize (goog.json.Serializer.) (clj->js data))
-             auth-param)
-    ch))
-
-(defn PATCH [url data]
-  (let [ch (chan 1)]
-    (io/send (api-url url)
-             (partial resp-handler ch)
-             "PATCH"
-             (.serialize (goog.json.Serializer.) (clj->js data))
-             auth-param)
-    ch))
 
 
 ;; bl section ------------------------------------------------------------------
@@ -112,39 +76,108 @@
   [state key]
   (key @state))
 
+
+(defn auth-param [username auth-token] (js-obj "Authorization" (str "Basic " auth-token)
+                                               "Content-Type" "application/json"))
+
+;; io section ------------------------------------------------------------------
+
+(defn resp-handler
+  [ch event]
+  (let [error-code (-> event .-target .getLastErrorCode)
+        res (-> event .-target .getResponseText)]
+    (condp = error-code
+      goog.net.ErrorCode.NO_ERROR (go (>! ch [:just res])
+                                    (close! ch))
+
+      (go (>! ch [:nothing res])
+        (close! ch))
+      )
+    ))
+
+(defn api-url
+  [suffix]
+  (str "https://api.github.com" suffix))
+
+(defn GET [url auth-param]
+  (let [ch (chan 1)]
+    (io/send (api-url url)
+      (partial resp-handler ch)
+      "GET"
+      nil
+      auth-param)
+    ch))
+
+(defn POST [url data auth-param]
+  (let [ch (chan 1)]
+    (io/send (api-url url)
+      (partial resp-handler ch)
+      "POST"
+      (.serialize (goog.json.Serializer.) (clj->js data))
+      auth-param)
+    ch))
+
+(defn PATCH [url data auth-param]
+  (let [ch (chan 1)]
+    (io/send (api-url url)
+      (partial resp-handler ch)
+      "PATCH"
+      (.serialize (goog.json.Serializer.) (clj->js data))
+      auth-param)
+    ch))
+
+;; /io section -----------------------------------------------------------------
+
 (defn find-gist
   [state gist-id]
   (filter #(= gist-id (% "id")) (get-state state :gists)))
 
+(defn handle-io-error
+  [resp]
+    (let [error-msg (resp "message")]
+      (set-state state :error error-msg)
+      (say (str "IO Error: " error-msg))))
+
 (defn load-gists
   []
   (go
-    (let [resp (<! (GET "/users/EugeneN/gists"))
-          clj-resp (raw->clj resp)]
-      (set-state state :gists clj-resp))))
+    (let [username (get-state state :username)
+          auth-token (get-state state :auth-token)
+          [maybe resp] (<! (GET (str "/users/" username "/gists") (auth-param username auth-token)))
+          resp-clj (raw->clj resp)]
+      (case maybe
+        :just (set-state state :gists resp-clj)
+        :nothing (handle-io-error resp-clj)))))
 
 (defn load-gist
   [id]
   (go
     (let [url (str "/gists/" id)
-          raw-file (<! (GET url))
-          gist (raw->clj raw-file)
-          [first-file-name _] (-> (gist "files") first)]
-      (set-state state :current-file-id first-file-name)
-      (set-state state :current-gist gist)
-      (>! AppBus [:gist-loaded id]))))
+          [maybe resp] (<! (GET url (auth-param (get-state state :username) (get-state state :auth-token))))]
+      (case maybe
+        :just (do (let [gist (raw->clj resp)
+                        [first-file-name _] (-> (gist "files") first)]
+                    (set-state state :current-file-id first-file-name)
+                    (set-state state :current-gist gist)
+                    (>! AppBus [:gist-loaded id])))
+        :nothing (handle-io-error (raw->clj resp))))))
 
 (defn save-gist
   [gist-id new-content]
   (go
-    (let [result (<! (PATCH (str "/gists/" gist-id) new-content))]
-      (raw->clj result))))
+    (let [[maybe result] (<! (PATCH (str "/gists/" gist-id) new-content (auth-param (get-state state :username)
+                                                                                    (get-state state :auth-token))))
+          clj-result (raw->clj result)]
+      (case maybe
+        :just clj-result
+        :nothing (handle-io-error clj-result)))))
 
 
 ;; ui section ------------------------------------------------------------------
 
 (def input (. js/document (getElementById "editor")))
 (def preview (. js/document (getElementById "preview")))
+(def preview-container (. js/document (getElementById "preview-container")))
 (def pull-button (. js/document (getElementById "pull")))
 (def push-button (. js/document (getElementById "push")))
 
@@ -173,53 +206,151 @@
         result (save-gist gist-id new-content)]
     (set-state state :current-gist result)))
 
+(defn handle-logout
+  [_]
+  (say "Logout")
+  (set-state state :valid-credentials false))
+
 (defn handle-select
   [e]
   (let [selected-id (.. e -target -value)]
     (set-state state :current-gist-id selected-id)
     (load-gist selected-id)))
 
-(defn gist-list [data owner]
+(defn logged-in [username auth-token]
+  (set-state state :username username)
+  (set-state state :auth-token auth-token)
+  (set-state state :valid-credentials true)
+  (setcookie "username" username)
+  (setcookie "auth-token" auth-token)
+  (go (>! AppBus [:user-is-authenticated true])))
+
+(defn unauthorized [resp]
+  (let [error-msg (raw->clj resp)]
+    (set-state state :valid-credentials false)
+    (set-state state :error error-msg)
+    (say (str "Auth Error: " error-msg))))
+
+(defn authenticate
+  [username auth-token]
+  (go
+    (let [[maybe resp] (<! (GET (str "/users/" username "/gists") (auth-param username auth-token)))]
+      (case maybe
+        :just (logged-in username auth-token)
+        :nothing (unauthorized resp)))))
+
+(defn handle-auth
+  [e]
+  (let [username (.-value (. js/document (getElementById "username")))
+        auth-token (.-value (. js/document (getElementById "auth-token")))]
+    (authenticate username auth-token)
+    ))
+
+
+
+(defn authenticated-om? [state]
+  (state :valid-credentials))
+
+(defn authenticated? [state]
+  (get-state state :valid-credentials))
+
+(defn error-set? [state]
+  (state :error))
+
+
+(defn toolbar [state owner]
   (reify
     om/IRender
     (render [_]
-      (apply dom/select #js {:className "hello"
-                             :onChange handle-select}
-        (map (fn [gist] (dom/option #js {:value (gist "id")} (-> (gist "files") keys join-gist-names))) (:gists data))))
-      ))
+      (cond
+        (authenticated-om? state)
+          (dom/div nil
+            (dom/label #js {:className "ios7"} "Select gist:")
+            (dom/div #js {:id "gist-list"}
+              (apply dom/select #js {:className "hello"
+                                     :onChange handle-select}
+                (map (fn [gist] (dom/option #js {:value (gist "id")} (-> (gist "files") keys join-gist-names))) (:gists state))))
 
+            (let [current-gist (state :current-gist)]
+              (if (not (= current-gist nil))
+                (dom/a #js {:id "view-orig"
+                            :target "_blank"
+                            :href (current-gist "html_url")} "View on gisthub")))
+
+
+            (dom/button #js {:id "pull"
+                             :onClick handle-pull} "_ Pull")
+            (dom/button #js {:id "push"
+                             :onClick handle-push} "^ Push")
+
+            (dom/button #js {:id "log-out"
+                         :onClick handle-logout} "Log out"))
+        :else
+          (dom/div nil
+            (dom/label nil "Username:")
+            (dom/input #js {:type "text"
+                            :id "username"})
+
+            (dom/label nil "Auth token:")
+            (dom/input #js {:type "text"
+                            :id "auth-token"})
+
+            (dom/button #js {:id "go"
+                             :onClick handle-auth} "Let's go >>")
+
+            (if (error-set? state)
+              (dom/span #js {:id "error-msg"}) (str (state :error)))
+
+            ))
+      )))
 
 ; main section & entry points --------------------------------------------------
 
-(om/root gist-list state
-  {:target (. js/document (getElementById "gist-list"))})
+(defn render-toolbar
+  [state]
+  (om/root toolbar state
+    {:target (. js/document (getElementById "toolbar"))}))
 
 
-(events/listen input
-  goog.events.EventType.KEYUP set-preview)
+(defn setup-common-listeners
+  []
+  (events/listen input
+    goog.events.EventType.KEYUP set-preview)
 
-(events/listen pull-button
-  goog.events.EventType.CLICK handle-pull)
+  (events/listen input
+    goog.events.EventType.SCROLL #(set! (.-scrollTop preview-container) (.-scrollTop input)))
 
-(events/listen push-button
-  goog.events.EventType.CLICK handle-push)
+  (events/listen preview-container
+    goog.events.EventType.SCROLL #(set! (.-scrollTop input) (.-scrollTop preview-container)))
+  )
 
 (defn subscribe-appbus
-  []
-  (go (loop [[msg payload] (<! AppBus)]
+  [app-bus]
+  (go (loop [[msg payload] (<! app-bus)]
+        (case msg
+          :user-is-authenticated (load-gists)
+          :gist-loaded (do (set-input payload)
+                           (set-preview nil)))
 
-    (set-input payload)
-    (set-preview nil)
-    (recur (<! AppBus)))))
+    (recur (<! app-bus)))))
 
-(subscribe-appbus)
-(load-gists)
 
-; misc -------------------------------------------------------------------------
 
-(events/listen input
-  goog.events.EventType.SCROLL #(set! (.-scrollTop preview) (.-scrollTop input)))
+(defn main
+  [state app-bus]
+  (let [username (getcookie "username")
+        auth-token (getcookie "auth-token")]
 
-(events/listen preview
-  goog.events.EventType.SCROLL #(set! (.-scrollTop input) (.-scrollTop preview)))
+    (subscribe-appbus app-bus)
+    (setup-common-listeners)
+
+    (authenticate username auth-token)
+
+    (render-toolbar state)
+
+    ))
+
+; Entry point
+(main state AppBus)
+
 
