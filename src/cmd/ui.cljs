@@ -35,7 +35,6 @@
   (let [json (.parse js/JSON raw)
         clj (js->clj json)]
     (say json)
-    (say clj)
     clj
     ))
 
@@ -178,8 +177,6 @@
 (def input (. js/document (getElementById "editor")))
 (def preview (. js/document (getElementById "preview")))
 (def preview-container (. js/document (getElementById "preview-container")))
-(def pull-button (. js/document (getElementById "pull")))
-(def push-button (. js/document (getElementById "push")))
 
 (defn set-input
   [gist-id]
@@ -304,7 +301,7 @@
             ))
       )))
 
-; main section & entry points --------------------------------------------------
+; main section -----------------------------------------------------------------
 
 (defn render-toolbar
   [state]
