@@ -1,8 +1,5 @@
 (ns cmd.ui
   (:require [goog.events :as events]
-            ;[goog.dom :as dom]
-            [markdown.core :as md]
-            ;[cmd.core :as core]
             [om.core :as om :include-macros true]
             [om.dom :as dom :include-macros true]
 
@@ -41,7 +38,9 @@
 
 (defn md->html
   [text]
-  (.mdToHtml markdown.core text))
+  (let [converter (new js/Markdown.Converter)]
+    (.. converter (makeHtml text))))
+;  (.mdToHtml markdown.core text))
 
 (defn html->react
   [html]
