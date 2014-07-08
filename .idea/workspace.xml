@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5e112a7f-1778-4115-ab08-c479f122439f" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/public/js/cmd/cmd/ui.cljs" afterPath="$PROJECT_DIR$/resources/public/js/cmd/cmd/ui.cljs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cmd/ui.cljs" afterPath="$PROJECT_DIR$/src/cmd/ui.cljs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/public/js/cmd/cmd/ui.js.map" afterPath="$PROJECT_DIR$/resources/public/js/cmd/cmd/ui.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/public/js/cmd/cmd/ui.js" afterPath="$PROJECT_DIR$/resources/public/js/cmd/cmd/ui.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="cmd.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,11 +54,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ui.cljs" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="ui.cljs" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/cmd/ui.cljs">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.037037" vertical-offset="1187" max-vertical-offset="2826">
-              <caret line="179" column="0" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
+            <state vertical-scroll-proportion="-0.068350665" vertical-offset="1540" max-vertical-offset="4662">
+              <caret line="159" column="50" selection-start-line="159" selection-start-column="37" selection-end-line="159" selection-end-column="50" />
               <folding>
                 <element signature="n#say#0" expanded="false" />
                 <element signature="n#html!#0" expanded="false" />
@@ -78,34 +80,14 @@
                 <element signature="n#find-gist#0" expanded="false" />
                 <element signature="n#handle-io-error#0" expanded="false" />
                 <element signature="n#load-gists#0" expanded="false" />
-                <element signature="n#load-gist#0" expanded="false" />
-                <element signature="n#save-gist#0" expanded="false" />
-                <element signature="n#handle-pull#0" expanded="false" />
-                <element signature="n#handle-push#0" expanded="false" />
+                <element signature="n#set-preview#0" expanded="false" />
                 <element signature="n#handle-logout#0" expanded="false" />
-                <element signature="n#handle-select#0" expanded="false" />
                 <element signature="n#logged-in#0" expanded="false" />
                 <element signature="n#unauthorized#0" expanded="false" />
                 <element signature="n#authenticate#0" expanded="false" />
                 <element signature="n#handle-auth#0" expanded="false" />
-                <element signature="n#authenticated-om?#0" expanded="false" />
-                <element signature="n#authenticated?#0" expanded="false" />
                 <element signature="n#error-set?#0" expanded="false" />
-                <element signature="n#toolbar#0" expanded="false" />
-                <element signature="n#render-toolbar#0" expanded="false" />
-                <element signature="n#subscribe-appbus#0" expanded="false" />
-                <element signature="n#main#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.24444444" vertical-offset="0" max-vertical-offset="675">
-              <caret line="11" column="19" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -128,8 +110,8 @@
         <option value="$PROJECT_DIR$/dev/cmd/core/ui.cljs" />
         <option value="$PROJECT_DIR$/project.clj" />
         <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/src/cmd/ui.cljs" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/cmd/ui.cljs" />
       </list>
     </option>
   </component>
@@ -354,7 +336,7 @@
       <workItem from="1404725269659" duration="387000" />
       <workItem from="1404725674117" duration="15237000" />
       <workItem from="1404809258029" duration="14292000" />
-      <workItem from="1404826201643" duration="7131000" />
+      <workItem from="1404826201643" duration="7838000" />
     </task>
     <task id="LOCAL-00001" summary="gist edit, some cleanup">
       <created>1404768831292</created>
@@ -368,11 +350,15 @@
       <created>1404832917733</created>
       <updated>1404832917733</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="cleanup">
+      <created>1404833383792</created>
+      <updated>1404833383792</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37124000" />
+    <option name="totallyTimeSpent" value="37831000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -400,7 +386,7 @@
     <layout>
       <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3299539" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33364055" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="71" y="467" width="1827" height="262" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18709677" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="71" y="467" width="1827" height="262" />
       <window_info id="Leiningen" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32950193" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32950193" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.24958949" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -471,7 +457,8 @@
     <MESSAGE value="gist edit, some cleanup" />
     <MESSAGE value="some more cleanup" />
     <MESSAGE value="added basic auth and logout" />
-    <option name="LAST_COMMIT_MESSAGE" value="added basic auth and logout" />
+    <MESSAGE value="cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="cleanup" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -522,23 +509,13 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#load-gist#0" expanded="false" />
-            <element signature="n#save-gist#0" expanded="false" />
-            <element signature="n#handle-pull#0" expanded="false" />
-            <element signature="n#handle-push#0" expanded="false" />
+            <element signature="n#set-preview#0" expanded="false" />
             <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#handle-select#0" expanded="false" />
             <element signature="n#logged-in#0" expanded="false" />
             <element signature="n#unauthorized#0" expanded="false" />
             <element signature="n#authenticate#0" expanded="false" />
             <element signature="n#handle-auth#0" expanded="false" />
-            <element signature="n#authenticated-om?#0" expanded="false" />
-            <element signature="n#authenticated?#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
-            <element signature="n#toolbar#0" expanded="false" />
-            <element signature="n#render-toolbar#0" expanded="false" />
-            <element signature="n#subscribe-appbus#0" expanded="false" />
-            <element signature="n#main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -584,23 +561,13 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#load-gist#0" expanded="false" />
-            <element signature="n#save-gist#0" expanded="false" />
-            <element signature="n#handle-pull#0" expanded="false" />
-            <element signature="n#handle-push#0" expanded="false" />
+            <element signature="n#set-preview#0" expanded="false" />
             <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#handle-select#0" expanded="false" />
             <element signature="n#logged-in#0" expanded="false" />
             <element signature="n#unauthorized#0" expanded="false" />
             <element signature="n#authenticate#0" expanded="false" />
             <element signature="n#handle-auth#0" expanded="false" />
-            <element signature="n#authenticated-om?#0" expanded="false" />
-            <element signature="n#authenticated?#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
-            <element signature="n#toolbar#0" expanded="false" />
-            <element signature="n#render-toolbar#0" expanded="false" />
-            <element signature="n#subscribe-appbus#0" expanded="false" />
-            <element signature="n#main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -646,23 +613,13 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#load-gist#0" expanded="false" />
-            <element signature="n#save-gist#0" expanded="false" />
-            <element signature="n#handle-pull#0" expanded="false" />
-            <element signature="n#handle-push#0" expanded="false" />
+            <element signature="n#set-preview#0" expanded="false" />
             <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#handle-select#0" expanded="false" />
             <element signature="n#logged-in#0" expanded="false" />
             <element signature="n#unauthorized#0" expanded="false" />
             <element signature="n#authenticate#0" expanded="false" />
             <element signature="n#handle-auth#0" expanded="false" />
-            <element signature="n#authenticated-om?#0" expanded="false" />
-            <element signature="n#authenticated?#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
-            <element signature="n#toolbar#0" expanded="false" />
-            <element signature="n#render-toolbar#0" expanded="false" />
-            <element signature="n#subscribe-appbus#0" expanded="false" />
-            <element signature="n#main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -708,23 +665,13 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#load-gist#0" expanded="false" />
-            <element signature="n#save-gist#0" expanded="false" />
-            <element signature="n#handle-pull#0" expanded="false" />
-            <element signature="n#handle-push#0" expanded="false" />
+            <element signature="n#set-preview#0" expanded="false" />
             <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#handle-select#0" expanded="false" />
             <element signature="n#logged-in#0" expanded="false" />
             <element signature="n#unauthorized#0" expanded="false" />
             <element signature="n#authenticate#0" expanded="false" />
             <element signature="n#handle-auth#0" expanded="false" />
-            <element signature="n#authenticated-om?#0" expanded="false" />
-            <element signature="n#authenticated?#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
-            <element signature="n#toolbar#0" expanded="false" />
-            <element signature="n#render-toolbar#0" expanded="false" />
-            <element signature="n#subscribe-appbus#0" expanded="false" />
-            <element signature="n#main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -777,23 +724,13 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#load-gist#0" expanded="false" />
-            <element signature="n#save-gist#0" expanded="false" />
-            <element signature="n#handle-pull#0" expanded="false" />
-            <element signature="n#handle-push#0" expanded="false" />
+            <element signature="n#set-preview#0" expanded="false" />
             <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#handle-select#0" expanded="false" />
             <element signature="n#logged-in#0" expanded="false" />
             <element signature="n#unauthorized#0" expanded="false" />
             <element signature="n#authenticate#0" expanded="false" />
             <element signature="n#handle-auth#0" expanded="false" />
-            <element signature="n#authenticated-om?#0" expanded="false" />
-            <element signature="n#authenticated?#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
-            <element signature="n#toolbar#0" expanded="false" />
-            <element signature="n#render-toolbar#0" expanded="false" />
-            <element signature="n#subscribe-appbus#0" expanded="false" />
-            <element signature="n#main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -853,23 +790,13 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#load-gist#0" expanded="false" />
-            <element signature="n#save-gist#0" expanded="false" />
-            <element signature="n#handle-pull#0" expanded="false" />
-            <element signature="n#handle-push#0" expanded="false" />
+            <element signature="n#set-preview#0" expanded="false" />
             <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#handle-select#0" expanded="false" />
             <element signature="n#logged-in#0" expanded="false" />
             <element signature="n#unauthorized#0" expanded="false" />
             <element signature="n#authenticate#0" expanded="false" />
             <element signature="n#handle-auth#0" expanded="false" />
-            <element signature="n#authenticated-om?#0" expanded="false" />
-            <element signature="n#authenticated?#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
-            <element signature="n#toolbar#0" expanded="false" />
-            <element signature="n#render-toolbar#0" expanded="false" />
-            <element signature="n#subscribe-appbus#0" expanded="false" />
-            <element signature="n#main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -922,23 +849,13 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#load-gist#0" expanded="false" />
-            <element signature="n#save-gist#0" expanded="false" />
-            <element signature="n#handle-pull#0" expanded="false" />
-            <element signature="n#handle-push#0" expanded="false" />
+            <element signature="n#set-preview#0" expanded="false" />
             <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#handle-select#0" expanded="false" />
             <element signature="n#logged-in#0" expanded="false" />
             <element signature="n#unauthorized#0" expanded="false" />
             <element signature="n#authenticate#0" expanded="false" />
             <element signature="n#handle-auth#0" expanded="false" />
-            <element signature="n#authenticated-om?#0" expanded="false" />
-            <element signature="n#authenticated?#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
-            <element signature="n#toolbar#0" expanded="false" />
-            <element signature="n#render-toolbar#0" expanded="false" />
-            <element signature="n#subscribe-appbus#0" expanded="false" />
-            <element signature="n#main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -991,23 +908,13 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#load-gist#0" expanded="false" />
-            <element signature="n#save-gist#0" expanded="false" />
-            <element signature="n#handle-pull#0" expanded="false" />
-            <element signature="n#handle-push#0" expanded="false" />
+            <element signature="n#set-preview#0" expanded="false" />
             <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#handle-select#0" expanded="false" />
             <element signature="n#logged-in#0" expanded="false" />
             <element signature="n#unauthorized#0" expanded="false" />
             <element signature="n#authenticate#0" expanded="false" />
             <element signature="n#handle-auth#0" expanded="false" />
-            <element signature="n#authenticated-om?#0" expanded="false" />
-            <element signature="n#authenticated?#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
-            <element signature="n#toolbar#0" expanded="false" />
-            <element signature="n#render-toolbar#0" expanded="false" />
-            <element signature="n#subscribe-appbus#0" expanded="false" />
-            <element signature="n#main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1060,23 +967,13 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#load-gist#0" expanded="false" />
-            <element signature="n#save-gist#0" expanded="false" />
-            <element signature="n#handle-pull#0" expanded="false" />
-            <element signature="n#handle-push#0" expanded="false" />
+            <element signature="n#set-preview#0" expanded="false" />
             <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#handle-select#0" expanded="false" />
             <element signature="n#logged-in#0" expanded="false" />
             <element signature="n#unauthorized#0" expanded="false" />
             <element signature="n#authenticate#0" expanded="false" />
             <element signature="n#handle-auth#0" expanded="false" />
-            <element signature="n#authenticated-om?#0" expanded="false" />
-            <element signature="n#authenticated?#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
-            <element signature="n#toolbar#0" expanded="false" />
-            <element signature="n#render-toolbar#0" expanded="false" />
-            <element signature="n#subscribe-appbus#0" expanded="false" />
-            <element signature="n#main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1129,23 +1026,13 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#load-gist#0" expanded="false" />
-            <element signature="n#save-gist#0" expanded="false" />
-            <element signature="n#handle-pull#0" expanded="false" />
-            <element signature="n#handle-push#0" expanded="false" />
+            <element signature="n#set-preview#0" expanded="false" />
             <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#handle-select#0" expanded="false" />
             <element signature="n#logged-in#0" expanded="false" />
             <element signature="n#unauthorized#0" expanded="false" />
             <element signature="n#authenticate#0" expanded="false" />
             <element signature="n#handle-auth#0" expanded="false" />
-            <element signature="n#authenticated-om?#0" expanded="false" />
-            <element signature="n#authenticated?#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
-            <element signature="n#toolbar#0" expanded="false" />
-            <element signature="n#render-toolbar#0" expanded="false" />
-            <element signature="n#subscribe-appbus#0" expanded="false" />
-            <element signature="n#main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1191,23 +1078,13 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#load-gist#0" expanded="false" />
-            <element signature="n#save-gist#0" expanded="false" />
-            <element signature="n#handle-pull#0" expanded="false" />
-            <element signature="n#handle-push#0" expanded="false" />
+            <element signature="n#set-preview#0" expanded="false" />
             <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#handle-select#0" expanded="false" />
             <element signature="n#logged-in#0" expanded="false" />
             <element signature="n#unauthorized#0" expanded="false" />
             <element signature="n#authenticate#0" expanded="false" />
             <element signature="n#handle-auth#0" expanded="false" />
-            <element signature="n#authenticated-om?#0" expanded="false" />
-            <element signature="n#authenticated?#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
-            <element signature="n#toolbar#0" expanded="false" />
-            <element signature="n#render-toolbar#0" expanded="false" />
-            <element signature="n#subscribe-appbus#0" expanded="false" />
-            <element signature="n#main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1251,10 +1128,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24590164" vertical-offset="0" max-vertical-offset="671">
+          <caret line="11" column="19" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/cmd/ui.cljs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.037037" vertical-offset="1187" max-vertical-offset="2826">
-          <caret line="179" column="0" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
+        <state vertical-scroll-proportion="-0.068350665" vertical-offset="1540" max-vertical-offset="4662">
+          <caret line="159" column="50" selection-start-line="159" selection-start-column="37" selection-end-line="159" selection-end-column="50" />
           <folding>
             <element signature="n#say#0" expanded="false" />
             <element signature="n#html!#0" expanded="false" />
@@ -1276,32 +1161,14 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#load-gist#0" expanded="false" />
-            <element signature="n#save-gist#0" expanded="false" />
-            <element signature="n#handle-pull#0" expanded="false" />
-            <element signature="n#handle-push#0" expanded="false" />
+            <element signature="n#set-preview#0" expanded="false" />
             <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#handle-select#0" expanded="false" />
             <element signature="n#logged-in#0" expanded="false" />
             <element signature="n#unauthorized#0" expanded="false" />
             <element signature="n#authenticate#0" expanded="false" />
             <element signature="n#handle-auth#0" expanded="false" />
-            <element signature="n#authenticated-om?#0" expanded="false" />
-            <element signature="n#authenticated?#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
-            <element signature="n#toolbar#0" expanded="false" />
-            <element signature="n#render-toolbar#0" expanded="false" />
-            <element signature="n#subscribe-appbus#0" expanded="false" />
-            <element signature="n#main#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24444444" vertical-offset="0" max-vertical-offset="675">
-          <caret line="11" column="19" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>

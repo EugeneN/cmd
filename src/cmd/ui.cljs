@@ -268,11 +268,14 @@
                                      :onChange handle-select}
                 (map (fn [gist] (dom/option #js {:value (gist "id")} (-> (gist "files") keys join-gist-names))) (:gists state))))
 
-            (let [current-gist (state :current-gist)]
-              (if (not (= current-gist nil))
+            (let [current-gist (state :current-gist)
+                  href (if (= current-gist nil) nil (current-gist "html_url"))]
+              (say current-gist)
+              (say href)
+              (if (not (= href nil))
                 (dom/a #js {:id "view-orig"
                             :target "_blank"
-                            :href (current-gist "html_url")} "View on gisthub")))
+                            :href href} "View original")))
 
 
             (dom/button #js {:id "pull"

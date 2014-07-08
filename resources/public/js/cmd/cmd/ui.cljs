@@ -35,7 +35,6 @@
   (let [json (.parse js/JSON raw)
         clj (js->clj json)]
     (say json)
-    (say clj)
     clj
     ))
 
@@ -165,10 +164,12 @@
 (defn save-gist
   [gist-id new-content]
   (go
-    (let [[maybe result] (<! (PATCH (str "/gists/" gist-id) new-content (auth-param (get-state state :username) (get-state state :auth-token))))]
+    (let [[maybe result] (<! (PATCH (str "/gists/" gist-id) new-content (auth-param (get-state state :username)
+                                                                                    (get-state state :auth-token))))
+          clj-result (raw->clj result)]
       (case maybe
-        :just (raw->clj result)
-        :nothing (handle-io-error (raw->clj result))))))
+        :just clj-result
+        :nothing (handle-io-error clj-result)))))
 
 
 ;; ui section ------------------------------------------------------------------
@@ -176,8 +177,6 @@
 (def input (. js/document (getElementById "editor")))
 (def preview (. js/document (getElementById "preview")))
 (def preview-container (. js/document (getElementById "preview-container")))
-(def pull-button (. js/document (getElementById "pull")))
-(def push-button (. js/document (getElementById "push")))
 
 (defn set-input
   [gist-id]
@@ -269,11 +268,14 @@
                                      :onChange handle-select}
                 (map (fn [gist] (dom/option #js {:value (gist "id")} (-> (gist "files") keys join-gist-names))) (:gists state))))
 
-            (let [current-gist (state :current-gist)]
-              (if (not (= current-gist nil))
+            (let [current-gist (state :current-gist)
+                  href (if (= current-gist nil) nil (current-gist "html_url"))]
+              (say current-gist)
+              (say href)
+              (if (not (= href nil))
                 (dom/a #js {:id "view-orig"
                             :target "_blank"
-                            :href (current-gist "html_url")} "View on gisthub")))
+                            :href href} "View original")))
 
 
             (dom/button #js {:id "pull"
@@ -302,7 +304,7 @@
             ))
       )))
 
-; main section & entry points --------------------------------------------------
+; main section -----------------------------------------------------------------
 
 (defn render-toolbar
   [state]
