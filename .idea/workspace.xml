@@ -57,8 +57,8 @@
       <file leaf-file-name="ui.cljs" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/cmd/ui.cljs">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.068350665" vertical-offset="1540" max-vertical-offset="4662">
-              <caret line="159" column="50" selection-start-line="159" selection-start-column="37" selection-end-line="159" selection-end-column="50" />
+            <state vertical-scroll-proportion="0.6998514" vertical-offset="4173" max-vertical-offset="5364">
+              <caret line="332" column="3" selection-start-line="332" selection-start-column="3" selection-end-line="332" selection-end-column="3" />
               <folding>
                 <element signature="n#say#0" expanded="false" />
                 <element signature="n#html!#0" expanded="false" />
@@ -66,10 +66,8 @@
                 <element signature="n#raw-&gt;clj#0" expanded="false" />
                 <element signature="n#md-&gt;html#0" expanded="false" />
                 <element signature="n#html-&gt;react#0" expanded="false" />
-                <element signature="n#setcookie#0" expanded="false" />
                 <element signature="n#getcookie#0" expanded="false" />
                 <element signature="n#process#0" expanded="false" />
-                <element signature="n#set-state#0" expanded="false" />
                 <element signature="n#get-state#0" expanded="false" />
                 <element signature="n#auth-param#0" expanded="false" />
                 <element signature="n#resp-handler#0" expanded="false" />
@@ -80,12 +78,6 @@
                 <element signature="n#find-gist#0" expanded="false" />
                 <element signature="n#handle-io-error#0" expanded="false" />
                 <element signature="n#load-gists#0" expanded="false" />
-                <element signature="n#set-preview#0" expanded="false" />
-                <element signature="n#handle-logout#0" expanded="false" />
-                <element signature="n#logged-in#0" expanded="false" />
-                <element signature="n#unauthorized#0" expanded="false" />
-                <element signature="n#authenticate#0" expanded="false" />
-                <element signature="n#handle-auth#0" expanded="false" />
                 <element signature="n#error-set?#0" expanded="false" />
               </folding>
             </state>
@@ -327,6 +319,9 @@
     <list size="0" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",ALPHA_COMPARATOR" />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="5e112a7f-1778-4115-ab08-c479f122439f" name="Default" comment="" />
@@ -336,7 +331,7 @@
       <workItem from="1404725269659" duration="387000" />
       <workItem from="1404725674117" duration="15237000" />
       <workItem from="1404809258029" duration="14292000" />
-      <workItem from="1404826201643" duration="7838000" />
+      <workItem from="1404826201643" duration="9338000" />
     </task>
     <task id="LOCAL-00001" summary="gist edit, some cleanup">
       <created>1404768831292</created>
@@ -354,11 +349,15 @@
       <created>1404833383792</created>
       <updated>1404833383792</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="xxx">
+      <created>1404834094848</created>
+      <updated>1404834094848</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37831000" />
+    <option name="totallyTimeSpent" value="39331000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -400,10 +399,10 @@
       <window_info id="Grunt" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299539" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299539" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299539" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21510673" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21510673" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.32950193" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15708812" sideWeight="0.49939248" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15708812" sideWeight="0.49939248" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -458,7 +457,8 @@
     <MESSAGE value="some more cleanup" />
     <MESSAGE value="added basic auth and logout" />
     <MESSAGE value="cleanup" />
-    <option name="LAST_COMMIT_MESSAGE" value="cleanup" />
+    <MESSAGE value="xxx" />
+    <option name="LAST_COMMIT_MESSAGE" value="xxx" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -495,10 +495,8 @@
             <element signature="n#raw-&gt;clj#0" expanded="false" />
             <element signature="n#md-&gt;html#0" expanded="false" />
             <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#setcookie#0" expanded="false" />
             <element signature="n#getcookie#0" expanded="false" />
             <element signature="n#process#0" expanded="false" />
-            <element signature="n#set-state#0" expanded="false" />
             <element signature="n#get-state#0" expanded="false" />
             <element signature="n#auth-param#0" expanded="false" />
             <element signature="n#resp-handler#0" expanded="false" />
@@ -509,12 +507,6 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#set-preview#0" expanded="false" />
-            <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#logged-in#0" expanded="false" />
-            <element signature="n#unauthorized#0" expanded="false" />
-            <element signature="n#authenticate#0" expanded="false" />
-            <element signature="n#handle-auth#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
           </folding>
         </state>
@@ -547,10 +539,8 @@
             <element signature="n#raw-&gt;clj#0" expanded="false" />
             <element signature="n#md-&gt;html#0" expanded="false" />
             <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#setcookie#0" expanded="false" />
             <element signature="n#getcookie#0" expanded="false" />
             <element signature="n#process#0" expanded="false" />
-            <element signature="n#set-state#0" expanded="false" />
             <element signature="n#get-state#0" expanded="false" />
             <element signature="n#auth-param#0" expanded="false" />
             <element signature="n#resp-handler#0" expanded="false" />
@@ -561,12 +551,6 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#set-preview#0" expanded="false" />
-            <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#logged-in#0" expanded="false" />
-            <element signature="n#unauthorized#0" expanded="false" />
-            <element signature="n#authenticate#0" expanded="false" />
-            <element signature="n#handle-auth#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
           </folding>
         </state>
@@ -599,10 +583,8 @@
             <element signature="n#raw-&gt;clj#0" expanded="false" />
             <element signature="n#md-&gt;html#0" expanded="false" />
             <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#setcookie#0" expanded="false" />
             <element signature="n#getcookie#0" expanded="false" />
             <element signature="n#process#0" expanded="false" />
-            <element signature="n#set-state#0" expanded="false" />
             <element signature="n#get-state#0" expanded="false" />
             <element signature="n#auth-param#0" expanded="false" />
             <element signature="n#resp-handler#0" expanded="false" />
@@ -613,12 +595,6 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#set-preview#0" expanded="false" />
-            <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#logged-in#0" expanded="false" />
-            <element signature="n#unauthorized#0" expanded="false" />
-            <element signature="n#authenticate#0" expanded="false" />
-            <element signature="n#handle-auth#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
           </folding>
         </state>
@@ -651,10 +627,8 @@
             <element signature="n#raw-&gt;clj#0" expanded="false" />
             <element signature="n#md-&gt;html#0" expanded="false" />
             <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#setcookie#0" expanded="false" />
             <element signature="n#getcookie#0" expanded="false" />
             <element signature="n#process#0" expanded="false" />
-            <element signature="n#set-state#0" expanded="false" />
             <element signature="n#get-state#0" expanded="false" />
             <element signature="n#auth-param#0" expanded="false" />
             <element signature="n#resp-handler#0" expanded="false" />
@@ -665,12 +639,6 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#set-preview#0" expanded="false" />
-            <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#logged-in#0" expanded="false" />
-            <element signature="n#unauthorized#0" expanded="false" />
-            <element signature="n#authenticate#0" expanded="false" />
-            <element signature="n#handle-auth#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
           </folding>
         </state>
@@ -710,10 +678,8 @@
             <element signature="n#raw-&gt;clj#0" expanded="false" />
             <element signature="n#md-&gt;html#0" expanded="false" />
             <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#setcookie#0" expanded="false" />
             <element signature="n#getcookie#0" expanded="false" />
             <element signature="n#process#0" expanded="false" />
-            <element signature="n#set-state#0" expanded="false" />
             <element signature="n#get-state#0" expanded="false" />
             <element signature="n#auth-param#0" expanded="false" />
             <element signature="n#resp-handler#0" expanded="false" />
@@ -724,12 +690,6 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#set-preview#0" expanded="false" />
-            <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#logged-in#0" expanded="false" />
-            <element signature="n#unauthorized#0" expanded="false" />
-            <element signature="n#authenticate#0" expanded="false" />
-            <element signature="n#handle-auth#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
           </folding>
         </state>
@@ -776,10 +736,8 @@
             <element signature="n#raw-&gt;clj#0" expanded="false" />
             <element signature="n#md-&gt;html#0" expanded="false" />
             <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#setcookie#0" expanded="false" />
             <element signature="n#getcookie#0" expanded="false" />
             <element signature="n#process#0" expanded="false" />
-            <element signature="n#set-state#0" expanded="false" />
             <element signature="n#get-state#0" expanded="false" />
             <element signature="n#auth-param#0" expanded="false" />
             <element signature="n#resp-handler#0" expanded="false" />
@@ -790,12 +748,6 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#set-preview#0" expanded="false" />
-            <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#logged-in#0" expanded="false" />
-            <element signature="n#unauthorized#0" expanded="false" />
-            <element signature="n#authenticate#0" expanded="false" />
-            <element signature="n#handle-auth#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
           </folding>
         </state>
@@ -835,10 +787,8 @@
             <element signature="n#raw-&gt;clj#0" expanded="false" />
             <element signature="n#md-&gt;html#0" expanded="false" />
             <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#setcookie#0" expanded="false" />
             <element signature="n#getcookie#0" expanded="false" />
             <element signature="n#process#0" expanded="false" />
-            <element signature="n#set-state#0" expanded="false" />
             <element signature="n#get-state#0" expanded="false" />
             <element signature="n#auth-param#0" expanded="false" />
             <element signature="n#resp-handler#0" expanded="false" />
@@ -849,12 +799,6 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#set-preview#0" expanded="false" />
-            <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#logged-in#0" expanded="false" />
-            <element signature="n#unauthorized#0" expanded="false" />
-            <element signature="n#authenticate#0" expanded="false" />
-            <element signature="n#handle-auth#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
           </folding>
         </state>
@@ -894,10 +838,8 @@
             <element signature="n#raw-&gt;clj#0" expanded="false" />
             <element signature="n#md-&gt;html#0" expanded="false" />
             <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#setcookie#0" expanded="false" />
             <element signature="n#getcookie#0" expanded="false" />
             <element signature="n#process#0" expanded="false" />
-            <element signature="n#set-state#0" expanded="false" />
             <element signature="n#get-state#0" expanded="false" />
             <element signature="n#auth-param#0" expanded="false" />
             <element signature="n#resp-handler#0" expanded="false" />
@@ -908,12 +850,6 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#set-preview#0" expanded="false" />
-            <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#logged-in#0" expanded="false" />
-            <element signature="n#unauthorized#0" expanded="false" />
-            <element signature="n#authenticate#0" expanded="false" />
-            <element signature="n#handle-auth#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
           </folding>
         </state>
@@ -953,10 +889,8 @@
             <element signature="n#raw-&gt;clj#0" expanded="false" />
             <element signature="n#md-&gt;html#0" expanded="false" />
             <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#setcookie#0" expanded="false" />
             <element signature="n#getcookie#0" expanded="false" />
             <element signature="n#process#0" expanded="false" />
-            <element signature="n#set-state#0" expanded="false" />
             <element signature="n#get-state#0" expanded="false" />
             <element signature="n#auth-param#0" expanded="false" />
             <element signature="n#resp-handler#0" expanded="false" />
@@ -967,12 +901,6 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#set-preview#0" expanded="false" />
-            <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#logged-in#0" expanded="false" />
-            <element signature="n#unauthorized#0" expanded="false" />
-            <element signature="n#authenticate#0" expanded="false" />
-            <element signature="n#handle-auth#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
           </folding>
         </state>
@@ -1012,10 +940,8 @@
             <element signature="n#raw-&gt;clj#0" expanded="false" />
             <element signature="n#md-&gt;html#0" expanded="false" />
             <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#setcookie#0" expanded="false" />
             <element signature="n#getcookie#0" expanded="false" />
             <element signature="n#process#0" expanded="false" />
-            <element signature="n#set-state#0" expanded="false" />
             <element signature="n#get-state#0" expanded="false" />
             <element signature="n#auth-param#0" expanded="false" />
             <element signature="n#resp-handler#0" expanded="false" />
@@ -1026,12 +952,6 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#set-preview#0" expanded="false" />
-            <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#logged-in#0" expanded="false" />
-            <element signature="n#unauthorized#0" expanded="false" />
-            <element signature="n#authenticate#0" expanded="false" />
-            <element signature="n#handle-auth#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
           </folding>
         </state>
@@ -1064,10 +984,8 @@
             <element signature="n#raw-&gt;clj#0" expanded="false" />
             <element signature="n#md-&gt;html#0" expanded="false" />
             <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#setcookie#0" expanded="false" />
             <element signature="n#getcookie#0" expanded="false" />
             <element signature="n#process#0" expanded="false" />
-            <element signature="n#set-state#0" expanded="false" />
             <element signature="n#get-state#0" expanded="false" />
             <element signature="n#auth-param#0" expanded="false" />
             <element signature="n#resp-handler#0" expanded="false" />
@@ -1078,12 +996,6 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#set-preview#0" expanded="false" />
-            <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#logged-in#0" expanded="false" />
-            <element signature="n#unauthorized#0" expanded="false" />
-            <element signature="n#authenticate#0" expanded="false" />
-            <element signature="n#handle-auth#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
           </folding>
         </state>
@@ -1138,8 +1050,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cmd/ui.cljs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.068350665" vertical-offset="1540" max-vertical-offset="4662">
-          <caret line="159" column="50" selection-start-line="159" selection-start-column="37" selection-end-line="159" selection-end-column="50" />
+        <state vertical-scroll-proportion="0.6998514" vertical-offset="4173" max-vertical-offset="5364">
+          <caret line="332" column="3" selection-start-line="332" selection-start-column="3" selection-end-line="332" selection-end-column="3" />
           <folding>
             <element signature="n#say#0" expanded="false" />
             <element signature="n#html!#0" expanded="false" />
@@ -1147,10 +1059,8 @@
             <element signature="n#raw-&gt;clj#0" expanded="false" />
             <element signature="n#md-&gt;html#0" expanded="false" />
             <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#setcookie#0" expanded="false" />
             <element signature="n#getcookie#0" expanded="false" />
             <element signature="n#process#0" expanded="false" />
-            <element signature="n#set-state#0" expanded="false" />
             <element signature="n#get-state#0" expanded="false" />
             <element signature="n#auth-param#0" expanded="false" />
             <element signature="n#resp-handler#0" expanded="false" />
@@ -1161,12 +1071,6 @@
             <element signature="n#find-gist#0" expanded="false" />
             <element signature="n#handle-io-error#0" expanded="false" />
             <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#set-preview#0" expanded="false" />
-            <element signature="n#handle-logout#0" expanded="false" />
-            <element signature="n#logged-in#0" expanded="false" />
-            <element signature="n#unauthorized#0" expanded="false" />
-            <element signature="n#authenticate#0" expanded="false" />
-            <element signature="n#handle-auth#0" expanded="false" />
             <element signature="n#error-set?#0" expanded="false" />
           </folding>
         </state>

@@ -71,6 +71,10 @@
   [state key new-state]
   (swap! state assoc key new-state))
 
+(defn reset-state
+  [state]
+  (swap! state (fn [& _] {})))
+
 (defn get-state
   [state key]
   (key @state))
@@ -185,9 +189,9 @@
         content (first-file "content")]
     (set! (.-value input) content)))
 
+(defn reset-input [] (set! (.-value input) ""))
 
-(defn set-preview
-  [_]
+(defn set-preview []
   (html! preview (process (.-value input))))
 
 (defn handle-pull
@@ -206,7 +210,11 @@
 (defn handle-logout
   [_]
   (say "Logout")
-  (set-state state :valid-credentials false))
+  (reset-state state)
+  (setcookie "username" "")
+  (setcookie "auth-token" "")
+  (go (>! AppBus [:user-is-logged-out true]))
+  )
 
 (defn handle-select
   [e]
@@ -330,7 +338,9 @@
         (case msg
           :user-is-authenticated (load-gists)
           :gist-loaded (do (set-input payload)
-                           (set-preview nil)))
+                           (set-preview))
+          :user-is-logged-out (do (reset-input)
+                                  (set-preview)))
 
     (recur (<! app-bus)))))
 
