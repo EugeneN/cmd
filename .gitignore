@@ -8,4 +8,4 @@ pom.xml.asc
 /.lein-*
 /.nrepl-port
 /node_modules
-
+/.idea
