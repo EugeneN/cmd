@@ -328,11 +328,20 @@
 (defn setup-editor-listeners
   []
   (let [session (.. (get-state state :ace) (getSession))]
-    (.. session (on "change" #(set-preview)))
-    (.. session (on "changeScrollTop" #(set! (.-scrollTop preview-container) %)))
+
+    (.. js/Rx -Observable
+      (create (fn [observer] (.. session (on "changeScrollTop" #(.. observer (onNext %))))))
+      (throttle 15)
+      (subscribe #(set! (.-scrollTop preview-container) %)))
+
+    (.. js/Rx -Observable
+      (create (fn [observer] (.. session (on "change" #(.. observer (onNext))))))
+      (throttle 300)
+      (subscribe #(set-preview)))
+
     (.. js/Rx -Observable
       (fromEvent preview-container "scroll")
-      (throttle 5)
+      (throttle 15)
       (subscribe #(.. session (setScrollTop (.-scrollTop preview-container)))))
     ))
 
