@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5e112a7f-1778-4115-ab08-c479f122439f" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/public/js/rx.all.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/public/js/cmd/cmd/ui.cljs" afterPath="$PROJECT_DIR$/resources/public/js/cmd/cmd/ui.cljs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cmd/ui.cljs" afterPath="$PROJECT_DIR$/src/cmd/ui.cljs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/public/js/cmd/cmd/ui.js.map" afterPath="$PROJECT_DIR$/resources/public/js/cmd/cmd/ui.js.map" />
@@ -37,7 +39,7 @@
       <file leaf-file-name="project.clj" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/project.clj">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="420">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
               <caret line="13" column="32" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
               <folding />
             </state>
@@ -47,8 +49,8 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.125" vertical-offset="630" max-vertical-offset="2265">
-              <caret line="55" column="28" selection-start-line="55" selection-start-column="28" selection-end-line="55" selection-end-column="28" />
+            <state vertical-scroll-proportion="-14.076923" vertical-offset="1980" max-vertical-offset="2584">
+              <caret line="138" column="46" selection-start-line="138" selection-start-column="46" selection-end-line="138" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -57,29 +59,9 @@
       <file leaf-file-name="ui.cljs" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/cmd/ui.cljs">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6998514" vertical-offset="4173" max-vertical-offset="5364">
-              <caret line="332" column="3" selection-start-line="332" selection-start-column="3" selection-end-line="332" selection-end-column="3" />
-              <folding>
-                <element signature="n#say#0" expanded="false" />
-                <element signature="n#html!#0" expanded="false" />
-                <element signature="n#join-gist-names#0" expanded="false" />
-                <element signature="n#raw-&gt;clj#0" expanded="false" />
-                <element signature="n#md-&gt;html#0" expanded="false" />
-                <element signature="n#html-&gt;react#0" expanded="false" />
-                <element signature="n#getcookie#0" expanded="false" />
-                <element signature="n#process#0" expanded="false" />
-                <element signature="n#get-state#0" expanded="false" />
-                <element signature="n#auth-param#0" expanded="false" />
-                <element signature="n#resp-handler#0" expanded="false" />
-                <element signature="n#api-url#0" expanded="false" />
-                <element signature="n#GET#0" expanded="false" />
-                <element signature="n#POST#0" expanded="false" />
-                <element signature="n#PATCH#0" expanded="false" />
-                <element signature="n#find-gist#0" expanded="false" />
-                <element signature="n#handle-io-error#0" expanded="false" />
-                <element signature="n#load-gists#0" expanded="false" />
-                <element signature="n#error-set?#0" expanded="false" />
-              </folding>
+            <state vertical-scroll-proportion="0.3995984" vertical-offset="5867" max-vertical-offset="6840">
+              <caret line="337" column="5" selection-start-line="337" selection-start-column="5" selection-end-line="337" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -101,8 +83,8 @@
         <option value="$PROJECT_DIR$/src/cmd/core.clj" />
         <option value="$PROJECT_DIR$/dev/cmd/core/ui.cljs" />
         <option value="$PROJECT_DIR$/project.clj" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/src/cmd/ui.cljs" />
       </list>
     </option>
@@ -119,10 +101,10 @@
     <treeState />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="49" />
-    <option name="y" value="24" />
-    <option name="width" value="1871" />
-    <option name="height" value="1176" />
+    <option name="x" value="4" />
+    <option name="y" value="22" />
+    <option name="width" value="1436" />
+    <option name="height" value="878" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -203,10 +185,13 @@
     <property name="FullScreen" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="SearchEverywhereHistoryKey" value="keyboa&#9;null&#9;null&#10;changes&#9;ACTION&#9;ActivateChangesToolWindow&#10;git&#9;ACTION&#9;Git.ContextMenu&#10;desktop&#9;ACTION&#9;CreateDesktopEntry&#10;create&#9;ACTION&#9;CreateLauncherScript&#10;line n&#9;null&#9;null&#10;delete li&#9;ACTION&#9;EditorDeleteLine" />
-    <property name="options.lastSelected" value="reference.settings.ide.settings.uml" />
+    <property name="options.lastSelected" value="editor.preferences.smartKeys" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -230,56 +215,6 @@
       <setting name="main" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
-      <method />
-    </configuration>
-    <configuration default="true" type="TestNG" factoryName="TestNG">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="ANNOTATION_TYPE" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
-      <envs />
-      <properties />
-      <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="myFilePath" />
-      <option name="GLUE" />
-      <option name="myNameFilter" />
-      <option name="myGeneratedName" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" />
@@ -295,33 +230,9 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
     <list size="0" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
-  <component name="StructureViewFactory">
-    <option name="ACTIVE_ACTIONS" value=",ALPHA_COMPARATOR" />
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="5e112a7f-1778-4115-ab08-c479f122439f" name="Default" comment="" />
@@ -330,8 +241,6 @@
       <workItem from="1404725182358" duration="77000" />
       <workItem from="1404725269659" duration="387000" />
       <workItem from="1404725674117" duration="15237000" />
-      <workItem from="1404809258029" duration="14292000" />
-      <workItem from="1404826201643" duration="9338000" />
     </task>
     <task id="LOCAL-00001" summary="gist edit, some cleanup">
       <created>1404768831292</created>
@@ -341,74 +250,45 @@
       <created>1404770315666</created>
       <updated>1404770315666</updated>
     </task>
-    <task id="LOCAL-00003" summary="added basic auth and logout">
-      <created>1404832917733</created>
-      <updated>1404832917733</updated>
+    <task id="LOCAL-00003" summary="some UI cleanup">
+      <created>1404774298027</created>
+      <updated>1404774298027</updated>
     </task>
-    <task id="LOCAL-00004" summary="cleanup">
-      <created>1404833383792</created>
-      <updated>1404833383792</updated>
-    </task>
-    <task id="LOCAL-00005" summary="xxx">
-      <created>1404834094848</created>
-      <updated>1404834094848</updated>
-    </task>
-    <option name="localTasksCounter" value="6" />
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39331000" />
-  </component>
-  <component name="TodoView" selected-index="0">
-    <todo-panel id="selected-file">
-      <are-packages-shown value="false" />
-      <are-modules-shown value="false" />
-      <flatten-packages value="false" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <are-modules-shown value="false" />
-      <flatten-packages value="false" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="default-changelist">
-      <are-packages-shown value="false" />
-      <are-modules-shown value="false" />
-      <flatten-packages value="false" />
-      <is-autoscroll-to-source value="false" />
-    </todo-panel>
+    <option name="totallyTimeSpent" value="15701000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="49" y="24" width="1871" height="1176" extended-state="6" />
+    <frame x="4" y="22" width="1436" height="878" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3299539" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3307888" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18709677" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="71" y="467" width="1827" height="262" />
-      <window_info id="Leiningen" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32950193" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18447837" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32950193" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.24958949" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15708812" sideWeight="0.50060755" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.32950193" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Notes" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32950193" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Grunt" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299539" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Grunt" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299539" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299539" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21510673" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.32950193" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21520804" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15708812" sideWeight="0.49939248" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15710187" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.24958949" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Leiningen" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32950193" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.32950193" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.32950193" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -455,10 +335,8 @@
     <MESSAGE value="added basic gist api interaction" />
     <MESSAGE value="gist edit, some cleanup" />
     <MESSAGE value="some more cleanup" />
-    <MESSAGE value="added basic auth and logout" />
-    <MESSAGE value="cleanup" />
-    <MESSAGE value="xxx" />
-    <option name="LAST_COMMIT_MESSAGE" value="xxx" />
+    <MESSAGE value="some UI cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="some UI cleanup" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -468,94 +346,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/project.clj">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="420">
-          <caret line="13" column="32" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1239" max-vertical-offset="2190">
-          <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cmd/ui.cljs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="44" max-vertical-offset="5220">
-          <caret line="20" column="93" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="93" />
-          <folding>
-            <element signature="n#say#0" expanded="false" />
-            <element signature="n#html!#0" expanded="false" />
-            <element signature="n#join-gist-names#0" expanded="false" />
-            <element signature="n#raw-&gt;clj#0" expanded="false" />
-            <element signature="n#md-&gt;html#0" expanded="false" />
-            <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#getcookie#0" expanded="false" />
-            <element signature="n#process#0" expanded="false" />
-            <element signature="n#get-state#0" expanded="false" />
-            <element signature="n#auth-param#0" expanded="false" />
-            <element signature="n#resp-handler#0" expanded="false" />
-            <element signature="n#api-url#0" expanded="false" />
-            <element signature="n#GET#0" expanded="false" />
-            <element signature="n#POST#0" expanded="false" />
-            <element signature="n#PATCH#0" expanded="false" />
-            <element signature="n#find-gist#0" expanded="false" />
-            <element signature="n#handle-io-error#0" expanded="false" />
-            <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#error-set?#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/project.clj">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="420">
-          <caret line="13" column="32" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1020" max-vertical-offset="1110">
-          <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cmd/ui.cljs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2220" max-vertical-offset="2310">
-          <caret line="148" column="0" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
-          <folding>
-            <element signature="n#say#0" expanded="false" />
-            <element signature="n#html!#0" expanded="false" />
-            <element signature="n#join-gist-names#0" expanded="false" />
-            <element signature="n#raw-&gt;clj#0" expanded="false" />
-            <element signature="n#md-&gt;html#0" expanded="false" />
-            <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#getcookie#0" expanded="false" />
-            <element signature="n#process#0" expanded="false" />
-            <element signature="n#get-state#0" expanded="false" />
-            <element signature="n#auth-param#0" expanded="false" />
-            <element signature="n#resp-handler#0" expanded="false" />
-            <element signature="n#api-url#0" expanded="false" />
-            <element signature="n#GET#0" expanded="false" />
-            <element signature="n#POST#0" expanded="false" />
-            <element signature="n#PATCH#0" expanded="false" />
-            <element signature="n#find-gist#0" expanded="false" />
-            <element signature="n#handle-io-error#0" expanded="false" />
-            <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#error-set?#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/project.clj">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
@@ -576,27 +366,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1514" max-vertical-offset="2310">
           <caret line="147" column="0" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
-          <folding>
-            <element signature="n#say#0" expanded="false" />
-            <element signature="n#html!#0" expanded="false" />
-            <element signature="n#join-gist-names#0" expanded="false" />
-            <element signature="n#raw-&gt;clj#0" expanded="false" />
-            <element signature="n#md-&gt;html#0" expanded="false" />
-            <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#getcookie#0" expanded="false" />
-            <element signature="n#process#0" expanded="false" />
-            <element signature="n#get-state#0" expanded="false" />
-            <element signature="n#auth-param#0" expanded="false" />
-            <element signature="n#resp-handler#0" expanded="false" />
-            <element signature="n#api-url#0" expanded="false" />
-            <element signature="n#GET#0" expanded="false" />
-            <element signature="n#POST#0" expanded="false" />
-            <element signature="n#PATCH#0" expanded="false" />
-            <element signature="n#find-gist#0" expanded="false" />
-            <element signature="n#handle-io-error#0" expanded="false" />
-            <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#error-set?#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -620,27 +390,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="750" max-vertical-offset="840">
           <caret line="50" column="22" selection-start-line="50" selection-start-column="22" selection-end-line="50" selection-end-column="22" />
-          <folding>
-            <element signature="n#say#0" expanded="false" />
-            <element signature="n#html!#0" expanded="false" />
-            <element signature="n#join-gist-names#0" expanded="false" />
-            <element signature="n#raw-&gt;clj#0" expanded="false" />
-            <element signature="n#md-&gt;html#0" expanded="false" />
-            <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#getcookie#0" expanded="false" />
-            <element signature="n#process#0" expanded="false" />
-            <element signature="n#get-state#0" expanded="false" />
-            <element signature="n#auth-param#0" expanded="false" />
-            <element signature="n#resp-handler#0" expanded="false" />
-            <element signature="n#api-url#0" expanded="false" />
-            <element signature="n#GET#0" expanded="false" />
-            <element signature="n#POST#0" expanded="false" />
-            <element signature="n#PATCH#0" expanded="false" />
-            <element signature="n#find-gist#0" expanded="false" />
-            <element signature="n#handle-io-error#0" expanded="false" />
-            <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#error-set?#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -671,27 +421,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="795">
           <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding>
-            <element signature="n#say#0" expanded="false" />
-            <element signature="n#html!#0" expanded="false" />
-            <element signature="n#join-gist-names#0" expanded="false" />
-            <element signature="n#raw-&gt;clj#0" expanded="false" />
-            <element signature="n#md-&gt;html#0" expanded="false" />
-            <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#getcookie#0" expanded="false" />
-            <element signature="n#process#0" expanded="false" />
-            <element signature="n#get-state#0" expanded="false" />
-            <element signature="n#auth-param#0" expanded="false" />
-            <element signature="n#resp-handler#0" expanded="false" />
-            <element signature="n#api-url#0" expanded="false" />
-            <element signature="n#GET#0" expanded="false" />
-            <element signature="n#POST#0" expanded="false" />
-            <element signature="n#PATCH#0" expanded="false" />
-            <element signature="n#find-gist#0" expanded="false" />
-            <element signature="n#handle-io-error#0" expanded="false" />
-            <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#error-set?#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -729,27 +459,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="630" max-vertical-offset="795">
           <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding>
-            <element signature="n#say#0" expanded="false" />
-            <element signature="n#html!#0" expanded="false" />
-            <element signature="n#join-gist-names#0" expanded="false" />
-            <element signature="n#raw-&gt;clj#0" expanded="false" />
-            <element signature="n#md-&gt;html#0" expanded="false" />
-            <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#getcookie#0" expanded="false" />
-            <element signature="n#process#0" expanded="false" />
-            <element signature="n#get-state#0" expanded="false" />
-            <element signature="n#auth-param#0" expanded="false" />
-            <element signature="n#resp-handler#0" expanded="false" />
-            <element signature="n#api-url#0" expanded="false" />
-            <element signature="n#GET#0" expanded="false" />
-            <element signature="n#POST#0" expanded="false" />
-            <element signature="n#PATCH#0" expanded="false" />
-            <element signature="n#find-gist#0" expanded="false" />
-            <element signature="n#handle-io-error#0" expanded="false" />
-            <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#error-set?#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -780,27 +490,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="630" max-vertical-offset="795">
           <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding>
-            <element signature="n#say#0" expanded="false" />
-            <element signature="n#html!#0" expanded="false" />
-            <element signature="n#join-gist-names#0" expanded="false" />
-            <element signature="n#raw-&gt;clj#0" expanded="false" />
-            <element signature="n#md-&gt;html#0" expanded="false" />
-            <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#getcookie#0" expanded="false" />
-            <element signature="n#process#0" expanded="false" />
-            <element signature="n#get-state#0" expanded="false" />
-            <element signature="n#auth-param#0" expanded="false" />
-            <element signature="n#resp-handler#0" expanded="false" />
-            <element signature="n#api-url#0" expanded="false" />
-            <element signature="n#GET#0" expanded="false" />
-            <element signature="n#POST#0" expanded="false" />
-            <element signature="n#PATCH#0" expanded="false" />
-            <element signature="n#find-gist#0" expanded="false" />
-            <element signature="n#handle-io-error#0" expanded="false" />
-            <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#error-set?#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -831,27 +521,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="756" max-vertical-offset="954">
           <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding>
-            <element signature="n#say#0" expanded="false" />
-            <element signature="n#html!#0" expanded="false" />
-            <element signature="n#join-gist-names#0" expanded="false" />
-            <element signature="n#raw-&gt;clj#0" expanded="false" />
-            <element signature="n#md-&gt;html#0" expanded="false" />
-            <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#getcookie#0" expanded="false" />
-            <element signature="n#process#0" expanded="false" />
-            <element signature="n#get-state#0" expanded="false" />
-            <element signature="n#auth-param#0" expanded="false" />
-            <element signature="n#resp-handler#0" expanded="false" />
-            <element signature="n#api-url#0" expanded="false" />
-            <element signature="n#GET#0" expanded="false" />
-            <element signature="n#POST#0" expanded="false" />
-            <element signature="n#PATCH#0" expanded="false" />
-            <element signature="n#find-gist#0" expanded="false" />
-            <element signature="n#handle-io-error#0" expanded="false" />
-            <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#error-set?#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -882,27 +552,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="555">
           <caret line="6" column="30" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
-          <folding>
-            <element signature="n#say#0" expanded="false" />
-            <element signature="n#html!#0" expanded="false" />
-            <element signature="n#join-gist-names#0" expanded="false" />
-            <element signature="n#raw-&gt;clj#0" expanded="false" />
-            <element signature="n#md-&gt;html#0" expanded="false" />
-            <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#getcookie#0" expanded="false" />
-            <element signature="n#process#0" expanded="false" />
-            <element signature="n#get-state#0" expanded="false" />
-            <element signature="n#auth-param#0" expanded="false" />
-            <element signature="n#resp-handler#0" expanded="false" />
-            <element signature="n#api-url#0" expanded="false" />
-            <element signature="n#GET#0" expanded="false" />
-            <element signature="n#POST#0" expanded="false" />
-            <element signature="n#PATCH#0" expanded="false" />
-            <element signature="n#find-gist#0" expanded="false" />
-            <element signature="n#handle-io-error#0" expanded="false" />
-            <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#error-set?#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -933,27 +583,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="525">
           <caret line="28" column="46" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
-          <folding>
-            <element signature="n#say#0" expanded="false" />
-            <element signature="n#html!#0" expanded="false" />
-            <element signature="n#join-gist-names#0" expanded="false" />
-            <element signature="n#raw-&gt;clj#0" expanded="false" />
-            <element signature="n#md-&gt;html#0" expanded="false" />
-            <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#getcookie#0" expanded="false" />
-            <element signature="n#process#0" expanded="false" />
-            <element signature="n#get-state#0" expanded="false" />
-            <element signature="n#auth-param#0" expanded="false" />
-            <element signature="n#resp-handler#0" expanded="false" />
-            <element signature="n#api-url#0" expanded="false" />
-            <element signature="n#GET#0" expanded="false" />
-            <element signature="n#POST#0" expanded="false" />
-            <element signature="n#PATCH#0" expanded="false" />
-            <element signature="n#find-gist#0" expanded="false" />
-            <element signature="n#handle-io-error#0" expanded="false" />
-            <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#error-set?#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -977,27 +607,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="480">
           <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
-          <folding>
-            <element signature="n#say#0" expanded="false" />
-            <element signature="n#html!#0" expanded="false" />
-            <element signature="n#join-gist-names#0" expanded="false" />
-            <element signature="n#raw-&gt;clj#0" expanded="false" />
-            <element signature="n#md-&gt;html#0" expanded="false" />
-            <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#getcookie#0" expanded="false" />
-            <element signature="n#process#0" expanded="false" />
-            <element signature="n#get-state#0" expanded="false" />
-            <element signature="n#auth-param#0" expanded="false" />
-            <element signature="n#resp-handler#0" expanded="false" />
-            <element signature="n#api-url#0" expanded="false" />
-            <element signature="n#GET#0" expanded="false" />
-            <element signature="n#POST#0" expanded="false" />
-            <element signature="n#PATCH#0" expanded="false" />
-            <element signature="n#find-gist#0" expanded="false" />
-            <element signature="n#handle-io-error#0" expanded="false" />
-            <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#error-set?#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1024,6 +634,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.14204545" vertical-offset="0" max-vertical-offset="1056">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/project.clj">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
@@ -1034,48 +651,96 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.125" vertical-offset="630" max-vertical-offset="2265">
-          <caret line="55" column="28" selection-start-line="55" selection-start-column="28" selection-end-line="55" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24590164" vertical-offset="0" max-vertical-offset="671">
-          <caret line="11" column="19" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
+        <state vertical-scroll-proportion="-14.076923" vertical-offset="1980" max-vertical-offset="2584">
+          <caret line="138" column="46" selection-start-line="138" selection-start-column="46" selection-end-line="138" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cmd/ui.cljs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6998514" vertical-offset="4173" max-vertical-offset="5364">
-          <caret line="332" column="3" selection-start-line="332" selection-start-column="3" selection-end-line="332" selection-end-column="3" />
-          <folding>
-            <element signature="n#say#0" expanded="false" />
-            <element signature="n#html!#0" expanded="false" />
-            <element signature="n#join-gist-names#0" expanded="false" />
-            <element signature="n#raw-&gt;clj#0" expanded="false" />
-            <element signature="n#md-&gt;html#0" expanded="false" />
-            <element signature="n#html-&gt;react#0" expanded="false" />
-            <element signature="n#getcookie#0" expanded="false" />
-            <element signature="n#process#0" expanded="false" />
-            <element signature="n#get-state#0" expanded="false" />
-            <element signature="n#auth-param#0" expanded="false" />
-            <element signature="n#resp-handler#0" expanded="false" />
-            <element signature="n#api-url#0" expanded="false" />
-            <element signature="n#GET#0" expanded="false" />
-            <element signature="n#POST#0" expanded="false" />
-            <element signature="n#PATCH#0" expanded="false" />
-            <element signature="n#find-gist#0" expanded="false" />
-            <element signature="n#handle-io-error#0" expanded="false" />
-            <element signature="n#load-gists#0" expanded="false" />
-            <element signature="n#error-set?#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.3995984" vertical-offset="5867" max-vertical-offset="6840">
+          <caret line="337" column="5" selection-start-line="337" selection-start-column="5" selection-end-line="337" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>sass-stdlib</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>GHC 7.4.2</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>cmd</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>
 

@@ -213,6 +213,7 @@
   (reset-state state)
   (setcookie "username" "")
   (setcookie "auth-token" "")
+
   (go (>! AppBus [:user-is-logged-out true]))
   )
 
@@ -322,14 +323,21 @@
 
 (defn setup-common-listeners
   []
-  (events/listen input
-    goog.events.EventType.KEYUP set-preview)
 
-  (events/listen input
-    goog.events.EventType.SCROLL #(set! (.-scrollTop preview-container) (.-scrollTop input)))
+  (.. js/Rx -Observable
+    (fromEvent input "keyup")
+    (throttle 100)
+    (subscribe #(set-preview)))
 
-  (events/listen preview-container
-    goog.events.EventType.SCROLL #(set! (.-scrollTop input) (.-scrollTop preview-container)))
+  (.. js/Rx -Observable
+    (fromEvent input "scroll")
+    ;(throttle 20)
+    (subscribe #(set! (.-scrollTop preview-container) (.-scrollTop input))))
+
+  (.. js/Rx -Observable
+    (fromEvent preview-container "scroll")
+    ;(throttle 20)
+    (subscribe #(set! (.-scrollTop input) (.-scrollTop preview-container))))
   )
 
 (defn subscribe-appbus
@@ -345,11 +353,11 @@
     (recur (<! app-bus)))))
 
 
-
 (defn main
   [state app-bus]
   (let [username (getcookie "username")
-        auth-token (getcookie "auth-token")]
+        auth-token (getcookie "auth-token")
+        last-opened-gist-id (getcookie "last-gist")]
 
     (subscribe-appbus app-bus)
     (setup-common-listeners)
