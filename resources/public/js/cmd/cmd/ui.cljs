@@ -13,6 +13,16 @@
 
 (enable-console-print!)
 
+(def motd "# Welcome to CMD
+
+It is an explosive mixture of ***ClojureScript, Rx, React/Om, core.async, github CORS api, ace, pagedown*** crafted together to give you *the best* gist editing tool, ever.
+It's currently an alfa-quality prototype, so do not expect to much.
+
+
+To begin:
+
+- just provide your Github username and a *secret*,
+- or select a gist from the list above if you are logged in already :-)")
 
 ;; utils section ---------------------------------------------------------------
 
@@ -40,7 +50,6 @@
   [text]
   (let [converter (new js/Markdown.Converter)]
     (.. converter (makeHtml text))))
-;  (.mdToHtml markdown.core text))
 
 (defn html->react
   [html]
@@ -182,14 +191,18 @@
 (def preview (. js/document (getElementById "preview")))
 (def preview-container (. js/document (getElementById "preview-container")))
 
+(defn ace-set-value
+  [content]
+  (.. (get-state state :ace) (getSession) (setValue content)))
+
 (defn set-input
   [gist-id]
   (let [gist (get-state state :current-gist)
         [_ first-file] (-> (gist "files") first)
         content (first-file "content")]
-    (.. (get-state state :ace) (getSession) (setValue content))))
+    (ace-set-value content)))
 
-(defn reset-input [] (set! (.-value input) ""))
+(defn reset-input [] (ace-set-value motd))
 
 (defn set-preview []
   (let [ace (get-state state :ace)
@@ -212,13 +225,13 @@
 
 (defn handle-logout
   [_]
-  (say "Logout")
-  (reset-state state)
-  (setcookie "username" "")
-  (setcookie "auth-token" "")
+  (do
+    (say "Logout")
+    (reset-state state)
+    (setcookie "username" "")
+    (setcookie "auth-token" "")
 
-  (go (>! AppBus [:user-is-logged-out true]))
-  )
+    (go (>! AppBus [:user-has-logged-out true]))))
 
 (defn handle-select
   [e]
@@ -358,12 +371,10 @@
   (go (loop [[msg payload] (<! app-bus)]
         (case msg
           :user-is-authenticated (load-gists)
-          :gist-loaded (do (set-input payload)
-                           (set-preview))
-          :user-is-logged-out (do (reset-input)
-                                  (set-preview)))
+          :gist-loaded (set-input payload)
+          :user-has-logged-out (reset-input))
 
-    (recur (<! app-bus)))))
+        (recur (<! app-bus)))))
 
 
 (defn main
@@ -379,6 +390,8 @@
     (authenticate username auth-token)
 
     (render-toolbar state)
+
+    (reset-input)
 
     ))
 
