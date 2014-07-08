@@ -16,6 +16,7 @@
 
 (enable-console-print!)
 
+
 ;; utils section ---------------------------------------------------------------
 
 (defn say
@@ -187,12 +188,14 @@
   (let [gist (get-state state :current-gist)
         [_ first-file] (-> (gist "files") first)
         content (first-file "content")]
-    (set! (.-value input) content)))
+    (.. (get-state state :ace) (getSession) (setValue content))))
 
 (defn reset-input [] (set! (.-value input) ""))
 
 (defn set-preview []
-  (html! preview (process (.-value input))))
+  (let [ace (get-state state :ace)
+        ace-value (.. ace (getSession) (getValue))]
+    (html! preview (process ace-value))))
 
 (defn handle-pull
   [_]
@@ -200,7 +203,8 @@
 
 (defn handle-push
   [_]
-  (let [md-raw (.-value input)
+  (let [ace (get-state state :ace)
+        md-raw (.. ace (getSession) (getValue))
         gist-id (get-state state :current-gist-id)
         file-name (get-state state :current-file-id)
         new-content {:description file-name :files {(keyword file-name) {:content md-raw}}}
@@ -321,24 +325,25 @@
     {:target (. js/document (getElementById "toolbar"))}))
 
 
-(defn setup-common-listeners
+(defn setup-editor-listeners
   []
+  (let [session (.. (get-state state :ace) (getSession))]
+    (.. session (on "change" #(set-preview)))
+    (.. session (on "changeScrollTop" #(set! (.-scrollTop preview-container) %)))
+    (.. js/Rx -Observable
+      (fromEvent preview-container "scroll")
+      (throttle 5)
+      (subscribe #(.. session (setScrollTop (.-scrollTop preview-container)))))
+    ))
 
-  (.. js/Rx -Observable
-    (fromEvent input "keyup")
-    (throttle 100)
-    (subscribe #(set-preview)))
 
-  (.. js/Rx -Observable
-    (fromEvent input "scroll")
-    ;(throttle 20)
-    (subscribe #(set! (.-scrollTop preview-container) (.-scrollTop input))))
-
-  (.. js/Rx -Observable
-    (fromEvent preview-container "scroll")
-    ;(throttle 20)
-    (subscribe #(set! (.-scrollTop input) (.-scrollTop preview-container))))
-  )
+(defn setup-ace
+  []
+  (let [editor (.. js/ace (edit "input"))
+        session (.. editor (getSession))]
+    (set-state state :ace editor)
+    (.. session (setMode "ace/mode/markdown"))
+    (.. session (setUseWrapMode true))))
 
 (defn subscribe-appbus
   [app-bus]
@@ -360,7 +365,8 @@
         last-opened-gist-id (getcookie "last-gist")]
 
     (subscribe-appbus app-bus)
-    (setup-common-listeners)
+    (setup-ace)
+    (setup-editor-listeners)
 
     (authenticate username auth-token)
 
