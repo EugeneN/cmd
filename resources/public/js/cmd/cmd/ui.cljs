@@ -275,7 +275,7 @@
       (cond
         (authenticated-om? state)
           (dom/div nil
-            (dom/label #js {:className "ios7"} "Select gist:")
+            (dom/label #js {:className "ios7"} "SELECT_G!ST: ")
             (dom/div #js {:id "gist-list"}
               (apply dom/select #js {:className "hello"
                                      :onChange handle-select}
@@ -288,28 +288,28 @@
               (if (not (= href nil))
                 (dom/a #js {:id "view-orig"
                             :target "_blank"
-                            :href href} "View original")))
+                            :href href} "VIEW!ORIGINAL")))
 
 
             (dom/button #js {:id "pull"
-                             :onClick handle-pull} "_ Pull")
+                             :onClick handle-pull} ">>PULL")
             (dom/button #js {:id "push"
-                             :onClick handle-push} "^ Push")
+                             :onClick handle-push} "PUSH>>")
 
             (dom/button #js {:id "log-out"
-                         :onClick handle-logout} "Log out"))
+                         :onClick handle-logout} "LOG^OUT"))
         :else
           (dom/div nil
-            (dom/label nil "Username:")
+            (dom/label nil "USERN@ME: ")
             (dom/input #js {:type "text"
                             :id "username"})
 
-            (dom/label nil "Auth token:")
+            (dom/label nil "SECRET: ")
             (dom/input #js {:type "text"
                             :id "auth-token"})
 
             (dom/button #js {:id "go"
-                             :onClick handle-auth} "Let's go >>")
+                             :onClick handle-auth} "LOG>>IN")
 
             (if (error-set? state)
               (dom/span #js {:id "error-msg"}) (str (state :error)))
