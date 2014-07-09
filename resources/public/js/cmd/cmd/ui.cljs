@@ -48,10 +48,19 @@ To begin:
 
 (defn reset-input [] (ace-set-value motd))
 
+(defn process-cb
+  [value]
+  (do
+    (html! preview value)
+    ;(js/setTimeout
+    ;  #(.Queue js/MathJax.Hub ["Typeset" (.-Hub js/MathJax) "preview"])
+    ;  300)
+    ))
+
 (defn set-preview []
   (let [ace (get-state state :ace)
         ace-value (.. ace (getSession) (getValue))]
-    (process ace-value #(html! preview %))))
+    (process ace-value process-cb)))
 
 (defn handle-pull
   [_]
@@ -148,22 +157,41 @@ To begin:
 
 (defn setup-editor-listeners
   []
-  (let [session (.. (get-state state :ace) (getSession))]
-
-    (.. js/Rx -Observable
-      (create (fn [observer] (.. session (on "changeScrollTop" #(.. observer (onNext %))))))
-      (throttle 15)
-      (subscribe #(set! (.-scrollTop preview-container) %)))
+  (let [editor (get-state state :ace)
+        session (.. editor (getSession))]
 
     (.. js/Rx -Observable
       (create (fn [observer] (.. session (on "change" #(.. observer (onNext))))))
       (throttle 300)
       (subscribe #(set-preview)))
 
+    ;editor.getSession().getScreenLength()
+                  * editor.renderer.lineHeight
+
+    (defn calc-offset-top-preview
+      [ot1]
+      (let [ch1 (* (.. session (getScreenLength)) (.. editor -renderer -lineHeight))
+            ch2 (.-clientHeight preview)]
+        (say (str "ace height" ch1))
+        (/ (* ot1 ch2) ch1)))
+
+    (defn calc-offset-top-input
+      [ot2]
+      (let [ch1 (* (.. session (getScreenLength)) (.. editor -renderer -lineHeight))
+            ch2 (.-clientHeight preview)]
+        (say (str "ace height" ch1))
+        (/ (* ot2 ch1) ch2)))
+
+    (.. js/Rx -Observable
+      (create (fn [observer] (.. session (on "changeScrollTop" #(.. observer (onNext %))))))
+      (throttle 15)
+      (subscribe #(set! (.-scrollTop preview-container) (calc-offset-top-preview %))))
+
+
     (.. js/Rx -Observable
       (fromEvent preview-container "scroll")
       (throttle 15)
-      (subscribe #(.. session (setScrollTop (.-scrollTop preview-container)))))
+      (subscribe #(.. session (setScrollTop (calc-offset-top-input (.-scrollTop preview-container))))))
     ))
 
 (defn setup-ace
@@ -207,5 +235,3 @@ To begin:
 
 ; Entry point ------------------------------------------------------------------
 (main state AppBus)
-
-
