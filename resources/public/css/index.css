@@ -4,6 +4,9 @@ body {
     text-align: center;
     margin: 0;
 }
+.ace_gutter {
+    background-color: #fff !important;
+}
 #input {
     width: 49%;
     height: 100vh;
