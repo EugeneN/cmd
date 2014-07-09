@@ -7,6 +7,16 @@
     [cljs.core.async.macros :refer [go alt!]]
     ))
 
+; {
+;   :ace
+;   :gists
+;   :current-gist
+;   :current-gist-id
+;   :current-file-id
+;   :error
+;   :worker
+; }
+
 (def state (atom {:preview-output nil}))
 (def AppBus (chan 1))
 
@@ -16,7 +26,7 @@
 
 (defn reset-state
   [state]
-  (swap! state (fn [& _] {})))
+  (swap! state select-keys [:ace :worker]))
 
 (defn get-state
   [state key]
