@@ -12,6 +12,7 @@
   (:import [goog.events KeyHandler KeyCodes EventType]))
 
 (enable-console-print!)
+(set! *print-fn* #(.log js/console %))
 
 (def motd "# Welcome to CMD
 
@@ -23,6 +24,22 @@ To begin:
 
 - just provide your Github username and a *secret*,
 - or select a gist from the list above if you are logged in already :-)")
+
+(def state (atom {:preview-output nil}))
+
+(def AppBus (chan 1))
+
+(defn set-state
+  [state key new-state]
+  (swap! state assoc key new-state))
+
+(defn reset-state
+  [state]
+  (swap! state (fn [& _] {})))
+
+(defn get-state
+  [state key]
+  (key @state))
 
 ;; utils section ---------------------------------------------------------------
 
@@ -46,6 +63,20 @@ To begin:
     clj
     ))
 
+(defn wmd->html
+  [text]
+  (let [worker (get-state state :worker)
+        ch (chan 1)]
+    (.addEventListener worker
+      "message"
+      (fn [e]
+        (let [data (.-data e)]
+          (go (>! ch [:just data])
+              (close! ch))))
+      false)
+    (.postMessage worker text)
+    ch))
+
 (defn md->html
   [text]
   (let [converter (new js/Markdown.Converter)]
@@ -66,27 +97,18 @@ To begin:
 
 ;; bl section ------------------------------------------------------------------
 
-(def state (atom {:preview-output nil}))
 
-(def AppBus (chan 1))
 
 (defn process
-  [md]
-  (let [html (md->html md)
-        preview-output (html->react html)]
-    preview-output))
+  [md cb]
+  (go
+    (let [[maybe resp] (<! (wmd->html md))]
+      (case maybe
+        :just (cb resp)
+        :nothing (cb "<Error>")))))
 
-(defn set-state
-  [state key new-state]
-  (swap! state assoc key new-state))
 
-(defn reset-state
-  [state]
-  (swap! state (fn [& _] {})))
 
-(defn get-state
-  [state key]
-  (key @state))
 
 
 (defn auth-param [username auth-token] (js-obj "Authorization" (str "Basic " auth-token)
@@ -207,7 +229,7 @@ To begin:
 (defn set-preview []
   (let [ace (get-state state :ace)
         ace-value (.. ace (getSession) (getValue))]
-    (html! preview (process ace-value))))
+    (process ace-value #(html! preview %))))
 
 (defn handle-pull
   [_]
@@ -392,6 +414,9 @@ To begin:
     (render-toolbar state)
 
     (reset-input)
+
+    (let [worker (new js/Worker "resources/public/js/worker.js")]
+      (set-state state :worker worker))
 
     ))
 
