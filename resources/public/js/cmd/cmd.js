@@ -12,4 +12,4 @@ goog.addDependency("../cljs/core/async.js", ['cljs.core.async'], ['cljs.core.asy
 goog.addDependency("../cmd/lib.js", ['cmd.lib'], ['goog.net.XhrIo', 'cljs.core', 'cljs.core.async']);
 goog.addDependency("../om/core.js", ['om.core'], ['cljs.core', 'om.dom', 'goog.ui.IdGenerator']);
 goog.addDependency("../cmd/core.js", ['cmd.core'], ['cljs.core', 'cmd.lib', 'cljs.core.async', 'cmd.utils']);
-goog.addDependency("../cmd/ui.js", ['cmd.ui'], ['cljs.core', 'om.dom', 'cljs.core.async', 'cmd.utils', 'om.core', 'cmd.core']);
+goog.addDependency("../cmd/ui.js", ['cmd.ui'], ['cljs.core', 'om.dom', 'cljs.core.async', 'cmd.utils', 'om.core', 'goog.style', 'cmd.core']);

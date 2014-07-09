@@ -1,0 +1,294 @@
+body {
+    background-color: #fff;
+    overflow: hidden;
+    text-align: center;
+    margin: 0;
+}
+#input {
+    width: 49%;
+    height: 100vh;
+    display: inline-block;
+    border: 0px solid grey;
+    margin: 0;
+    padding: 0;
+    /*border-right: 1px solid #aaa;*/
+    text-align: justify;
+    font-size: 18px !important;
+    font-family: 'Source Code Pro', monospace;
+    line-height: 25px !important;
+}
+#editor {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 1em;
+    border: 0px;
+    font-size: 100%;
+    text-align: left;
+}
+#outer-preview-container {
+    width: 49%;
+    height: 100vh;
+    display: inline-block;
+    border: 0px solid grey;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    overflow: hidden;
+
+    background-color: rgb(246, 247, 249);
+    color: rgb(44, 63, 81);
+}
+#preview-container {
+    width: 97%;
+    height: 100vh;
+    display: block;
+    border: 0px solid grey;
+    float: right;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    overflow: auto;
+    text-align: justify;
+    font-family: Times, serif;
+    font-size: 20px;
+    background-color: rgb(246, 247, 249);
+    color: rgb(44, 63, 81);
+    word-wrap: break-word;
+    word-break: break-word;
+}
+#preview-container h1, #preview-container h2, #preview-container h3, #preview-container h4, #preview-container h5 {
+    font-weight: 300;
+    font-family: 'Source Code Pro';
+}
+
+#preview code {
+    font-family: 'Source Code Pro', monospace;
+    background-color: rgba(102,128,153,0.075);
+    font-size: 16px !important;
+    padding: 2px 4px 2px 4px;
+}
+
+#preview kbd {
+    padding: 0.1em 0.6em;
+    border: 1px solid rgba(44,63,81,0.25);
+    -webkit-box-shadow: 0 1px 0 rgba(44,63,81,0.25);
+    box-shadow: 0 1px 0 rgba(44,63,81,0.25);
+    font-size: 0.7em;
+    font-family: sans-serif;
+    background-color: #fff;
+    color: #333;
+    border-radius: 3px;
+    display: inline-block;
+    margin: 0 0.1em;
+    white-space: nowrap;
+}
+
+#preview blockquote {
+    border-left-color: rgba(102, 128, 153, 0.0745098);
+    border-left-style: solid;
+    border-left-width: 10px;
+    color: rgb(44, 63, 81);
+    margin-bottom: 19.799999237060547px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    padding-bottom: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 15px;
+    background-color: rgba(102, 128, 153, 0.0470588);
+}
+
+#preview {
+    width: 100%
+    height: 100%;
+    padding: 2em;
+}
+#clear {
+    clear: both;
+    height: 0px;
+}
+#toolbar button, #toolbar a {
+    padding: 5px;
+    background-color: #fff;
+    border: 0px;
+    cursor: pointer;
+    color: rgb(0,96,250);
+    font-size: 100%;
+    margin-left: 1em;
+}
+#toolbar a:hover, #toolbar button:hover {
+    color: #fff;
+    background-color: #000;
+}
+a {
+    text-decoration: underline;
+}
+.ios7 {
+    font-size: 100%;
+    font-family: 'Source Code Pro';
+
+}
+#gist-list {
+    border: 0px;
+    border-bottom: 1px solid #aaa;
+    text-align: left;
+    width: 256px;
+    display: inline-block;
+
+}
+#gist-list select {
+    width: 255px;
+    background-color: #fff;
+    border: 0px;
+}
+#toolbar {
+    font-family: 'Source Code Pro';
+    font-size: 10pt;
+    text-align: center;
+
+    border-bottom: 0px solid #aaa;
+    padding-bottom: 10px;
+
+    width: 100%;
+    height: auto;
+    z-index: 100;
+
+    /*-webkit-filter: blur(20px);*/
+    /*-moz-filter: blur(20px);*/
+    /*-o-filter: blur(20px);*/
+    /*-ms-filter: blur(20px);*/
+    /*filter: blur(20px);*/
+    /*opacity: 0.95;*/
+}
+
+select, textarea, input { outline: none; }
+
+#continer {
+    padding: 0;
+    margin: auto;
+    max-width: 1600;
+}
+label {
+    margin-left: 1em;
+}
+#toolbar-toggler {
+    position: static;
+    top: 0;
+    left: 0;
+    text-align: center;
+    width: 20px;
+    height: 30px;
+    background-color: transparent;
+    z-index: 1000;
+    cursor: pointer;
+    -webkit-transition: background 0.5s linear;
+    -moz-transition: background 0.5s linear;
+    -ms-transition: background 0.5s linear;
+    -o-transition: background 0.5s linear;
+    transition: background 0.5s linear;
+
+    display: inline-block;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    padding: 8px 2px;
+    font-size: 15px;
+    line-height: 1.45;
+    border-radius: 1px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    color: rgba(102,128,153,0.35);
+}
+#editor-toggler {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    text-align: center;
+    width: 20px;
+    height: 30px;
+    background-color: transparent;
+    z-index: 1000;
+    cursor: pointer;
+    -webkit-transition: background 0.5s linear;
+    -moz-transition: background 0.5s linear;
+    -ms-transition: background 0.5s linear;
+    -o-transition: background 0.5s linear;
+    transition: background 0.5s linear;
+
+    display: inline-block;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    padding: 8px 2px;
+    font-size: 15px;
+    line-height: 1.45;
+    border-radius: 1px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    color: rgba(102,128,153,0.35);
+
+}
+#preview-toggler {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    text-align: center;
+    width: 20px;
+    height: 30px;
+    background-color: transparent;
+    z-index: 1000;
+    cursor: pointer;
+    -webkit-transition: background 0.5s linear;
+    -moz-transition: background 0.5s linear;
+    -ms-transition: background 0.5s linear;
+    -o-transition: background 0.5s linear;
+    transition: background 0.5s linear;
+
+    display: inline-block;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    padding: 8px 2px;
+    font-size: 15px;
+    line-height: 1.45;
+    border-radius: 1px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    color: rgba(102,128,153,0.35);
+
+}
+#toolbar-toggler:hover, #editor-toggler:hover, #preview-toggler:hover {
+    background-color: #ddd;
+    color: #000;
+}
+#layout-toolbar {
+    position: relative;
+    float: left;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 100%;
+    -webkit-transition: background 0.5s linear;
+    -moz-transition: background 0.5s linear;
+    -ms-transition: background 0.5s linear;
+    -o-transition: background 0.5s linear;
+    transition: background 0.5s linear;
+    display: inline-block;
+    color: #ccc;
+}
+#layout-toolbar:hover {
+}
