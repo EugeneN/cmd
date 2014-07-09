@@ -63,6 +63,7 @@ body {
 #preview-container h1, #preview-container h2, #preview-container h3, #preview-container h4, #preview-container h5 {
     font-weight: 300;
     font-family: 'Source Code Pro';
+    text-align: left;
 }
 
 #preview code {

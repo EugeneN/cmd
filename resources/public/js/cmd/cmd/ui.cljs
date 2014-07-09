@@ -111,6 +111,7 @@ To begin:
             (dom/label #js {:className "ios7"} "SELECT_G!ST: ")
             (dom/div #js {:id "gist-list"}
               (apply dom/select #js {:className "hello"
+                                     :title "Select a gist for a good start :-)"
                                      :onChange handle-select}
                 (map (fn [gist] (dom/option #js {:value (gist "id")} (-> (gist "files") keys join-gist-names))) (:gists state))))
 
@@ -119,27 +120,34 @@ To begin:
               (if (not (= href nil))
                 (dom/a #js {:id "view-orig"
                             :target "_blank"
+                            :title "View gist in Github (in a new tab/window)"
                             :href href} "VIEW!ORIGINAL")))
 
 
             (dom/button #js {:id "pull"
+                             :title "Reload gist from Github"
                              :onClick handle-pull} ">>PULL")
             (dom/button #js {:id "push"
+                             :title "Save current gist state to Github"
                              :onClick handle-push} "PUSH>>")
 
             (dom/button #js {:id "log-out"
-                         :onClick handle-logout} "LOG^OUT"))
+                             :title "Log out and remove autologin cookies"
+                             :onClick handle-logout} "LOG^OUT"))
         :else
           (dom/div nil
             (dom/label nil "USERN@ME: ")
             (dom/input #js {:type "text"
+                            :title "Your Github username"
                             :id "username"})
 
             (dom/label nil "S#CRET: ")
             (dom/input #js {:type "text"
+                            :title "Github auth token in base64 :-P"
                             :id "auth-token"})
 
             (dom/button #js {:id "go"
+                             :title "Log in to access and work with your gists"
                              :onClick handle-auth} "LOG>>IN")
 
             (if (error-set? state)
