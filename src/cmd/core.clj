@@ -1,6 +1,0 @@
-(ns cmd.core)
-
-(defn hello
-  "I don't do a whole lot."
-  [x]
-  (println x "Hello, World!"))
