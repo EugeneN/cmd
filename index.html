@@ -4,33 +4,25 @@
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
     <link rel="stylesheet" href="resources/public/css/index.css">
 </head>
+
 <body>
     <div id="continer">
         <div id="toolbar"></div>
 
         <div id="input">
             <div id="editor"></div>
+        </div><div id="layout-toolbar">
+            <div id="toolbar-toggler" title="Toggle toolbar">^</div>
+            <div id="editor-toggler" title="Toggle editor">&lt;</div>
+            <div id="preview-toggler" title="Toggle preview">&gt;</div>
+        </div><div id="preview-container">
+            <div id="preview"></div>
         </div>
-
-        <div id="outer-preview-container">
-            <div id="layout-toolbar">
-                <div id="toolbar-toggler" title="Toggle toolbar">^</div>
-                <div id="editor-toggler" title="Toggle editor">&lt;</div>
-                <div id="preview-toggler" title="Toggle preview">&gt;</div>
-            </div>
-
-            <div id="preview-container">
-                <div id="preview"></div>
-            </div>
-
-            <div id="clear"></div>
-        </div>
-
-
     </div>
 
     <script src="//fb.me/react-0.10.0.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js"></script>
+    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
         tex2jax: {
@@ -44,7 +36,6 @@
     <script src="resources/public/js/cmd/goog/base.js" type="text/javascript"></script>
     <script src="resources/public/js/cmd/cmd.js" type="text/javascript"></script>
     <script type="text/javascript">goog.require("cmd.ui");</script>
-
 
 </body>
 </html>

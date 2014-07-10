@@ -15,6 +15,7 @@
 ;   :current-file-id
 ;   :error
 ;   :worker
+;   :toolbar-autohide
 ; }
 
 (def state (atom {:preview-output nil}))

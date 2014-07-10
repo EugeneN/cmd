@@ -31,11 +31,40 @@ To begin:
 ```
 ")
 
+;; dom section
+
+(defn $ [id-str] (.getElementById js/document id-str))
+(defn visible? [el] (.isElementShown goog.style el))
+(defn set-width [el width] (set! (.. el -style -width) width))
+
+(defn show [el] (if (not (visible? el)) (.showElement goog.style el true)))
+(defn hide [el] (if (visible? el) (.showElement goog.style el false)))
+
+(defn toggle [el] (if (visible? el) (hide el) (show el)))
+
+
+
+(defn slide-up [el] (.. (js/$ el) (slideUp 200)))
+(defn slide-down [el] (.. (js/$ el) (slideDown 200)))
+
+(defn toggle-slide-left
+  [el]
+  (.. (js/$ el) (toggle #js {:effect "slide" :duration 200 :direction "left"})))
+
+(defn toggle-slide-right
+  [el]
+  (.. (js/$ el) (toggle #js {:effect "slide" :duration 200 :direction "right"})))
+
+
+(defn jq-toggle [el complete-cb] (.. (js/$ el) (slideToggle 200 complete-cb)))
+
+
+
 ;; ui section ------------------------------------------------------------------
 
-(def input (. js/document (getElementById "editor")))
-(def preview (. js/document (getElementById "preview")))
-(def preview-container (. js/document (getElementById "preview-container")))
+(def input ($ "editor"))
+(def preview ($ "preview"))
+(def preview-container ($ "preview-container"))
 
 (defn ace-set-value
   [content]
@@ -96,8 +125,8 @@ To begin:
 
 (defn handle-auth
   [e]
-  (let [username (.-value (. js/document (getElementById "username")))
-        auth-token (.-value (. js/document (getElementById "auth-token")))]
+  (let [username (.-value ($ "username"))
+        auth-token (.-value ($ "auth-token"))]
     (authenticate username auth-token)
     ))
 
@@ -163,44 +192,41 @@ To begin:
 
 ; main section -----------------------------------------------------------------
 
-(defn $ [id-str] (.getElementById js/document id-str))
-(defn visible? [el] (.isElementShown goog.style el))
-(defn set-width [el width] (set! (.. el -style -width) width))
-(defn toggle [el] (.showElement goog.style el (not (visible? el))))
-(defn show [el] (if (not (visible? el)) (.showElement goog.style el true)))
-
 (defn setup-toolbar-listeners
   []
   (let [toolbar-toggler   ($ "toolbar-toggler")
         editor-toggler    ($ "editor-toggler")
         toolbar           ($ "toolbar")
         preview           ($ "preview-container")
-        preview-container ($ "outer-preview-container")
         editor            ($ "input")
         preview-toggler   ($ "preview-toggler")]
 
     (.. js/Rx -Observable
       (fromEvent toolbar-toggler "click")
-      (subscribe #(toggle toolbar)))
+      (subscribe (fn [] (do (jq-toggle toolbar #(set-state state :toolbar-autohide (not (visible? toolbar))))))))
 
     (.. js/Rx -Observable
       (fromEvent preview-toggler "click")
       (subscribe #(do
-                   (toggle preview)
-                   (if (visible? preview)
-                     (set-width preview-container "49%")
-                     (set-width preview-container "20px")))))
+                   (toggle-slide-right preview)
+                   )))
 
     (.. js/Rx -Observable
       (fromEvent editor-toggler "click")
-      (subscribe #(toggle editor)))
+      (subscribe #(toggle-slide-left editor)))
 
 
     (.. js/Rx -Observable
       (fromEvent js/document "mousemove")
-      (throttle 5)
-      (filter (fn [ev] (< (.-clientY ev) 20)))
-      (subscribe #(show toolbar)))
+      (throttle 50)
+      (filter (fn [ev] (and (get-state state :toolbar-autohide) (< (.-clientY ev) 10))))
+      (subscribe #(slide-down toolbar)))
+
+    (.. js/Rx -Observable
+        (fromEvent js/document "mousemove")
+        (throttle 50)
+        (filter (fn [ev] (and (get-state state :toolbar-autohide) (> (.-clientY ev) 10))))
+        (subscribe #(slide-up toolbar)))
 
     ))
 
@@ -213,9 +239,6 @@ To begin:
       (create (fn [observer] (.. session (on "change" #(.. observer (onNext))))))
       (throttle 300)
       (subscribe #(set-preview)))
-
-    ;editor.getSession().getScreenLength()
-                  * editor.renderer.lineHeight
 
     (defn calc-offset-top-preview
       [ot1]
