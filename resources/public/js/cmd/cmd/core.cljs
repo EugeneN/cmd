@@ -7,6 +7,7 @@
     [cljs.core.async.macros :refer [go alt!]]
     ))
 
+; State:
 ; {
 ;   :ace
 ;   :gists
@@ -17,7 +18,15 @@
 ;   :worker
 ;   :toolbar-autohide
 ;   :mode [:new-gist :edit-gist nil]
+;   :motd
 ; }
+
+; AppBus
+; [:user-is-authenticated ]
+;  :gist-loaded
+;  :user-has-logged-out
+;  :motd-loaded
+; ]
 
 (def state (atom {:preview-output nil}))
 (def AppBus (chan 1))
@@ -66,6 +75,8 @@
 (defn auth-param [username auth-token] (js-obj "Authorization" (str "Basic " auth-token)
                                                "Content-Type" "application/json"))
 
+(defn anon-param [] (js-obj "Content-Type" "application/json"))
+
 
 
 (defn find-gist
@@ -88,6 +99,25 @@
       (case maybe
         :just (set-state state :gists resp-clj)
         :nothing (handle-io-error resp-clj)))))
+
+; dom operation here is a special case!
+(def local-motd (.-text (.getElementById js/document "motd")))
+
+(defn set-motd
+  []
+  (go
+    (let [url "/gists/58a15db96ca12b952f8e"
+          [maybe resp] (<! (GET url (anon-param)))]
+      (case maybe
+        :just (let [gist (raw->clj resp)
+                    [_ first-file] (-> (gist "files") first)
+                    content (first-file "content")]
+                ((set-state state :motd content)
+                 (>! AppBus [:motd-loaded content])
+                 (say "Setting remote motd")))
+
+        :nothing ((set-state state :motd local-motd)
+                  (say "Error getting remote motd"))))))
 
 (defn load-gist
   [id]

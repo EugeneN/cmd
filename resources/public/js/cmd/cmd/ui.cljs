@@ -7,7 +7,7 @@
 
             [cmd.utils :refer [say html! join-gist-names setcookie getcookie]]
             [cmd.core :refer [set-state reset-state get-state process load-gists load-gist create-gist
-             save-gist authenticate authenticated-om? error-set? state AppBus]])
+             save-gist authenticate authenticated-om? error-set? state AppBus set-motd]])
   (:require-macros
     [cljs.core.async.macros :refer [go alt!]]
   ))
@@ -42,9 +42,7 @@
 
 ;; some section
 
-(def motd (.-text ($ "motd")))
 
-(def new-gist-motd (.-text ($ "new-gist-motd")))
 
 ;; ui section ------------------------------------------------------------------
 
@@ -63,9 +61,7 @@
         content (first-file "content")]
     (ace-set-value content)))
 
-(defn reset-input [] (ace-set-value motd))
-
-(defn reset-input-new-gist [] (ace-set-value new-gist-motd))
+(defn reset-input [] (ace-set-value (get-state state :motd)))
 
 (defn process-cb
   [value]
@@ -134,11 +130,7 @@
         (set-state state :mode :new-gist)
         (set-state state :current-gist nil)
         (set-state state :current-gist-id nil)
-        (set-state state :current-file-id nil)
-
-        ;(reset-input-new-gist)
-        ))
-    ))
+        (set-state state :current-file-id nil)))))
 
 (defn handle-auth
   [e]
@@ -311,7 +303,10 @@
         (case msg
           :user-is-authenticated (load-gists)
           :gist-loaded (set-input payload)
-          :user-has-logged-out (reset-input))
+          :user-has-logged-out (reset-input)
+          :motd-loaded (reset-input)
+
+          (say (str "Unknown message from AppBus: " msg " : " payload)))
 
         (recur (<! app-bus)))))
 
@@ -331,6 +326,7 @@
     (render-toolbar state)
 
     (reset-input)
+    (set-motd)
 
     (let [worker (new js/Worker "resources/public/js/worker.js")]
       (set-state state :worker worker))
