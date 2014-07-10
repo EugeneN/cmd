@@ -155,7 +155,9 @@
 
             (dom/input #js {:type "text"
                             :title "Filename"
-                            :style #js {:display "none"}
+                            :style (if (= (:mode state) :new-gist)
+                                     #js {:display "inline-block"}
+                                     #js {:display "none" :value ""})
                             :id "new-gist-name"})
 
             (dom/label #js {:className "ios7"} "SELECT_G!ST: ")
