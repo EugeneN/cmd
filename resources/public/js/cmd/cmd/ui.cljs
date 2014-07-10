@@ -127,6 +127,7 @@
                    (reset-input)))
       (do
         (toggle-slide-left ($ "new-gist-name"))
+        (.. ($ "new-gist-name") (focus))
         (set-state state :mode :new-gist)
         (set-state state :current-gist nil)
         (set-state state :current-gist-id nil)
@@ -146,6 +147,12 @@
       (cond
         (authenticated-om? state)
           (dom/div nil
+            (dom/img #js {:id "loading-indicator"
+                          :src "resources/public/img/loading1.gif"
+                          :style (if (> (:active-requests state) 0)
+                                   #js {:display "block"}
+                                   #js {:display "none"})})
+
             (dom/button #js {:id "new-gist"
                             :onClick handle-new-gist
                             :className "ios7"} ":NEW_G!ST: ")
@@ -171,7 +178,8 @@
 
             (let [current-gist (state :current-gist)
                   href (if (= current-gist nil) nil (current-gist "html_url"))]
-              (if (not (= href nil))
+              (if (= href nil)
+                (dom/span #js {:id "warn-no-gist"} "NO_G?ST")
                 (dom/a #js {:id "view-orig"
                             :target "_blank"
                             :title "View gist in Github (in a new tab/window)"

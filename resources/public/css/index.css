@@ -113,7 +113,7 @@ body {
     clear: both;
     height: 0px;
 }
-#toolbar button, #toolbar a {
+#toolbar button, #toolbar a, #toolbar span {
     padding: 5px;
     background-color: #fff;
     border: 0px;
@@ -305,4 +305,20 @@ label {
     color: #ccc;
 }
 #layout-toolbar:hover {
+}
+
+#warn-no-gist {
+    color: red !important;
+}
+
+#loading-indicator {
+    z-index: 9999;
+    margin: auto;
+    margin-left: -48px;
+    position: fixed;
+    top: 0;
+    left: 50%;
+
+
+
 }

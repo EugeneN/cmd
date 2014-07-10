@@ -1,7 +1,7 @@
 (ns cmd.core
   (:require
             [cmd.utils :refer [say raw->clj setcookie getcookie]]
-            [cmd.lib :refer [GET PATCH POST]]
+            [cmd.lib :refer [GET PATCH POST active-requests]]
             [cljs.core.async :refer [chan close! >! <!]])
   (:require-macros
     [cljs.core.async.macros :refer [go alt!]]
@@ -19,6 +19,7 @@
 ;   :toolbar-autohide
 ;   :mode [:new-gist :edit-gist nil]
 ;   :motd
+;   :active-requests
 ; }
 
 ; AppBus
@@ -29,7 +30,7 @@
 ;  :motd-loaded
 ; ]
 
-(def state (atom {:preview-output nil}))
+(def state (atom {:active-requests 0}))
 (def AppBus (chan 1))
 
 (defn set-state
@@ -38,11 +39,13 @@
 
 (defn reset-state
   [state]
-  (swap! state select-keys [:ace :worker]))
+  (swap! state select-keys [:ace :worker :motd :active-requests]))
 
 (defn get-state
   [state key]
   (key @state))
+
+(add-watch active-requests nil (fn [key ref old new] (set-state state :active-requests new)))
 
 (defn wmd->html
   [text]
