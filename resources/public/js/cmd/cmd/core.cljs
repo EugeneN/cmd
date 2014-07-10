@@ -125,6 +125,7 @@
         :just (let [new-gist-id (clj-result "id")]
                 (do
                   (say (str "Created new gist with id=" new-gist-id))
+                  (set-state state :mode nil)
                   (load-gists)
                   (load-gist new-gist-id)))
 

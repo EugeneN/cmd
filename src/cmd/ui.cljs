@@ -132,7 +132,12 @@
       (do
         (toggle-slide-left ($ "new-gist-name"))
         (set-state state :mode :new-gist)
-        (reset-input-new-gist)))
+        (set-state state :current-gist nil)
+        (set-state state :current-gist-id nil)
+        (set-state state :current-file-id nil)
+
+        ;(reset-input-new-gist)
+        ))
     ))
 
 (defn handle-auth
@@ -165,7 +170,14 @@
               (apply dom/select #js {:className "hello"
                                      :title "Select a gist for a good start :-)"
                                      :onChange handle-select}
-                (map (fn [gist] (dom/option #js {:value (gist "id")} (-> (gist "files") keys join-gist-names))) (:gists state))))
+                (map (fn [gist]
+                       (dom/option
+                         #js {:value (gist "id")
+                              :selected (if (= (gist "id") (:current-gist-id state))
+                                          "selected"
+                                          "")}
+                         (-> (gist "files") keys join-gist-names)))
+                     (:gists state))))
 
             (let [current-gist (state :current-gist)
                   href (if (= current-gist nil) nil (current-gist "html_url"))]
@@ -173,7 +185,7 @@
                 (dom/a #js {:id "view-orig"
                             :target "_blank"
                             :title "View gist in Github (in a new tab/window)"
-                            :href href} "VIEW!ORIGINAL")))
+                            :href href} (state :current-file-id))))
 
 
             (dom/button #js {:id "pull"
