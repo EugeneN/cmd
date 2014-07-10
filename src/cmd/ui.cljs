@@ -107,7 +107,7 @@
 (defn handle-logout
   [_]
   (do
-    (say "Bye bye")
+    (say "Bye, c u l8r :-)")
     (reset-state state)
     (setcookie "username" "")
     (setcookie "auth-token" "")
@@ -169,13 +169,11 @@
             (dom/div #js {:id "gist-list"}
               (apply dom/select #js {:className "hello"
                                      :title "Select a gist for a good start :-)"
+                                     :value (:current-gist-id state)
                                      :onChange handle-select}
                 (map (fn [gist]
                        (dom/option
-                         #js {:value (gist "id")
-                              :selected (if (= (gist "id") (:current-gist-id state))
-                                          "selected"
-                                          "")}
+                         #js {:value (gist "id")}
                          (-> (gist "files") keys join-gist-names)))
                      (:gists state))))
 

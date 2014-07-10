@@ -117,14 +117,12 @@
 (defn create-gist
   [new-content]
   (go
-    (say (str "Gonna create new gist " new-content))
     (let [[maybe res] (<! (POST "/gists" new-content (auth-param (get-state state :username)
                                                                  (get-state state :auth-token))))
           clj-result (raw->clj res)]
       (case maybe
         :just (let [new-gist-id (clj-result "id")]
                 (do
-                  (say (str "Created new gist with id=" new-gist-id))
                   (set-state state :mode nil)
                   (load-gists)
                   (load-gist new-gist-id)))

@@ -18,12 +18,10 @@
   [raw]
   (let [json (.parse js/JSON raw)
         clj (js->clj json)]
-    (say json)
-    clj
-    ))
+    clj))
 
-(defn ^:export setcookie [name value]
+(defn setcookie [name value]
   (.set goog.net.cookies name value -1))
 
-(defn ^:export getcookie [name]
+(defn getcookie [name]
   (.get goog.net.cookies name))
