@@ -6,7 +6,7 @@
             [goog.style :as gstyle]
 
             [cmd.utils :refer [say html! join-gist-names setcookie getcookie]]
-            [cmd.core :refer [set-state reset-state get-state process load-gists load-gist
+            [cmd.core :refer [set-state reset-state get-state process load-gists load-gist create-gist
              save-gist authenticate authenticated-om? error-set? state AppBus]])
   (:require-macros
     [cljs.core.async.macros :refer [go alt!]]
@@ -14,22 +14,6 @@
 
 (enable-console-print!)
 (set! *print-fn* #(.log js/console %))
-
-(def motd "# Welcome to mCMD
-
-It is an explosive mixture of ***ClojureScript, Rx, React/Om, core.async, github CORS api, ace, pagedown, web worker(s)*** crafted together to give you *the best* gist editing tool, ever.
-It's currently an alfa-quality prototype, so do not expect to much.
-
-
-To begin:
-
-- just provide your Github username and a *secret*,
-- or select a gist from the list above if you are logged in already :-)
-
-```
-(println \"Heil Clojure!\")
-```
-")
 
 ;; dom section
 
@@ -42,8 +26,6 @@ To begin:
 
 (defn toggle [el] (if (visible? el) (hide el) (show el)))
 
-
-
 (defn slide-up [el] (.. (js/$ el) (slideUp 200)))
 (defn slide-down [el] (.. (js/$ el) (slideDown 200)))
 
@@ -55,10 +37,14 @@ To begin:
   [el]
   (.. (js/$ el) (toggle #js {:effect "slide" :duration 200 :direction "right"})))
 
-
 (defn jq-toggle [el complete-cb] (.. (js/$ el) (slideToggle 200 complete-cb)))
 
 
+;; some section
+
+(def motd (.-text ($ "motd")))
+
+(def new-gist-motd (.-text ($ "new-gist-motd")))
 
 ;; ui section ------------------------------------------------------------------
 
@@ -78,6 +64,8 @@ To begin:
     (ace-set-value content)))
 
 (defn reset-input [] (ace-set-value motd))
+
+(defn reset-input-new-gist [] (ace-set-value new-gist-motd))
 
 (defn process-cb
   [value]
@@ -101,11 +89,20 @@ To begin:
   [_]
   (let [ace (get-state state :ace)
         md-raw (.. ace (getSession) (getValue))
-        gist-id (get-state state :current-gist-id)
-        file-name (get-state state :current-file-id)
-        new-content {:description file-name :files {(keyword file-name) {:content md-raw}}}
-        result (save-gist gist-id new-content)]
-    (set-state state :current-gist result)))
+
+        mode (get-state state :mode)]
+    (case mode
+      :new-gist (let [file-name (.-value ($ "new-gist-name"))
+                      new-content {:description file-name :public false :files {(keyword file-name) {:content md-raw}}}]
+                  (if (< (count file-name) 4)
+                    (js/alert "Bad new gist file name")
+                    ;else
+                    (create-gist new-content)))
+      ;default
+      (let [gist-id (get-state state :current-gist-id)
+            file-name (get-state state :current-file-id)
+            new-content {:description file-name :files {(keyword file-name) {:content md-raw}}}]
+        (save-gist gist-id new-content)))))
 
 (defn handle-logout
   [_]
@@ -123,6 +120,22 @@ To begin:
     (set-state state :current-gist-id selected-id)
     (load-gist selected-id)))
 
+(defn handle-new-gist
+  [ev]
+  (let [mode (get-state state :mode)
+        new-gist-name-el ($ "new-gist-name")]
+    (case mode
+      :new-gist ((do
+                   (toggle-slide-left new-gist-name-el)
+                   (set! (.-value new-gist-name-el) "")
+                   (set-state state :mode nil)
+                   (reset-input)))
+      (do
+        (toggle-slide-left ($ "new-gist-name"))
+        (set-state state :mode :new-gist)
+        (reset-input-new-gist)))
+    ))
+
 (defn handle-auth
   [e]
   (let [username (.-value ($ "username"))
@@ -137,6 +150,15 @@ To begin:
       (cond
         (authenticated-om? state)
           (dom/div nil
+            (dom/button #js {:id "new-gist"
+                            :onClick handle-new-gist
+                            :className "ios7"} ":NEW_G!ST: ")
+
+            (dom/input #js {:type "text"
+                            :title "Filename"
+                            :style #js {:display "none"}
+                            :id "new-gist-name"})
+
             (dom/label #js {:className "ios7"} "SELECT_G!ST: ")
             (dom/div #js {:id "gist-list"}
               (apply dom/select #js {:className "hello"

@@ -1,7 +1,7 @@
 (ns cmd.core
   (:require
             [cmd.utils :refer [say raw->clj setcookie getcookie]]
-            [cmd.lib :refer [GET PATCH]]
+            [cmd.lib :refer [GET PATCH POST]]
             [cljs.core.async :refer [chan close! >! <!]])
   (:require-macros
     [cljs.core.async.macros :refer [go alt!]]
@@ -16,6 +16,7 @@
 ;   :error
 ;   :worker
 ;   :toolbar-autohide
+;   :mode [:new-gist :edit-gist nil]
 ; }
 
 (def state (atom {:preview-output nil}))
@@ -98,6 +99,7 @@
                         [first-file-name _] (-> (gist "files") first)]
                     (set-state state :current-file-id first-file-name)
                     (set-state state :current-gist gist)
+                    (set-state state :mode :edit-gist)
                     (>! AppBus [:gist-loaded id])))
         :nothing (handle-io-error (raw->clj resp))))))
 
@@ -108,7 +110,23 @@
                                                                                     (get-state state :auth-token))))
           clj-result (raw->clj result)]
       (case maybe
-        :just clj-result
+        :just (set-state state :current-gist clj-result)
+        :nothing (handle-io-error clj-result)))))
+
+(defn create-gist
+  [new-content]
+  (go
+    (say (str "Gonna create new gist " new-content))
+    (let [[maybe res] (<! (POST "/gists/" new-content (auth-param (get-state state :username)
+                                                                  (get-state state :auth-token))))
+          clj-result (raw->clj res)]
+      (case maybe
+        :just (let [new-gist-id (res "id")]
+                (do
+                  (say (str "Created new gist with id=" new-gist-id))
+                  (load-gists)
+                  (load-gist new-gist-id)))
+
         :nothing (handle-io-error clj-result)))))
 
 (defn logged-in [username auth-token]
