@@ -188,9 +188,15 @@
 
             (dom/button #js {:id "pull"
                              :title "Reload gist from Github"
+                             :disabled (if (= (state :current-gist) nil)
+                                        true
+                                        false)
                              :onClick handle-pull} ">>PULL")
             (dom/button #js {:id "push"
                              :title "Save current gist state to Github"
+                             :disabled (if (and (= (state :current-gist) nil) (not (= (state :mode) :new-gist)))
+                                        true
+                                        false)
                              :onClick handle-push} "PUSH>>")
 
             (dom/button #js {:id "log-out"

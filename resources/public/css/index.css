@@ -122,6 +122,15 @@ body {
     font-size: 100%;
     margin-left: 1em;
 }
+
+#toolbar button:disabled {
+    color: #B3B3B3 !important;
+}
+#toolbar button:disabled:hover {
+    color: #B3B3B3 !important;
+    background-color: #fff !important;
+}
+
 #toolbar a:hover, #toolbar button:hover {
     color: #fff;
     background-color: #000;
