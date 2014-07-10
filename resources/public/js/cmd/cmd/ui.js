@@ -176,6 +176,12 @@ cmd.ui.set_width = (function set_width(el,width){return el.style.width = width;
 });
 cmd.ui.toggle = (function toggle(el){return goog.style.showElement(el,cljs.core.not.call(null,cmd.ui.visible_QMARK_.call(null,el)));
 });
+cmd.ui.show = (function show(el){if(cljs.core.not.call(null,cmd.ui.visible_QMARK_.call(null,el)))
+{return goog.style.showElement(el,true);
+} else
+{return null;
+}
+});
 cmd.ui.setup_toolbar_listeners = (function setup_toolbar_listeners(){var toolbar_toggler = cmd.ui.$.call(null,"toolbar-toggler");var editor_toggler = cmd.ui.$.call(null,"editor-toggler");var toolbar = cmd.ui.$.call(null,"toolbar");var preview = cmd.ui.$.call(null,"preview-container");var preview_container = cmd.ui.$.call(null,"outer-preview-container");var editor = cmd.ui.$.call(null,"input");var preview_toggler = cmd.ui.$.call(null,"preview-toggler");Rx.Observable.fromEvent(toolbar_toggler,"click").subscribe(((function (toolbar_toggler,editor_toggler,toolbar,preview,preview_container,editor,preview_toggler){
 return (function (){return cmd.ui.toggle.call(null,toolbar);
 });})(toolbar_toggler,editor_toggler,toolbar,preview,preview_container,editor,preview_toggler))
@@ -189,8 +195,15 @@ if(cljs.core.truth_(cmd.ui.visible_QMARK_.call(null,preview)))
 }
 });})(toolbar_toggler,editor_toggler,toolbar,preview,preview_container,editor,preview_toggler))
 );
-return Rx.Observable.fromEvent(editor_toggler,"click").subscribe(((function (toolbar_toggler,editor_toggler,toolbar,preview,preview_container,editor,preview_toggler){
+Rx.Observable.fromEvent(editor_toggler,"click").subscribe(((function (toolbar_toggler,editor_toggler,toolbar,preview,preview_container,editor,preview_toggler){
 return (function (){return cmd.ui.toggle.call(null,editor);
+});})(toolbar_toggler,editor_toggler,toolbar,preview,preview_container,editor,preview_toggler))
+);
+return Rx.Observable.fromEvent(document,"mousemove").throttle(5).filter(((function (toolbar_toggler,editor_toggler,toolbar,preview,preview_container,editor,preview_toggler){
+return (function (ev){return (ev.clientY < 20);
+});})(toolbar_toggler,editor_toggler,toolbar,preview,preview_container,editor,preview_toggler))
+).subscribe(((function (toolbar_toggler,editor_toggler,toolbar,preview,preview_container,editor,preview_toggler){
+return (function (){return cmd.ui.show.call(null,toolbar);
 });})(toolbar_toggler,editor_toggler,toolbar,preview,preview_container,editor,preview_toggler))
 );
 });

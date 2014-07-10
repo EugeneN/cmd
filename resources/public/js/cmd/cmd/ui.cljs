@@ -167,6 +167,7 @@ To begin:
 (defn visible? [el] (.isElementShown goog.style el))
 (defn set-width [el width] (set! (.. el -style -width) width))
 (defn toggle [el] (.showElement goog.style el (not (visible? el))))
+(defn show [el] (if (not (visible? el)) (.showElement goog.style el true)))
 
 (defn setup-toolbar-listeners
   []
@@ -193,6 +194,13 @@ To begin:
     (.. js/Rx -Observable
       (fromEvent editor-toggler "click")
       (subscribe #(toggle editor)))
+
+
+    (.. js/Rx -Observable
+      (fromEvent js/document "mousemove")
+      (throttle 5)
+      (filter (fn [ev] (< (.-clientY ev) 20)))
+      (subscribe #(show toolbar)))
 
     ))
 

@@ -66,9 +66,9 @@ body {
     text-align: left;
 }
 
-#preview code {
+#preview code, #preview pre {
     font-family: 'Source Code Pro', monospace;
-    background-color: rgba(102,128,153,0.075);
+    background-color: rgb(228,232,236);
     font-size: 16px !important;
     padding: 2px 4px 2px 4px;
 }
