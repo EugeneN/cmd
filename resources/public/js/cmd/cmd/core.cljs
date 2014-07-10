@@ -99,6 +99,7 @@
                         [first-file-name _] (-> (gist "files") first)]
                     (set-state state :current-file-id first-file-name)
                     (set-state state :current-gist gist)
+                    (set-state state :current-gist-id id)
                     (set-state state :mode :edit-gist)
                     (>! AppBus [:gist-loaded id])))
         :nothing (handle-io-error (raw->clj resp))))))
@@ -117,11 +118,11 @@
   [new-content]
   (go
     (say (str "Gonna create new gist " new-content))
-    (let [[maybe res] (<! (POST "/gists/" new-content (auth-param (get-state state :username)
-                                                                  (get-state state :auth-token))))
+    (let [[maybe res] (<! (POST "/gists" new-content (auth-param (get-state state :username)
+                                                                 (get-state state :auth-token))))
           clj-result (raw->clj res)]
       (case maybe
-        :just (let [new-gist-id (res "id")]
+        :just (let [new-gist-id (clj-result "id")]
                 (do
                   (say (str "Created new gist with id=" new-gist-id))
                   (load-gists)

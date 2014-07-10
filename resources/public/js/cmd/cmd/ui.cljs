@@ -117,7 +117,6 @@
 (defn handle-select
   [e]
   (let [selected-id (.. e -target -value)]
-    (set-state state :current-gist-id selected-id)
     (load-gist selected-id)))
 
 (defn handle-new-gist
