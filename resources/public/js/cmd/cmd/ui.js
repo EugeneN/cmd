@@ -219,7 +219,7 @@ return (function (){return cmd.ui.toggle_slide_left.call(null,editor);
 );
 Rx.Observable.fromEvent(document,"mousemove").throttle(50).filter(((function (toolbar_toggler,editor_toggler,toolbar,preview,editor,preview_toggler){
 return (function (ev){var and__3469__auto__ = cmd.core.get_state.call(null,cmd.core.state,new cljs.core.Keyword(null,"toolbar-autohide","toolbar-autohide",2185949429));if(cljs.core.truth_(and__3469__auto__))
-{return (ev.clientY < 10);
+{return (ev.clientY < 28);
 } else
 {return and__3469__auto__;
 }
@@ -230,7 +230,7 @@ return (function (){return cmd.ui.slide_down.call(null,toolbar);
 );
 return Rx.Observable.fromEvent(document,"mousemove").throttle(50).filter(((function (toolbar_toggler,editor_toggler,toolbar,preview,editor,preview_toggler){
 return (function (ev){var and__3469__auto__ = cmd.core.get_state.call(null,cmd.core.state,new cljs.core.Keyword(null,"toolbar-autohide","toolbar-autohide",2185949429));if(cljs.core.truth_(and__3469__auto__))
-{return (ev.clientY > 10);
+{return (ev.clientY > 28);
 } else
 {return and__3469__auto__;
 }

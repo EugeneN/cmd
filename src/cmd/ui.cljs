@@ -219,13 +219,13 @@ To begin:
     (.. js/Rx -Observable
       (fromEvent js/document "mousemove")
       (throttle 50)
-      (filter (fn [ev] (and (get-state state :toolbar-autohide) (< (.-clientY ev) 10))))
+      (filter (fn [ev] (and (get-state state :toolbar-autohide) (< (.-clientY ev) 28))))
       (subscribe #(slide-down toolbar)))
 
     (.. js/Rx -Observable
         (fromEvent js/document "mousemove")
         (throttle 50)
-        (filter (fn [ev] (and (get-state state :toolbar-autohide) (> (.-clientY ev) 10))))
+        (filter (fn [ev] (and (get-state state :toolbar-autohide) (> (.-clientY ev) 28))))
         (subscribe #(slide-up toolbar)))
 
     ))
