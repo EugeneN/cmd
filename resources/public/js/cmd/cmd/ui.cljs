@@ -324,6 +324,13 @@
 
         (recur (<! app-bus)))))
 
+(defn get-hash-id
+  []
+  (let [hash (.. js/document -location -hash)]
+    (if (> (count hash) 1)
+      (subs hash 1)
+      nil)))
+
 (defn main
   [state app-bus]
   (let [username (getcookie "username")
@@ -340,7 +347,7 @@
     (render-toolbar state)
 
     (reset-input)
-    (set-motd)
+    (set-motd (get-hash-id))
 
     (let [worker (new js/Worker "resources/public/js/worker.js")]
       (set-state state :worker worker))

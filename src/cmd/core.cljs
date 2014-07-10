@@ -107,9 +107,9 @@
 (def local-motd (.-text (.getElementById js/document "motd")))
 
 (defn set-motd
-  []
+  [gist-id]
   (go
-    (let [url "/gists/58a15db96ca12b952f8e"
+    (let [url (str "/gists/" (if (= gist-id nil) "58a15db96ca12b952f8e" gist-id))
           [maybe resp] (<! (GET url (anon-param)))]
       (case maybe
         :just (let [gist (raw->clj resp)
