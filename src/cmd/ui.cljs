@@ -7,7 +7,8 @@
 
             [cmd.utils :refer [say html! join-gist-names setcookie getcookie]]
             [cmd.core :refer [set-state reset-state get-state process load-gists load-gist create-gist
-             save-gist authenticate authenticated-om? error-set? state AppBus set-motd]])
+             save-gist authenticate authenticated-om? error-set? state AppBus set-motd
+             find-gist]])
   (:require-macros
     [cljs.core.async.macros :refer [go alt!]]
   ))
@@ -311,6 +312,13 @@
     (.. session (setMode "ace/mode/markdown"))
     (.. session (setUseWrapMode true))))
 
+(defn get-hash-id
+  []
+  (let [hash (.. js/document -location -hash)]
+    (if (> (count hash) 1)
+      (subs hash 1)
+      nil)))
+
 (defn subscribe-appbus
   [app-bus]
   (go (loop [[msg payload] (<! app-bus)]
@@ -319,17 +327,14 @@
           :gist-loaded (set-input payload)
           :user-has-logged-out (reset-input)
           :motd-loaded (reset-input)
+          :gists-loaded (let [[hash-gist & _] (find-gist state (get-hash-id))]
+                          (if (not (= nil hash-gist))
+                            (load-gist (hash-gist "id"))))
 
           (say (str "Unknown message from AppBus: " msg " : " payload)))
 
         (recur (<! app-bus)))))
 
-(defn get-hash-id
-  []
-  (let [hash (.. js/document -location -hash)]
-    (if (> (count hash) 1)
-      (subs hash 1)
-      nil)))
 
 (defn main
   [state app-bus]

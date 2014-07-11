@@ -28,6 +28,7 @@
 ;  :gist-loaded
 ;  :user-has-logged-out
 ;  :motd-loaded
+;  :gists-loaded
 ; ]
 
 (def state (atom {:active-requests 0}))
@@ -100,7 +101,8 @@
           [maybe resp] (<! (GET (str "/users/" username "/gists") (auth-param username auth-token)))
           resp-clj (raw->clj resp)]
       (case maybe
-        :just (set-state state :gists resp-clj)
+        :just ((set-state state :gists resp-clj)
+               (>! AppBus [:gists-loaded nil]))
         :nothing (handle-io-error resp-clj)))))
 
 ; dom operation here is a special case!
