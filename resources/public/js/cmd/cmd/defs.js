@@ -4,5 +4,6 @@ goog.require('cljs.core');
 cmd.defs.local_motd = document.getElementById("motd").text;
 cmd.defs.default_title = "C.MD";
 cmd.defs.default_motd_id = "58a15db96ca12b952f8e";
+cmd.defs.all_panels = new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 3, ["e",null,"p",null,"t",null], null), null);
 
 //# sourceMappingURL=defs.js.map

@@ -3,10 +3,12 @@
             [om.dom :as dom :include-macros true]
             [cljs.core.async :refer [chan close! >! <!]]
 
+            clojure.set
+            clojure.string
+
             [goog.style :as gstyle]
 
-            [cmd.defs :refer [default-title default-motd-id]]
-
+            [cmd.defs :refer [default-title default-motd-id all-panels]]
             [cmd.utils :refer [say html! join-gist-names setcookie getcookie]]
             [cmd.core :refer [set-state reset-state get-state process load-gists load-gist create-gist
              save-gist authenticate authenticated-om? error-set? state AppBus get-motd
@@ -316,27 +318,50 @@
     (.. session (setMode "ace/mode/markdown"))
     (.. session (setUseWrapMode true))))
 
-(defn get-hash-id
+; # <gist-id> ; [tep]
+(defn parse-location-hash
   []
   (let [hash (.. js/document -location -hash)]
     (if (> (count hash) 1)
-      (subs hash 1)
-      nil)))
+      (zipmap [:gist-id :panels] (.split (subs hash 1) ";"))
+      {})))
+
+(defn get-gist-id-from-location-hash []
+  (let [x ((parse-location-hash) :gist-id)]
+    (if (= x "") nil x)))
+
+(defn get-panels-from-location-hash []
+  (let [x ((parse-location-hash) :panels)] x))
 
 (defn set-title
   [title]
   (set! (.. js/document -title) (str title " : " default-title)))
 
 (defn set-location-hash
-  [hash]
-  (set! (.. js/document -location -hash) hash))
+  [hash-hash]
+  (let [gist-id (or (hash-hash :gist-id) "")
+        panels (hash-hash :panels)
+        chunks (if (nil? panels) [gist-id] [gist-id panels])]
+    (set! (.. js/document -location -hash) (clojure.string/join ";" chunks))))
+
+(defn set-location-hash-gist-id
+  [gist-id]
+  (let [lh (parse-location-hash)
+        new-lh (assoc lh :gist-id gist-id)]
+    (set-location-hash new-lh)))
+
+(defn set-location-hash-panels
+  [panels]
+  (let [lh (parse-location-hash)
+        new-lh (assoc lh :panels (clojure.string/join panels))]
+    (set-location-hash new-lh)))
 
 (defn load-initial-content
   []
-  (let [hash-id (get-hash-id)]
-    (if (nil? hash-id)
+  (let [gist-id (get-gist-id-from-location-hash)]
+    (if (nil? gist-id)
       (get-motd default-motd-id)
-      (load-gist hash-id))))
+      (load-gist gist-id))))
 
 (defn subscribe-appbus
   [app-bus]
@@ -351,12 +376,12 @@
                              gist-id payload]
                          (set-input payload)
                          (set-title title)
-                         (set-location-hash gist-id))
+                         (set-location-hash-gist-id gist-id))
 
           :user-has-logged-out (reset-input-with-motd)
           :motd-loaded (reset-input-with-motd)
 
-          :gists-loaded (let [[hash-gist & _] (find-gist state (get-hash-id))]
+          :gists-loaded (let [[hash-gist & _] (find-gist state (get-gist-id-from-location-hash))]
                           (if (not (nil? hash-gist))
                             (load-gist (hash-gist "id"))))
 
@@ -364,7 +389,18 @@
 
         (recur (<! app-bus)))))
 
-
+(defn setup-panels
+  []
+  (let [x (or (get-panels-from-location-hash) all-panels)
+        y (clojure.set/intersection all-panels x)
+        panels-to-hide    (if (= 0 (count y)) #{} (clojure.set/difference all-panels y))
+        toolbar           ($ "toolbar")
+        preview           ($ "preview-container")
+        editor            ($ "input")]
+    (if (some #{"t"} panels-to-hide) (hide toolbar))
+    (if (some #{"e"} panels-to-hide) (hide editor))
+    (if (some #{"p"} panels-to-hide) (hide preview))
+  ))
 
 (defn main
   [state app-bus]
@@ -384,6 +420,8 @@
     (authenticate username auth-token)
 
     (render-toolbar state)
+
+    (setup-panels)
 
     ))
 

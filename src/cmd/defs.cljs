@@ -6,3 +6,5 @@
 (def default-title "C.MD")
 
 (def default-motd-id "58a15db96ca12b952f8e")
+
+(def all-panels #{"t" "e" "p"})
