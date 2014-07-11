@@ -2,6 +2,7 @@
   (:require
             [cmd.utils :refer [say raw->clj setcookie getcookie]]
             [cmd.lib :refer [GET PATCH POST active-requests]]
+            [cmd.defs :refer [local-motd]]
             [cljs.core.async :refer [chan close! >! <!]])
   (:require-macros
     [cljs.core.async.macros :refer [go alt!]]
@@ -74,14 +75,16 @@
         :nothing (cb "<Error>")))))
 
 
+(defn auth-param-strict [username auth-token]
+  (js-obj "Authorization" (str "Basic " auth-token)
+          "Content-Type" "application/json"))
 
+(defn auth-param-anon [] (js-obj "Content-Type" "application/json"))
 
-
-(defn auth-param [username auth-token] (js-obj "Authorization" (str "Basic " auth-token)
-                                               "Content-Type" "application/json"))
-
-(defn anon-param [] (js-obj "Content-Type" "application/json"))
-
+(defn auth-param-fallback [username auth-token]
+  (if (nil? auth-token)
+    (auth-param-anon)
+    (auth-param-strict username auth-token)))
 
 (defn find-gist
   [state gist-id]
@@ -98,28 +101,27 @@
   (go
     (let [username (get-state state :username)
           auth-token (get-state state :auth-token)
-          [maybe resp] (<! (GET (str "/users/" username "/gists") (auth-param username auth-token)))
+          [maybe resp] (<! (GET (str "/users/" username "/gists") (auth-param-fallback username auth-token)))
           resp-clj (raw->clj resp)]
       (case maybe
         :just ((set-state state :gists resp-clj)
                (>! AppBus [:gists-loaded nil]))
         :nothing (handle-io-error resp-clj)))))
 
-; dom operation here is a special case!
-(def local-motd (.-text (.getElementById js/document "motd")))
 
-(defn set-motd
+
+(defn get-motd
   [gist-id]
   (go
-    (let [url (str "/gists/" (if (= gist-id nil) "58a15db96ca12b952f8e" gist-id))
-          [maybe resp] (<! (GET url (anon-param)))]
+    (let [url (str "/gists/" gist-id)
+          [maybe resp] (<! (GET url (auth-param-anon)))]
       (case maybe
         :just (let [gist (raw->clj resp)
                     [_ first-file] (-> (gist "files") first)
                     content (first-file "content")]
                 ((set-state state :motd content)
                  (>! AppBus [:motd-loaded content])
-                 (say "Setting remote motd")))
+                 (say "Loaded remote motd")))
 
         :nothing ((set-state state :motd local-motd)
                   (say "Error getting remote motd"))))))
@@ -128,7 +130,7 @@
   [id]
   (go
     (let [url (str "/gists/" id)
-          [maybe resp] (<! (GET url (auth-param (get-state state :username) (get-state state :auth-token))))]
+          [maybe resp] (<! (GET url (auth-param-fallback (get-state state :username) (get-state state :auth-token))))]
       (case maybe
         :just (do (let [gist (raw->clj resp)
                         [first-file-name _] (-> (gist "files") first)]
@@ -142,7 +144,7 @@
 (defn save-gist
   [gist-id new-content]
   (go
-    (let [[maybe result] (<! (PATCH (str "/gists/" gist-id) new-content (auth-param (get-state state :username)
+    (let [[maybe result] (<! (PATCH (str "/gists/" gist-id) new-content (auth-param-strict (get-state state :username)
                                                                                     (get-state state :auth-token))))
           clj-result (raw->clj result)]
       (case maybe
@@ -152,7 +154,7 @@
 (defn create-gist
   [new-content]
   (go
-    (let [[maybe res] (<! (POST "/gists" new-content (auth-param (get-state state :username)
+    (let [[maybe res] (<! (POST "/gists" new-content (auth-param-strict (get-state state :username)
                                                                  (get-state state :auth-token))))
           clj-result (raw->clj res)]
       (case maybe
@@ -176,12 +178,13 @@
   (let [error-msg (raw->clj resp)]
     (set-state state :valid-credentials false)
     (set-state state :error error-msg)
+    (go (>! AppBus [:user-is-authenticated false]))
     (say (str "Auth Error: " error-msg))))
 
 (defn authenticate
   [username auth-token]
   (go
-    (let [[maybe resp] (<! (GET (str "/users/" username "/gists") (auth-param username auth-token)))]
+    (let [[maybe resp] (<! (GET (str "/users/" username "/gists") (auth-param-fallback username auth-token)))]
       (case maybe
         :just (logged-in username auth-token)
         :nothing (unauthorized resp)))))

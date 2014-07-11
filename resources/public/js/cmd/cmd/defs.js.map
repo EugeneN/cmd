@@ -1,0 +1,10 @@
+{"version":3,
+ "file":
+ "/Users/eugene/github/cmd/resources/public/js/cmd/cmd/defs.js",
+ "sources":["defs.cljs"],
+ "lineCount":8,
+ "mappings":
+ ";AAAA;;AAGA,AAAKA,sBAAW,AAAQ,wBAAA,xBAAiBC;AAEzC,yBAAA,zBAAKC;AAEL,2BAAA,3BAAKC",
+ "names":
+ ["cmd.defs/local-motd", "js/document", "cmd.defs/default-title",
+  "cmd.defs/default-motd-id"]}

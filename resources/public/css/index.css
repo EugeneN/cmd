@@ -17,7 +17,7 @@ body {
     /*border-right: 1px solid #aaa;*/
     text-align: justify;
     font-size: 18px !important;
-    font-family: 'Source Code Pro', monospace;
+    font-family: 'Ubuntu Mono', monospace;
     line-height: 25px !important;
 }
 #editor {

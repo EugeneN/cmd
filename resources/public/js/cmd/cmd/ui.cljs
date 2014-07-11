@@ -5,9 +5,11 @@
 
             [goog.style :as gstyle]
 
+            [cmd.defs :refer [default-title default-motd-id]]
+
             [cmd.utils :refer [say html! join-gist-names setcookie getcookie]]
             [cmd.core :refer [set-state reset-state get-state process load-gists load-gist create-gist
-             save-gist authenticate authenticated-om? error-set? state AppBus set-motd
+             save-gist authenticate authenticated-om? error-set? state AppBus get-motd
              find-gist]])
   (:require-macros
     [cljs.core.async.macros :refer [go alt!]]
@@ -47,9 +49,6 @@
 
 ;; ui section ------------------------------------------------------------------
 
-(def input ($ "editor"))
-(def preview ($ "preview"))
-(def preview-container ($ "preview-container"))
 
 (defn ace-set-value
   [content]
@@ -62,12 +61,12 @@
         content (first-file "content")]
     (ace-set-value content)))
 
-(defn reset-input [] (ace-set-value (get-state state :motd)))
+(defn reset-input-with-motd [] (ace-set-value (get-state state :motd)))
 
 (defn process-cb
   [value]
   (do
-    (html! preview value)
+    (html! ($ "preview") value)
     ;(js/setTimeout
     ;  #(.Queue js/MathJax.Hub ["Typeset" (.-Hub js/MathJax) "preview"])
     ;  300)
@@ -125,7 +124,7 @@
                    (toggle-slide-left new-gist-name-el)
                    (set! (.-value new-gist-name-el) "")
                    (set-state state :mode nil)
-                   (reset-input)))
+                   (reset-input-with-motd)))
       (do
         (toggle-slide-left ($ "new-gist-name"))
         (.. ($ "new-gist-name") (focus))
@@ -178,8 +177,8 @@
                      (:gists state))))
 
             (let [current-gist (state :current-gist)
-                  href (if (= current-gist nil) nil (current-gist "html_url"))]
-              (if (= href nil)
+                  href (if (nil? current-gist) nil (current-gist "html_url"))]
+              (if (nil? href)
                 (dom/span #js {:id "warn-no-gist"} "NO_G?ST")
                 (dom/a #js {:id "view-orig"
                             :target "_blank"
@@ -189,13 +188,13 @@
 
             (dom/button #js {:id "pull"
                              :title "Reload gist from Github"
-                             :disabled (if (= (state :current-gist) nil)
+                             :disabled (if (nil? (state :current-gist))
                                         true
                                         false)
                              :onClick handle-pull} ">>PULL")
             (dom/button #js {:id "push"
                              :title "Save current gist state to Github"
-                             :disabled (if (and (= (state :current-gist) nil) (not (= (state :mode) :new-gist)))
+                             :disabled (if (and (nil? (state :current-gist)) (not (= (state :mode) :new-gist)))
                                         true
                                         false)
                              :onClick handle-push} "PUSH>>")
@@ -229,6 +228,9 @@
   [state]
   (om/root toolbar state
     {:target (. js/document (getElementById "toolbar"))}))
+
+
+
 
 ; main section -----------------------------------------------------------------
 
@@ -273,7 +275,9 @@
 (defn setup-editor-listeners
   []
   (let [editor (get-state state :ace)
-        session (.. editor (getSession))]
+        session (.. editor (getSession))
+        preview-container ($ "preview-container")
+        preview ($ "preview")]
 
     (.. js/Rx -Observable
       (create (fn [observer] (.. session (on "change" #(.. observer (onNext))))))
@@ -319,21 +323,47 @@
       (subs hash 1)
       nil)))
 
+(defn set-title
+  [title]
+  (set! (.. js/document -title) (str title " : " default-title)))
+
+(defn set-location-hash
+  [hash]
+  (set! (.. js/document -location -hash) hash))
+
+(defn load-initial-content
+  []
+  (let [hash-id (get-hash-id)]
+    (if (nil? hash-id)
+      (get-motd default-motd-id)
+      (load-gist hash-id))))
+
 (defn subscribe-appbus
   [app-bus]
   (go (loop [[msg payload] (<! app-bus)]
         (case msg
-          :user-is-authenticated (load-gists)
-          :gist-loaded (set-input payload)
-          :user-has-logged-out (reset-input)
-          :motd-loaded (reset-input)
+          :user-is-authenticated (case payload
+                                   true (do (load-initial-content)
+                                            (load-gists))
+                                   false (load-initial-content))
+
+          :gist-loaded (let [title (get-state state :current-file-id)
+                             gist-id payload]
+                         (set-input payload)
+                         (set-title title)
+                         (set-location-hash gist-id))
+
+          :user-has-logged-out (reset-input-with-motd)
+          :motd-loaded (reset-input-with-motd)
+
           :gists-loaded (let [[hash-gist & _] (find-gist state (get-hash-id))]
-                          (if (not (= nil hash-gist))
+                          (if (not (nil? hash-gist))
                             (load-gist (hash-gist "id"))))
 
           (say (str "Unknown message from AppBus: " msg " : " payload)))
 
         (recur (<! app-bus)))))
+
 
 
 (defn main
@@ -343,6 +373,10 @@
         last-opened-gist-id (getcookie "last-gist")]
 
     (subscribe-appbus app-bus)
+
+    (let [worker (new js/Worker "resources/public/js/worker.js")]
+      (set-state state :worker worker))
+
     (setup-ace)
     (setup-editor-listeners)
     (setup-toolbar-listeners)
@@ -350,12 +384,6 @@
     (authenticate username auth-token)
 
     (render-toolbar state)
-
-    (reset-input)
-    (set-motd (get-hash-id))
-
-    (let [worker (new js/Worker "resources/public/js/worker.js")]
-      (set-state state :worker worker))
 
     ))
 
