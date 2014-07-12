@@ -308,8 +308,9 @@
     (.. js/Rx -Observable
       (fromEvent preview-container "scroll")
       (throttle 15)
-      (subscribe #((if (visible? editor-container)
-                     (.. session (setScrollTop (calc-offset-top-input (.-scrollTop preview-container))))))))
+      (subscribe #(if (visible? editor-container)
+                   (.. session (setScrollTop (calc-offset-top-input (.-scrollTop preview-container)))))))
+
     ))
 
 (defn setup-ace

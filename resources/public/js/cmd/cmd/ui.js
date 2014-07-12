@@ -303,7 +303,11 @@ return (function (p1__10037_SHARP_){if(cljs.core.truth_(cmd.ui.visible_QMARK_.ca
 });})(editor,session,preview_container,editor_container,preview))
 );
 return Rx.Observable.fromEvent(preview_container,"scroll").throttle(15).subscribe(((function (editor,session,preview_container,editor_container,preview){
-return (function (){return (cljs.core.truth_(cmd.ui.visible_QMARK_.call(null,editor_container))?session.setScrollTop(cmd.ui.calc_offset_top_input.call(null,preview_container.scrollTop)):null).call(null);
+return (function (){if(cljs.core.truth_(cmd.ui.visible_QMARK_.call(null,editor_container)))
+{return session.setScrollTop(cmd.ui.calc_offset_top_input.call(null,preview_container.scrollTop));
+} else
+{return null;
+}
 });})(editor,session,preview_container,editor_container,preview))
 );
 });
