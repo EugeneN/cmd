@@ -216,7 +216,7 @@
 
 (defn setup-ace
   []
-  (let [editor (.. js/ace (edit "input"))
+  (let [editor  (.. js/ace (edit "input"))
         session (.. editor (getSession))]
     (set-state state :ace editor)
     (.. session (setMode "ace/mode/markdown"))
@@ -224,9 +224,10 @@
 
 (defn setup-panels
   []
-  (let [x (or (get-panels-from-location-hash) all-panels)
-        y (clojure.set/intersection all-panels x)
-        panels-to-hide    (if (= 0 (count y)) #{} (clojure.set/difference all-panels y))
+  (let [x                 (or (get-panels-from-location-hash) all-panels)
+        y                 (clojure.set/intersection all-panels x)
+        no-flags-set      (= 0 (count y))
+        panels-to-hide    (if no-flags-set #{} (clojure.set/difference all-panels y))
         toolbar           ($ "toolbar")
         console           ($ "console")
         preview           ($ "preview-container")
@@ -234,7 +235,7 @@
     (if (some #{"t"} panels-to-hide) (hide toolbar))
     (if (some #{"e"} panels-to-hide) (hide editor))
     (if (some #{"p"} panels-to-hide) (hide preview))
-    (if (not (some #{"c"} panels-to-hide)) (jq-toggle console))
+    ;(if (and (not no-flags-set) (not (some #{"c"} panels-to-hide))) (jq-toggle console))
   ))
 
 ;; ui view section -------------------------------------------------------------
@@ -404,6 +405,8 @@
     (render-console state)
 
     (setup-panels)
+
+    (say "Welcome to CMD :-)")
 
     ))
 

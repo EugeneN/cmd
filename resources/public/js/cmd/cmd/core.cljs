@@ -35,7 +35,7 @@
 ; ]
 
 (def state (atom {:active-requests 0
-                  :messages ["Welcome to CMD :-)"]}))
+                  :messages []}))
 (def AppBus (chan 1))
 
 (defn set-state

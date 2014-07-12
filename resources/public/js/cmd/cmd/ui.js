@@ -290,7 +290,7 @@ cmd.ui.setup_panels = (function setup_panels(){var x = (function (){var or__3451
 } else
 {return cmd.defs.all_panels;
 }
-})();var y = clojure.set.intersection.call(null,cmd.defs.all_panels,x);var panels_to_hide = ((cljs.core._EQ_.call(null,0,cljs.core.count.call(null,y)))?cljs.core.PersistentHashSet.EMPTY:clojure.set.difference.call(null,cmd.defs.all_panels,y));var toolbar = cmd.ui.$.call(null,"toolbar");var console = cmd.ui.$.call(null,"console");var preview = cmd.ui.$.call(null,"preview-container");var editor = cmd.ui.$.call(null,"input");if(cljs.core.truth_(cljs.core.some.call(null,new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 1, ["t",null], null), null),panels_to_hide)))
+})();var y = clojure.set.intersection.call(null,cmd.defs.all_panels,x);var no_flags_set = cljs.core._EQ_.call(null,0,cljs.core.count.call(null,y));var panels_to_hide = ((no_flags_set)?cljs.core.PersistentHashSet.EMPTY:clojure.set.difference.call(null,cmd.defs.all_panels,y));var toolbar = cmd.ui.$.call(null,"toolbar");var console = cmd.ui.$.call(null,"console");var preview = cmd.ui.$.call(null,"preview-container");var editor = cmd.ui.$.call(null,"input");if(cljs.core.truth_(cljs.core.some.call(null,new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 1, ["t",null], null), null),panels_to_hide)))
 {cmd.ui.hide.call(null,toolbar);
 } else
 {}
@@ -299,11 +299,7 @@ if(cljs.core.truth_(cljs.core.some.call(null,new cljs.core.PersistentHashSet(nul
 } else
 {}
 if(cljs.core.truth_(cljs.core.some.call(null,new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 1, ["p",null], null), null),panels_to_hide)))
-{cmd.ui.hide.call(null,preview);
-} else
-{}
-if(cljs.core.not.call(null,cljs.core.some.call(null,new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 1, ["c",null], null), null),panels_to_hide)))
-{return cmd.ui.jq_toggle.call(null,console);
+{return cmd.ui.hide.call(null,preview);
 } else
 {return null;
 }
@@ -671,7 +667,8 @@ cmd.ui.setup_toolbar_listeners.call(null);
 cmd.core.authenticate.call(null,username,auth_token);
 cmd.ui.render_toolbar.call(null,state);
 cmd.ui.render_console.call(null,state);
-return cmd.ui.setup_panels.call(null);
+cmd.ui.setup_panels.call(null);
+return cmd.core.say.call(null,"Welcome to CMD :-)");
 });
 cmd.ui.main.call(null,cmd.core.state,cmd.core.AppBus);
 
