@@ -270,37 +270,41 @@ return (function (){return cmd.ui.slide_up.call(null,toolbar);
 });})(toolbar_toggler,editor_toggler,toolbar,preview,editor,preview_toggler))
 );
 });
-cmd.ui.setup_editor_listeners = (function setup_editor_listeners(){var editor = cmd.core.get_state.call(null,cmd.core.state,new cljs.core.Keyword(null,"ace","ace",1014000629));var session = editor.getSession();var preview_container = cmd.ui.$.call(null,"preview-container");var preview = cmd.ui.$.call(null,"preview");Rx.Observable.create(((function (editor,session,preview_container,preview){
-return (function (observer){return session.on("change",((function (editor,session,preview_container,preview){
+cmd.ui.setup_editor_listeners = (function setup_editor_listeners(){var editor = cmd.core.get_state.call(null,cmd.core.state,new cljs.core.Keyword(null,"ace","ace",1014000629));var session = editor.getSession();var preview_container = cmd.ui.$.call(null,"preview-container");var editor_container = cmd.ui.$.call(null,"input");var preview = cmd.ui.$.call(null,"preview");Rx.Observable.create(((function (editor,session,preview_container,editor_container,preview){
+return (function (observer){return session.on("change",((function (editor,session,preview_container,editor_container,preview){
 return (function (){return observer.onNext();
-});})(editor,session,preview_container,preview))
+});})(editor,session,preview_container,editor_container,preview))
 );
-});})(editor,session,preview_container,preview))
-).throttle(300).subscribe(((function (editor,session,preview_container,preview){
+});})(editor,session,preview_container,editor_container,preview))
+).throttle(300).subscribe(((function (editor,session,preview_container,editor_container,preview){
 return (function (){return cmd.ui.set_preview.call(null);
-});})(editor,session,preview_container,preview))
+});})(editor,session,preview_container,editor_container,preview))
 );
-cmd.ui.calc_offset_top_preview = ((function (editor,session,preview_container,preview){
+cmd.ui.calc_offset_top_preview = ((function (editor,session,preview_container,editor_container,preview){
 return (function calc_offset_top_preview(ot1){var ch1 = (session.getScreenLength() * editor.renderer.lineHeight);var ch2 = preview.clientHeight;return ((ot1 * ch2) / ch1);
-});})(editor,session,preview_container,preview))
+});})(editor,session,preview_container,editor_container,preview))
 ;
-cmd.ui.calc_offset_top_input = ((function (editor,session,preview_container,preview){
+cmd.ui.calc_offset_top_input = ((function (editor,session,preview_container,editor_container,preview){
 return (function calc_offset_top_input(ot2){var ch1 = (session.getScreenLength() * editor.renderer.lineHeight);var ch2 = preview.clientHeight;return ((ot2 * ch1) / ch2);
-});})(editor,session,preview_container,preview))
+});})(editor,session,preview_container,editor_container,preview))
 ;
-Rx.Observable.create(((function (editor,session,preview_container,preview){
-return (function (observer){return session.on("changeScrollTop",((function (editor,session,preview_container,preview){
+Rx.Observable.create(((function (editor,session,preview_container,editor_container,preview){
+return (function (observer){return session.on("changeScrollTop",((function (editor,session,preview_container,editor_container,preview){
 return (function (p1__10036_SHARP_){return observer.onNext(p1__10036_SHARP_);
-});})(editor,session,preview_container,preview))
+});})(editor,session,preview_container,editor_container,preview))
 );
-});})(editor,session,preview_container,preview))
-).throttle(15).subscribe(((function (editor,session,preview_container,preview){
-return (function (p1__10037_SHARP_){return preview_container.scrollTop = cmd.ui.calc_offset_top_preview.call(null,p1__10037_SHARP_);
-});})(editor,session,preview_container,preview))
+});})(editor,session,preview_container,editor_container,preview))
+).throttle(15).subscribe(((function (editor,session,preview_container,editor_container,preview){
+return (function (p1__10037_SHARP_){if(cljs.core.truth_(cmd.ui.visible_QMARK_.call(null,preview_container)))
+{return preview_container.scrollTop = cmd.ui.calc_offset_top_preview.call(null,p1__10037_SHARP_);
+} else
+{return null;
+}
+});})(editor,session,preview_container,editor_container,preview))
 );
-return Rx.Observable.fromEvent(preview_container,"scroll").throttle(15).subscribe(((function (editor,session,preview_container,preview){
-return (function (){return session.setScrollTop(cmd.ui.calc_offset_top_input.call(null,preview_container.scrollTop));
-});})(editor,session,preview_container,preview))
+return Rx.Observable.fromEvent(preview_container,"scroll").throttle(15).subscribe(((function (editor,session,preview_container,editor_container,preview){
+return (function (){return (cljs.core.truth_(cmd.ui.visible_QMARK_.call(null,editor_container))?session.setScrollTop(cmd.ui.calc_offset_top_input.call(null,preview_container.scrollTop)):null).call(null);
+});})(editor,session,preview_container,editor_container,preview))
 );
 });
 cmd.ui.setup_ace = (function setup_ace(){var editor = ace.edit("input");var session = editor.getSession();cmd.core.set_state.call(null,cmd.core.state,new cljs.core.Keyword(null,"ace","ace",1014000629),editor);

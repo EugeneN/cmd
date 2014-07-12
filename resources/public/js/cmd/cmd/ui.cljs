@@ -252,8 +252,7 @@
     (.. js/Rx -Observable
       (fromEvent preview-toggler "click")
       (subscribe #(do
-                   (toggle-slide-right preview)
-                   )))
+                   (toggle-slide-right preview))))
 
     (.. js/Rx -Observable
       (fromEvent editor-toggler "click")
@@ -279,6 +278,7 @@
   (let [editor (get-state state :ace)
         session (.. editor (getSession))
         preview-container ($ "preview-container")
+        editor-container  ($ "input")
         preview ($ "preview")]
 
     (.. js/Rx -Observable
@@ -301,13 +301,15 @@
     (.. js/Rx -Observable
       (create (fn [observer] (.. session (on "changeScrollTop" #(.. observer (onNext %))))))
       (throttle 15)
-      (subscribe #(set! (.-scrollTop preview-container) (calc-offset-top-preview %))))
+      (subscribe #(if (visible? preview-container)
+                   (set! (.-scrollTop preview-container) (calc-offset-top-preview %)))))
 
 
     (.. js/Rx -Observable
       (fromEvent preview-container "scroll")
       (throttle 15)
-      (subscribe #(.. session (setScrollTop (calc-offset-top-input (.-scrollTop preview-container))))))
+      (subscribe #((if (visible? editor-container)
+                     (.. session (setScrollTop (calc-offset-top-input (.-scrollTop preview-container))))))))
     ))
 
 (defn setup-ace
