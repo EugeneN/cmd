@@ -302,7 +302,7 @@ if(cljs.core.truth_(cljs.core.some.call(null,new cljs.core.PersistentHashSet(nul
 {cmd.ui.hide.call(null,preview);
 } else
 {}
-if(cljs.core.truth_(cljs.core.some.call(null,new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 1, ["c",null], null), null),panels_to_hide)))
+if(cljs.core.not.call(null,cljs.core.some.call(null,new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 1, ["c",null], null), null),panels_to_hide)))
 {return cmd.ui.jq_toggle.call(null,console);
 } else
 {return null;

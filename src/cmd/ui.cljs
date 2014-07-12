@@ -234,7 +234,7 @@
     (if (some #{"t"} panels-to-hide) (hide toolbar))
     (if (some #{"e"} panels-to-hide) (hide editor))
     (if (some #{"p"} panels-to-hide) (hide preview))
-    (if (some #{"c"} panels-to-hide) (jq-toggle console))
+    (if (not (some #{"c"} panels-to-hide)) (jq-toggle console))
   ))
 
 ;; ui view section -------------------------------------------------------------
