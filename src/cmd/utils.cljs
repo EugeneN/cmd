@@ -2,9 +2,7 @@
   (:require [goog.net.cookies :as cookies]))
 
 
-(defn say
-  [smth]
-  (.log js/console smth))
+
 
 (defn html!
   [node html]

@@ -3,8 +3,6 @@ goog.provide('cmd.utils');
 goog.require('cljs.core');
 goog.require('goog.net.cookies');
 goog.require('goog.net.cookies');
-cmd.utils.say = (function say(smth){return console.log(smth);
-});
 cmd.utils.html_BANG_ = (function html_BANG_(node,html){return node.innerHTML = html;
 });
 cmd.utils.join_gist_names = (function join_gist_names(file_keys){return cljs.core.apply.call(null,cljs.core.str,cljs.core.interpose.call(null," <*> ",file_keys));

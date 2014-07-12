@@ -4,7 +4,7 @@
  "sources":["defs.cljs"],
  "lineCount":9,
  "mappings":
- ";AAAA;;AAGA,AAAKA,sBAAW,AAAQ,wBAAA,xBAAiBC;AAEzC,yBAAA,zBAAKC;AAEL,2BAAA,3BAAKC;AAEL,sBAAA,iFAAA,SAAA,SAAA,zHAAKC",
+ ";AAAA;;AAGA,AAAKA,sBAAW,AAAQ,wBAAA,xBAAiBC;AAEzC,yBAAA,zBAAKC;AAEL,2BAAA,3BAAKC;AAEL,sBAAA,iFAAA,SAAA,SAAA,SAAA,lIAAKC",
  "names":
  ["cmd.defs/local-motd", "js/document", "cmd.defs/default-title",
   "cmd.defs/default-motd-id", "cmd.defs/all-panels"]}

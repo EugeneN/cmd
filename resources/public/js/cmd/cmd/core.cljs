@@ -1,6 +1,6 @@
 (ns cmd.core
   (:require
-            [cmd.utils :refer [say raw->clj setcookie getcookie]]
+            [cmd.utils :refer [raw->clj setcookie getcookie]]
             [cmd.lib :refer [GET PATCH POST active-requests]]
             [cmd.defs :refer [local-motd default-title default-motd-id]]
             [cljs.core.async :refer [chan close! >! <!]])
@@ -21,6 +21,7 @@
 ;   :mode [:new-gist :edit-gist nil]
 ;   :motd
 ;   :active-requests
+;   :messages
 ; }
 
 ; AppBus
@@ -30,9 +31,11 @@
 ;  :user-has-logged-out
 ;  :motd-loaded
 ;  :gists-loaded
+;  :new-console-msg
 ; ]
 
-(def state (atom {:active-requests 0}))
+(def state (atom {:active-requests 0
+                  :messages ["Welcome to CMD :-)"]}))
 (def AppBus (chan 1))
 
 (defn set-state
@@ -46,6 +49,12 @@
 (defn get-state
   [state key]
   (key @state))
+
+(defn say
+  [msg]
+  (set-state state :messages (conj (get-state state :messages) msg))
+  (go (>! AppBus [:new-console-msg msg]))
+  (.log js/console msg))
 
 (add-watch active-requests nil (fn [key ref old new] (set-state state :active-requests new)))
 
@@ -94,7 +103,7 @@
   [resp]
   (let [error-msg (resp "message")]
     (set-state state :error error-msg)
-    (say (str "IO Error: " error-msg))))
+    (say (str "All of a sudden... an IO Error: " error-msg))))
 
 (defn load-gists
   []
@@ -120,11 +129,10 @@
                     [_ first-file] (-> (gist "files") first)
                     content (first-file "content")]
                 ((set-state state :motd content)
-                 (>! AppBus [:motd-loaded content])
-                 (say "Loaded remote motd")))
+                 (>! AppBus [:motd-loaded content])))
 
         :nothing ((set-state state :motd local-motd)
-                  (say "Error getting remote motd"))))))
+                  (say "Sorry, can't load motd"))))))
 
 (defn load-gist
   [id]
@@ -148,7 +156,8 @@
                                                                                     (get-state state :auth-token))))
           clj-result (raw->clj result)]
       (case maybe
-        :just (set-state state :current-gist clj-result)
+        :just (do (set-state state :current-gist clj-result)
+                  (say (str "Ok, gist " gist-id " saved")))
         :nothing (handle-io-error clj-result)))))
 
 (defn create-gist
@@ -162,7 +171,8 @@
                 (do
                   (set-state state :mode nil)
                   (load-gists)
-                  (load-gist new-gist-id)))
+                  (load-gist new-gist-id)
+                  (say (str "Ok, created a gist, got id " new-gist-id))))
 
         :nothing (handle-io-error clj-result)))))
 
@@ -179,7 +189,7 @@
     (set-state state :valid-credentials false)
     (set-state state :error error-msg)
     (go (>! AppBus [:user-is-authenticated false]))
-    (say (str "Auth Error: " error-msg))))
+    (say (str "Looks like you've got an authentication error: " error-msg))))
 
 (defn authenticate
   [username auth-token]
@@ -257,28 +267,4 @@
 (defn reset-input-with-motd [] (ace-set-value (get-state state :motd)))
 
 
-(defn subscribe-appbus
-  [app-bus]
-  (go (loop [[msg payload] (<! app-bus)]
-        (case msg
-          :user-is-authenticated (case payload
-                                   true (do (load-initial-content)
-                                            (load-gists))
-                                   false (load-initial-content))
 
-          :gist-loaded (let [title (get-state state :current-file-id)
-                             gist-id payload]
-                         (set-input payload)
-                         (set-title title)
-                         (set-location-hash-gist-id gist-id))
-
-          :user-has-logged-out (reset-input-with-motd)
-          :motd-loaded (reset-input-with-motd)
-
-          :gists-loaded (let [[hash-gist & _] (find-gist state (get-gist-id-from-location-hash))]
-                          (if (not (nil? hash-gist))
-                            (load-gist (hash-gist "id"))))
-
-          (say (str "Unknown message from AppBus: " msg " : " payload)))
-
-        (recur (<! app-bus)))))

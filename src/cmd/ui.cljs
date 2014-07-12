@@ -9,12 +9,12 @@
             [goog.style :as gstyle]
 
             [cmd.defs :refer [default-title default-motd-id all-panels]]
-            [cmd.utils :refer [say html! join-gist-names setcookie getcookie]]
-            [cmd.core :refer [set-state reset-state get-state process load-gists load-gist create-gist
+            [cmd.utils :refer [ html! join-gist-names setcookie getcookie]]
+            [cmd.core :refer [say set-state reset-state get-state process load-gists load-gist create-gist
              save-gist authenticate authenticated-om? error-set? state AppBus get-motd
-             find-gist load-initial-content set-location-hash-gist-id set-title
+             find-gist load-initial-content set-location-hash-gist-id set-title set-input
              get-panels-from-location-hash get-gist-id-from-location-hash
-             subscribe-appbus reset-input-with-motd]])
+             reset-input-with-motd]])
   (:require-macros
     [cljs.core.async.macros :refer [go alt!]]
   ))
@@ -25,7 +25,8 @@
 ;; dom section
 
 (defn $ [id-str] (.getElementById js/document id-str))
-(defn visible? [el] (.isElementShown goog.style el))
+;(defn visible? [el] (.isElementShown goog.style el))
+(defn visible? [el] (.. (js/$ el) (is ":visible")))
 (defn set-width [el width] (set! (.. el -style -width) width))
 
 (defn show [el] (if (not (visible? el)) (.showElement goog.style el true)))
@@ -44,7 +45,9 @@
   [el]
   (.. (js/$ el) (toggle #js {:effect "slide" :duration 200 :direction "right"})))
 
-(defn jq-toggle [el complete-cb] (.. (js/$ el) (slideToggle 200 complete-cb)))
+(defn jq-toggle
+  ([el] (.. (js/$ el) (slideToggle 200)))
+  ([el complete-cb] (.. (js/$ el) (slideToggle 200 complete-cb))))
 
 ;; ui bl section ---------------------------------------------------------------
 
@@ -84,7 +87,7 @@
       :new-gist (let [file-name (.-value ($ "new-gist-name"))
                       new-content {:description file-name :public false :files {(keyword file-name) {:content md-raw}}}]
                   (if (< (count file-name) 4)
-                    (js/alert "Bad new gist file name")
+                    (say "Bad new gist file name")
                     ;else
                     (create-gist new-content)))
       ;default
@@ -127,7 +130,10 @@
   []
   (let [toolbar-toggler   ($ "toolbar-toggler")
         editor-toggler    ($ "editor-toggler")
+        console-toggler   ($ "console-toggler")
+        info-toggler      ($ "info-toggler")
         toolbar           ($ "toolbar")
+        console           ($ "console")
         preview           ($ "preview-container")
         editor            ($ "input")
         preview-toggler   ($ "preview-toggler")]
@@ -145,6 +151,10 @@
       (fromEvent editor-toggler "click")
       (subscribe #(toggle-slide-left editor)))
 
+    (.. js/Rx -Observable
+      (fromEvent info-toggler "click")
+      (subscribe #(say (str "No info available currently"))))
+
 
     (.. js/Rx -Observable
       (fromEvent js/document "mousemove")
@@ -157,6 +167,10 @@
         (throttle 50)
         (filter (fn [ev] (and (get-state state :toolbar-autohide) (> (.-clientY ev) 28))))
         (subscribe #(slide-up toolbar)))
+    
+    (.. js/Rx -Observable
+      (fromEvent console-toggler "click")
+      (subscribe (fn [] (do (jq-toggle console)))))
 
     ))
 
@@ -214,11 +228,13 @@
         y (clojure.set/intersection all-panels x)
         panels-to-hide    (if (= 0 (count y)) #{} (clojure.set/difference all-panels y))
         toolbar           ($ "toolbar")
+        console           ($ "console")
         preview           ($ "preview-container")
         editor            ($ "input")]
     (if (some #{"t"} panels-to-hide) (hide toolbar))
     (if (some #{"e"} panels-to-hide) (hide editor))
     (if (some #{"p"} panels-to-hide) (hide preview))
+    (if (some #{"c"} panels-to-hide) (jq-toggle console))
   ))
 
 ;; ui view section -------------------------------------------------------------
@@ -312,6 +328,57 @@
   (om/root toolbar state
     {:target (. js/document (getElementById "toolbar"))}))
 
+(defn console [state owner]
+  (reify
+    om/IRender
+    (render [_]
+      (dom/div nil
+
+        (dom/div #js {:id "msgs-list"}
+          (apply dom/ul #js {:className "hello"}
+                 (map-indexed (fn [idx msg]
+                                (if (= idx 0) (dom/li #js {:className "current-message"}
+                                                      (str "> " msg))
+                                              (dom/li nil msg)))
+                      (reverse (state :messages)))))
+      ))))
+
+(defn render-console
+  [state]
+  (om/root console state {:target ($ "console")}))
+
+(defn subscribe-appbus
+  [app-bus]
+  (go (loop [[msg payload] (<! app-bus)]
+        (case msg
+          :user-is-authenticated (case payload
+                                   true (do (load-initial-content)
+                                            (load-gists))
+                                   false (load-initial-content))
+
+          :gist-loaded (let [title (get-state state :current-file-id)
+                             gist-id payload]
+                         (set-input payload)
+                         (set-title title)
+                         (set-location-hash-gist-id gist-id))
+
+          :user-has-logged-out (reset-input-with-motd)
+
+          :motd-loaded (reset-input-with-motd)
+
+          :gists-loaded (let [[hash-gist & _] (find-gist state (get-gist-id-from-location-hash))]
+                          (if (not (nil? hash-gist))
+                            (load-gist (hash-gist "id"))))
+
+          :new-console-msg (let [console ($ "console")]
+                             (if (not (visible? console))
+                               (do
+                                 (jq-toggle console)
+                                 (js/setTimeout #(jq-toggle console) 2000))))
+
+          (say (str "Unknown message from AppBus: " msg " : " payload)))
+
+        (recur (<! app-bus)))))
 
 ; main section -----------------------------------------------------------------
 
@@ -333,6 +400,8 @@
     (authenticate username auth-token)
 
     (render-toolbar state)
+
+    (render-console state)
 
     (setup-panels)
 

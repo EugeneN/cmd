@@ -275,7 +275,55 @@ label {
     position: fixed;
     top: 0;
     left: 50%;
+}
 
+#console {
+    position: absolute;
+    bottom: 0px;
+
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+
+    width: 788px;
+    max-height: 50px;
+    overflow: auto;
+    padding: 10px;
+    border: 1px solid #000;
+    display: none;
+
+    text-align: left;
+    background-color: rgb(204, 204, 204);
+    font-size: 10px;
+
+    opacity: 0.8;
+    background-color: #000;
+
+    z-index: 100;
+    color: #fff;
+    font-family: 'Source Code Pro';
+}
+#console > div > div {
+    font-size: 13px;
+}
+#console ul li {
+    font-size: 11px;
+    list-style-type: none;
+    margin-left: -20px;
+    padding: 3px;
+}
+
+#console ul li.current-message {
+    margin-left: -35px;
+}
+
+#console-toggler {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
 
 
 }
