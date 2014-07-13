@@ -2,11 +2,10 @@
   (:require [om.core :as om :include-macros true]
             [om.dom :as dom :include-macros true]
             [cljs.core.async :refer [chan close! >! <!]]
+            [cmd.lib.dom :refer [$ toggle hide slide-up slide-down toggle-slide-right
+                                 toggle-slide-left visible? ]]
 
             clojure.set
-            clojure.string
-
-            [goog.style :as gstyle]
 
             [cmd.defs :refer [default-title default-motd-id all-panels]]
             [cmd.utils :refer [ html! join-gist-names setcookie getcookie]]
@@ -24,48 +23,9 @@
 
 ;; dom section
 
-(defn $ [id-str] (.getElementById js/document id-str))
-;(defn visible? [el] (.isElementShown goog.style el))
-(defn visible? [el] (.. (js/$ el) (is ":visible")))
-(defn set-width [el width] (set! (.. el -style -width) width))
 
-(defn show [el] (if (not (visible? el)) (.showElement goog.style el true)))
-(defn hide [el] (if (visible? el) (.showElement goog.style el false)))
-
-(defn toggle [el] (if (visible? el) (hide el) (show el)))
-
-(defn slide-up [el] (.. (js/$ el) (slideUp 200)))
-(defn slide-down [el] (.. (js/$ el) (slideDown 200)))
-
-(defn toggle-slide-left
-  [el]
-  (.. (js/$ el) (toggle #js {:effect "slide" :duration 200 :direction "left"})))
-
-(defn toggle-slide-right
-  [el]
-  (.. (js/$ el) (toggle #js {:effect "slide" :duration 200 :direction "right"})))
-
-(defn jq-toggle
-  ([el] (.. (js/$ el) (slideToggle 200)))
-  ([el complete-cb] (.. (js/$ el) (slideToggle 200 complete-cb))))
 
 ;; ui bl section ---------------------------------------------------------------
-
-(defn set-preview []
-  (let [ace (get-state state :ace)
-        ace-value (.. ace (getSession) (getValue))]
-    (process ace-value
-             (fn [value]
-              (do
-                (html! ($ "preview") value)
-                ;(js/setTimeout
-                ;  #(.Queue js/MathJax.Hub ["Typeset" (.-Hub js/MathJax) "preview"])
-                ;  300)
-                )))))
-
-(defn handle-pull
-  [_]
-  (load-gist (get-state state :current-gist-id)))
 
 (defn handle-logout
   [_]
@@ -76,48 +36,6 @@
     (setcookie "auth-token" "")
 
     (go (>! AppBus [:user-has-logged-out true]))))
-
-(defn handle-push
-  [_]
-  (let [ace (get-state state :ace)
-        md-raw (.. ace (getSession) (getValue))
-
-        mode (get-state state :mode)]
-    (case mode
-      :new-gist (let [file-name (.-value ($ "new-gist-name"))
-                      new-content {:description file-name :public false :files {(keyword file-name) {:content md-raw}}}]
-                  (if (< (count file-name) 4)
-                    (say "Bad new gist file name")
-                    ;else
-                    (create-gist new-content)))
-      ;default
-      (let [gist-id (get-state state :current-gist-id)
-            file-name (get-state state :current-file-id)
-            new-content {:description file-name :files {(keyword file-name) {:content md-raw}}}]
-        (save-gist gist-id new-content)))))
-
-(defn handle-select
-  [e]
-  (let [selected-id (.. e -target -value)]
-    (load-gist selected-id)))
-
-(defn handle-new-gist
-  [ev]
-  (let [mode (get-state state :mode)
-        new-gist-name-el ($ "new-gist-name")]
-    (case mode
-      :new-gist ((do
-                   (toggle-slide-left new-gist-name-el)
-                   (set! (.-value new-gist-name-el) "")
-                   (set-state state :mode nil)
-                   (reset-input-with-motd)))
-      (do
-        (toggle-slide-left ($ "new-gist-name"))
-        (.. ($ "new-gist-name") (focus))
-        (set-state state :mode :new-gist)
-        (set-state state :current-gist nil)
-        (set-state state :current-gist-id nil)
-        (set-state state :current-file-id nil)))))
 
 (defn handle-auth
   [e]
@@ -140,7 +58,7 @@
 
     (.. js/Rx -Observable
       (fromEvent toolbar-toggler "click")
-      (subscribe (fn [] (do (jq-toggle toolbar #(set-state state :toolbar-autohide (not (visible? toolbar))))))))
+      (subscribe (fn [] (do (toggle toolbar #(set-state state :toolbar-autohide (not (visible? toolbar))))))))
 
     (.. js/Rx -Observable
       (fromEvent preview-toggler "click")
@@ -170,57 +88,9 @@
     
     (.. js/Rx -Observable
       (fromEvent console-toggler "click")
-      (subscribe (fn [] (do (jq-toggle console)))))
+      (subscribe (fn [] (do (toggle console)))))
 
     ))
-
-(defn setup-editor-listeners
-  []
-  (let [editor (get-state state :ace)
-        session (.. editor (getSession))
-        preview-container ($ "preview-container")
-        editor-container  ($ "input")
-        preview ($ "preview")]
-
-    (.. js/Rx -Observable
-      (create (fn [observer] (.. session (on "change" #(.. observer (onNext))))))
-      (throttle 300)
-      (subscribe #(set-preview)))
-
-    (defn calc-offset-top-preview
-      [ot1]
-      (let [ch1 (* (.. session (getScreenLength)) (.. editor -renderer -lineHeight))
-            ch2 (.-clientHeight preview)]
-        (/ (* ot1 ch2) ch1)))
-
-    (defn calc-offset-top-input
-      [ot2]
-      (let [ch1 (* (.. session (getScreenLength)) (.. editor -renderer -lineHeight))
-            ch2 (.-clientHeight preview)]
-        (/ (* ot2 ch1) ch2)))
-
-    (.. js/Rx -Observable
-      (create (fn [observer] (.. session (on "changeScrollTop" #(.. observer (onNext %))))))
-      (throttle 15)
-      (subscribe #(if (visible? preview-container)
-                   (set! (.-scrollTop preview-container) (calc-offset-top-preview %)))))
-
-
-    (.. js/Rx -Observable
-      (fromEvent preview-container "scroll")
-      (throttle 15)
-      (subscribe #(if (visible? editor-container)
-                   (.. session (setScrollTop (calc-offset-top-input (.-scrollTop preview-container)))))))
-
-    ))
-
-(defn setup-ace
-  []
-  (let [editor  (.. js/ace (edit "input"))
-        session (.. editor (getSession))]
-    (set-state state :ace editor)
-    (.. session (setMode "ace/mode/markdown"))
-    (.. session (setUseWrapMode true))))
 
 (defn setup-panels
   []
@@ -235,7 +105,7 @@
     (if (some #{"t"} panels-to-hide) (hide toolbar))
     (if (some #{"e"} panels-to-hide) (hide editor))
     (if (some #{"p"} panels-to-hide) (hide preview))
-    ;(if (and (not no-flags-set) (not (some #{"c"} panels-to-hide))) (jq-toggle console))
+    ;(if (and (not no-flags-set) (not (some #{"c"} panels-to-hide))) (toggle console))
   ))
 
 ;; ui view section -------------------------------------------------------------
@@ -372,10 +242,12 @@
                             (load-gist (hash-gist "id"))))
 
           :new-console-msg (let [console ($ "console")]
-                             (if (not (visible? console))
-                               (do
-                                 (jq-toggle console)
-                                 (js/setTimeout #(jq-toggle console) 2000))))
+                             (do
+                               (set-state state :messages (conj (get-state state :messages) msg))
+                               (if (not (visible? console))
+                                 (do
+                                   (toggle console)
+                                   (js/setTimeout #(toggle console) 2000)))))
 
           (say (str "Unknown message from AppBus: " msg " : " payload)))
 
@@ -394,18 +266,25 @@
     (let [worker (new js/Worker "resources/public/js/worker.js")]
       (set-state state :worker worker))
 
-    (setup-ace)
-    (setup-editor-listeners)
+    (let [repls (get-repl-plugins)
+          default-repl xxx
+          current-repl (current-repl/get-repl app-bus state [input toolbar])]
+
+      (. current-repl (loop))
+      )
+
+
+
+    ;(setup-ace)
+    ;(setup-editor-listeners)
     (setup-toolbar-listeners)
 
     (authenticate username auth-token)
 
     (render-toolbar state)
-
     (render-console state)
 
     (setup-panels)
-
     (say "Welcome to CMD :-)")
 
     ))

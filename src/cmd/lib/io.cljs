@@ -1,9 +1,19 @@
-(ns cmd.lib
-
+(ns cmd.lib.io
   (:require [goog.net.XhrIo :as io]
             [cljs.core.async :refer [chan close! >! <!]])
   (:require-macros
     [cljs.core.async.macros :refer [go alt!]]))
+
+(defn auth-param-strict [username auth-token]
+  (js-obj "Authorization" (str "Basic " auth-token)
+          "Content-Type" "application/json"))
+
+(defn auth-param-anon [] (js-obj "Content-Type" "application/json"))
+
+(defn auth-param-fallback [username auth-token]
+  (if (nil? auth-token)
+    (auth-param-anon)
+    (auth-param-strict username auth-token)))
 
 (def active-requests (atom 0))
 
@@ -35,6 +45,17 @@
       (io/send (api-url url)
              (partial resp-handler ch)
              "GET"
+             nil
+             auth-param))
+    ch))
+
+(defn DELETE [url auth-param]
+  (let [ch (chan 1)]
+    (do
+      (active+1)
+      (io/send (api-url url)
+             (partial resp-handler ch)
+             "DELETE"
              nil
              auth-param))
     ch))
