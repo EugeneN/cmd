@@ -96,6 +96,18 @@
             new-content {:description file-name :files {(keyword file-name) {:content md-raw}}}]
         (save-gist gist-id new-content)))))
 
+(defn is-pinned?
+  [gist-id]
+  (contains? (:pinned-gists state) gist-id))
+
+(defn pin-gist
+  [gist-id]
+  (set-state state :pinned-gists (clojure.set/union (get-state state :pinned-gists) #{gist-id})))
+
+(defn unpin-gist
+  [gist-id]
+  (set-state state :pinned-gists (clojure.set/difference (get-state state :pinned-gists) #{gist-id})))
+
 (defn handle-select
   [e]
   (let [selected-id (.. e -target -value)]
@@ -307,7 +319,7 @@
                            #js {:data-value (gist "id")
                                 :onClick handle-select-panel-click}
                            (gist-list-str gist)))
-                       (:gists state)))))
+                       (get-pinned-gists state)))))
       ))))
 
 
@@ -371,6 +383,19 @@
                                         true
                                         false)
                              :onClick handle-push} "PUSH>>")
+
+            ;(dom/button #js {:id "pin"
+            ;                 :title "Pin current gist for this session"
+            ;                 :disabled (if (and (nil? (state :current-gist)) (not (= (state :mode) :new-gist)))
+            ;                             true
+            ;                             false)
+            ;                 :onClick #(let [current-gist (state :current-gist-id)]
+            ;                            (if (is-pinned? current-gist)
+            ;                              (unpin-gist current-gist)
+            ;                              (pin-gist current-gist))
+            ;                            )} (if (is-pinned? (state :current-gist-id)) "UNP!N" "P!N"))
+            ;
+            ;(dom/span nil "|")
 
             (dom/button #js {:id "log-out"
                              :title "Log out and remove autologin cookies"
