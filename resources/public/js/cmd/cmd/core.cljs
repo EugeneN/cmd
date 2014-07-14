@@ -1,5 +1,5 @@
 (ns cmd.core
-  (:require
+  (:require clojure.set
             [cmd.utils :refer [raw->clj setcookie getcookie]]
             [cmd.lib :refer [GET PATCH POST active-requests]]
             [cmd.defs :refer [local-motd default-title default-motd-id]]
@@ -22,6 +22,7 @@
 ;   :motd
 ;   :active-requests
 ;   :messages
+;   :pinned-gists #{}
 ; }
 
 ; AppBus
@@ -32,9 +33,11 @@
 ;  :motd-loaded
 ;  :gists-loaded
 ;  :new-console-msg
+;  :reload-gists
 ; ]
 
 (def state (atom {:active-requests 0
+                  :pinned-gists #{"c47fbe2ad4d50f6ffe16"}
                   :messages []}))
 (def AppBus (chan 1))
 
@@ -157,6 +160,7 @@
           clj-result (raw->clj result)]
       (case maybe
         :just (do (set-state state :current-gist clj-result)
+                  (load-gists)
                   (say (str "Ok, gist " gist-id " saved")))
         :nothing (handle-io-error clj-result)))))
 
@@ -266,5 +270,6 @@
 
 (defn reset-input-with-motd [] (ace-set-value (get-state state :motd)))
 
-
-
+(defn get-pinned-gists
+  [state]
+  (filter (fn [x] (clojure.set/contains? (:pinned-gists state) (x "id"))) (:gists state)))

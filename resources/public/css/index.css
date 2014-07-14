@@ -50,7 +50,6 @@ body {
     margin: 0;
     padding: 0;
 
-    background-color: white;
     overflow: auto;
     text-align: justify;
     font-family: Times, serif;
@@ -122,6 +121,14 @@ body {
     color: rgb(0,96,250);
     font-size: 100%;
     margin-left: 1em;
+    z-index: 201;
+
+    -webkit-transition: background 0.25s linear;
+    -moz-transition: background 0.25s linear;
+    -ms-transition: background 0.25s linear;
+    -o-transition: background 0.25s linear;
+    transition: background 0.25s linear;
+
 }
 
 #toolbar button:disabled {
@@ -133,8 +140,7 @@ body {
 }
 
 #toolbar a:hover, #toolbar button:hover {
-    color: #fff;
-    background-color: #000;
+    background-color: #ddd;
 }
 a {
     text-decoration: underline;
@@ -145,11 +151,11 @@ a {
 
 }
 #gist-list {
-    border: 0px;
-    border-bottom: 1px solid #aaa;
-    text-align: left;
-    width: 256px;
-    display: inline-block;
+    /*border: 0px;*/
+    /*border-bottom: 1px solid #aaa;*/
+    /*text-align: left;*/
+    /*width: 256px;*/
+    /*display: inline-block;*/
 
 }
 #gist-list select {
@@ -324,6 +330,85 @@ label {
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
+}
 
 
+/*---------------------------------------*/
+
+#gist-list {
+    position: absolute;
+    top: 28px;
+
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+
+    width: 900px !important;
+    height: 400px !important;
+
+    display: none;
+
+    background-color: rgb(233, 234, 236);
+    padding: 10px;
+    border: 0;
+
+    z-index: 200;
+    overflow: hidden;
+
+    text-align: center;
+
+    -webkit-box-shadow: 0px 10px 25px -5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 10px 25px -5px rgba(0,0,0,0.75);
+    box-shadow: 0px 10px 25px -5px rgba(0,0,0,0.75);
+
+    opacity: 0.95;
+}
+.gist-select-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    text-align: center;
+}
+
+.select-panel, .gist-select-container > div {
+    display: inline-block;
+    width: 31%;
+    height: 100%;
+    overflow: hidden;
+    margin: 5px;
+    text-align: left;
+}
+
+.select-panel-title {
+    font-weight: 300;
+    font-family: 'Source Code Pro';
+    text-align: left;
+    margin: 1em 0 1em 0;
+    font-size: 18px;
+}
+
+.select-panel-list-wrapper {
+    overflow: auto;
+    height: 330px;
+}
+
+.select-panel-list {
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+}
+
+.select-panel-list li {
+    list-style-type: none;
+    padding: 2px;
+    padding-left: .5em;
+    padding-right: .5em;
+    margin-left: 0px;
+    cursor: pointer;
+}
+
+.select-panel-list li:hover {
+    background-color: #000;
+    color: #fff;
 }
