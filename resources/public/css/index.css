@@ -373,7 +373,7 @@ label {
 
 .select-panel, .gist-select-container > div {
     display: inline-block;
-    width: 31%;
+    width: 23%;
     height: 100%;
     overflow: hidden;
     margin: 5px;
@@ -389,7 +389,8 @@ label {
 }
 
 .select-panel-list-wrapper {
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     height: 330px;
 }
 

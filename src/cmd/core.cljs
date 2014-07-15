@@ -47,16 +47,13 @@
 
 
 (def state (atom {:active-requests 0
-                  :pinned-gists (get-prefs :pinned-gists)                            ;#{"58a15db96ca12b952f8e"}
+                  :pinned-gists (get-prefs :pinned-gists)
+                  :latest-opened (let [saved-pref (get-prefs :latest-opened)] (if (nil? saved-pref) '() saved-pref))
                   :messages []}))
 
-;(add-watch state :pinned-gists (fn [key ref old-state new-state]
-;                                 (let [prev-pinned (old-state :pinned-gists)
-;                                       cur-pinned (new-state :pinned-gists)
-;                                       changed (and (set/subset? prev-pinned cur-pinned) (set/subset? cur-pinned prev-pinned))]
-;                                   (if changed (set-prefs :pinned-gists cur-pinned)))))
 (add-watch state :pinned-gists (fn [key ref old-state new-state]
-                                 (set-prefs :pinned-gists (new-state :pinned-gists))))
+                                 (set-prefs :pinned-gists (new-state :pinned-gists))
+                                 (set-prefs :latest-opened (new-state :latest-opened))))
 
 (def AppBus (chan 1))
 
@@ -138,7 +135,13 @@
         :just ((set-state state :gists resp-clj)
                (>! AppBus [:gists-loaded nil]))
         :nothing (handle-io-error resp-clj)))))
-
+;
+(defn update-latest-opened
+  [gist-id]
+  (let [latest-opened (get-state state :latest-opened)
+        clean-opened (filter #(not (= % gist-id)) latest-opened)
+        new-latest-opened (take 20 (conj clean-opened gist-id))]
+    (set-state state :latest-opened new-latest-opened)))
 
 
 (defn get-motd
@@ -168,6 +171,9 @@
                     (set-state state :current-gist gist)
                     (set-state state :current-gist-id id)
                     (set-state state :mode :edit-gist)
+
+                    (update-latest-opened id)
+
                     (>! AppBus [:gist-loaded id])))
         :nothing (handle-io-error (raw->clj resp))))))
 
