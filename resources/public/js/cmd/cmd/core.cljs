@@ -1,5 +1,5 @@
 (ns cmd.core
-  (:require clojure.set
+  (:require
             [cmd.utils :refer [raw->clj setcookie getcookie]]
             [cmd.lib :refer [GET PATCH POST active-requests]]
             [cmd.defs :refer [local-motd default-title default-motd-id]]
@@ -37,7 +37,7 @@
 ; ]
 
 (def state (atom {:active-requests 0
-                  :pinned-gists #{"c47fbe2ad4d50f6ffe16"}
+                  :pinned-gists #{"58a15db96ca12b952f8e"}
                   :messages []}))
 (def AppBus (chan 1))
 
@@ -272,4 +272,4 @@
 
 (defn get-pinned-gists
   [state]
-  (filter (fn [x] (clojure.set/contains? (:pinned-gists state) (x "id"))) (:gists state)))
+  (filter (fn [gist] (contains? (:pinned-gists state) (gist "id"))) (:gists state)))

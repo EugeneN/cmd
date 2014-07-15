@@ -96,6 +96,18 @@
             new-content {:description file-name :files {(keyword file-name) {:content md-raw}}}]
         (save-gist gist-id new-content)))))
 
+(defn is-pinned?
+  [gist-id]
+  (contains? (:pinned-gists state) gist-id))
+
+(defn pin-gist
+  [gist-id]
+  (set-state state :pinned-gists (clojure.set/union (get-state state :pinned-gists) #{gist-id})))
+
+(defn unpin-gist
+  [gist-id]
+  (set-state state :pinned-gists (clojure.set/difference (get-state state :pinned-gists) #{gist-id})))
+
 (defn handle-select
   [e]
   (let [selected-id (.. e -target -value)]
@@ -267,48 +279,58 @@
   [gist]
   (-> (gist "files") keys join-gist-names))
 
+(defn valid-query?
+  [query]
+  (not (or (= query "") (= query nil))))
+
+(defn gist-matches-query?
+  [gist query]
+  (let [norm-source (-> (str (gist-list-str gist)) (.toLowerCase))
+        norm-query (-> query (.toLowerCase))]
+    (-> norm-source (.indexOf norm-query) (> -1))))
+
+(defn render-list
+  [gists]
+  (apply dom/ul #js {:className "select-panel-list"
+                     :title "Select a gist for a good start :-)"}
+    (map (fn [gist]
+          (dom/li
+            #js {:data-value (gist "id")
+                 :onClick handle-select-panel-click}
+            (gist-list-str gist)))
+        gists)))
+
 (defn gist-select [state owner]
   (reify
     om/IRender
     (render [_]
-      (dom/div #js {:className "gist-select-container"}
+      (let [gists (filter (fn [gist]
+                            (let [query (:query state)]
+                              (if (valid-query? query)
+                                (gist-matches-query? gist query)
+                                true)))
+                          (:gists state))
+            latest-created (sort (fn [a b] (> (a "created_at") (b "created_at"))) gists)
+            latest-edited (sort (fn [a b] (> (a "updated_at") (b "updated_at"))) gists)
+            pinned (sort (fn [a b] (> (gist-list-str a) (gist-list-str b))) (get-pinned-gists state))]
 
-        (dom/div #js {:className: "select-panel"}
-          (dom/div #js {:className "select-panel-title"} "Latest created")
-          (dom/div #js {:className "select-panel-list-wrapper"}
-            (apply dom/ul #js {:className "select-panel-list"
-                              :title "Select a gist for a good start :-)"}
-                  (map (fn [gist]
-                         (dom/li
-                           #js {:data-value (gist "id")
-                                :onClick handle-select-panel-click}
-                           (gist-list-str gist)))
-                       (sort (fn [a b] (> (a "created_at") (b "created_at"))) (:gists state))))))
+        (dom/div #js {:className "gist-select-container"}
 
-        (dom/div #js {:className: "select-panel"}
-          (dom/div  #js {:className "select-panel-title"} "Latest edited")
-          (dom/div #js {:className "select-panel-list-wrapper"}
-            (apply dom/ul #js {:className "select-panel-list"
-                              :title "Select a gist for a good start :-)"}
-                  (map (fn [gist]
-                         (dom/li
-                           #js {:data-value (gist "id")
-                                :onClick handle-select-panel-click}
-                           (gist-list-str gist)))
-                       (sort (fn [a b] (> (a "updated_at") (b "updated_at"))) (:gists state))))))
+          (dom/div #js {:className: "select-panel"}
+                  (dom/div #js {:className "select-panel-title"} "Latest created")
+                  (dom/div #js {:className "select-panel-list-wrapper"}
+                           (render-list latest-created)))
 
-        (dom/div #js {:className: "select-panel"}
-          (dom/div  #js {:className "select-panel-title"} "Pinned")
-          (dom/div #js {:className "select-panel-list-wrapper"}
-            (apply dom/ul #js {:className "select-panel-list"
-                              :title "Select a gist for a good start :-)"}
-                  (map (fn [gist]
-                         (dom/li
-                           #js {:data-value (gist "id")
-                                :onClick handle-select-panel-click}
-                           (gist-list-str gist)))
-                       (:gists state)))))
-      ))))
+          (dom/div #js {:className: "select-panel"}
+                  (dom/div  #js {:className "select-panel-title"} "Latest edited")
+                  (dom/div #js {:className "select-panel-list-wrapper"}
+                           (render-list latest-edited)))
+
+          (dom/div #js {:className: "select-panel"}
+                  (dom/div  #js {:className "select-panel-title"} "Pinned")
+                  (dom/div #js {:className "select-panel-list-wrapper"}
+                           (render-list pinned)))
+          )))))
 
 
 (defn toolbar [state owner]
@@ -340,8 +362,8 @@
 
             (dom/input #js {:className "ios7"
                             :type "text"
-                            :placeholder "Select a gist..."
-                            ;:onChange #(om/set-state! owner :query (.. % -target -value))
+                            :placeholder "Type here to select a gist..."
+                            :onChange #(om/transact! state :query (fn [_] (.. % -target -value)))
                             :onClick #(let [panel ($ "gist-list")] (if (visible? panel)
                                                                      (slide-up panel)
                                                                      (slide-down panel)))} "SELECT_G!ST: ")
@@ -371,6 +393,19 @@
                                         true
                                         false)
                              :onClick handle-push} "PUSH>>")
+
+            ;(dom/button #js {:id "pin"
+            ;                 :title "Pin current gist for this session"
+            ;                 :disabled (if (and (nil? (state :current-gist)) (not (= (state :mode) :new-gist)))
+            ;                             true
+            ;                             false)
+            ;                 :onClick #(let [current-gist (state :current-gist-id)]
+            ;                            (if (is-pinned? current-gist)
+            ;                              (unpin-gist current-gist)
+            ;                              (pin-gist current-gist))
+            ;                            )} (if (is-pinned? (state :current-gist-id)) "UNP!N" "P!N"))
+            ;
+            ;(dom/span nil "|")
 
             (dom/button #js {:id "log-out"
                              :title "Log out and remove autologin cookies"
