@@ -8,6 +8,7 @@
                  [org.clojure/core.match "0.2.1"]
                  [servant "0.1.3"]
 ;                 [sablono "0.2.14"]
+                 [alandipert/storage-atom "1.2.3"]
                  [om "0.6.1"]]
   :plugins [[lein-cljsbuild "1.0.3"]]
   :source-paths ["src"]

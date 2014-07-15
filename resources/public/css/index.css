@@ -412,3 +412,7 @@ label {
     background-color: #000;
     color: #fff;
 }
+
+.toolbar-separator {
+    color: #000 !important;
+}

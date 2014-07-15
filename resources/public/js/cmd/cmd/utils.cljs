@@ -1,5 +1,4 @@
-(ns cmd.utils
-  (:require [goog.net.cookies :as cookies]))
+(ns cmd.utils)
 
 
 
@@ -18,8 +17,4 @@
         clj (js->clj json)]
     clj))
 
-(defn setcookie [name value]
-  (.set goog.net.cookies name value -1))
 
-(defn getcookie [name]
-  (.get goog.net.cookies name))

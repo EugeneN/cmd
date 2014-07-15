@@ -9,11 +9,11 @@
             [goog.style :as gstyle]
 
             [cmd.defs :refer [default-title default-motd-id all-panels]]
-            [cmd.utils :refer [ html! join-gist-names setcookie getcookie]]
+            [cmd.utils :refer [ html! join-gist-names]]
             [cmd.core :refer [say set-state reset-state get-state process load-gists load-gist create-gist
              save-gist authenticate authenticated-om? error-set? state AppBus get-motd
              find-gist load-initial-content set-location-hash-gist-id set-title set-input
-             get-panels-from-location-hash get-gist-id-from-location-hash
+             get-panels-from-location-hash get-gist-id-from-location-hash set-prefs get-prefs
              reset-input-with-motd get-pinned-gists]])
   (:require-macros
     [cljs.core.async.macros :refer [go alt!]]
@@ -72,8 +72,8 @@
   (do
     (say "Bye, c u l8r :-)")
     (reset-state state)
-    (setcookie "username" "")
-    (setcookie "auth-token" "")
+    (set-prefs "username" nil)
+    (set-prefs "auth-token" nil)
 
     (go (>! AppBus [:user-has-logged-out true]))))
 
@@ -95,23 +95,6 @@
             file-name (get-state state :current-file-id)
             new-content {:description file-name :files {(keyword file-name) {:content md-raw}}}]
         (save-gist gist-id new-content)))))
-
-(defn is-pinned?
-  [gist-id]
-  (contains? (:pinned-gists state) gist-id))
-
-(defn pin-gist
-  [gist-id]
-  (set-state state :pinned-gists (clojure.set/union (get-state state :pinned-gists) #{gist-id})))
-
-(defn unpin-gist
-  [gist-id]
-  (set-state state :pinned-gists (clojure.set/difference (get-state state :pinned-gists) #{gist-id})))
-
-(defn handle-select
-  [e]
-  (let [selected-id (.. e -target -value)]
-    (load-gist selected-id)))
 
 (defn handle-new-gist
   [ev]
@@ -267,6 +250,20 @@
 
 ;; ui view section -------------------------------------------------------------
 
+(defn toggle-pin-gist
+  [state]
+  (let [current-gist-id (@state :current-gist-id)
+        is-pinned (contains? (@state :pinned-gists) current-gist-id)]
+    (if is-pinned
+      (do
+        (om/transact! state :pinned-gists (fn [old-pinned]
+                                          (clojure.set/difference old-pinned #{current-gist-id})))
+        (say (str "Unpinned gist " current-gist-id)))
+      (do
+        (om/transact! state :pinned-gists (fn [old-pinned]
+                                          (clojure.set/union old-pinned #{current-gist-id})))
+        (say (str "Pinned gist " current-gist-id))))))
+
 (defn handle-select-panel-click
   [ev]
   (let [gist-id (.. ev -target (getAttribute "data-value"))
@@ -394,18 +391,14 @@
                                         false)
                              :onClick handle-push} "PUSH>>")
 
-            ;(dom/button #js {:id "pin"
-            ;                 :title "Pin current gist for this session"
-            ;                 :disabled (if (and (nil? (state :current-gist)) (not (= (state :mode) :new-gist)))
-            ;                             true
-            ;                             false)
-            ;                 :onClick #(let [current-gist (state :current-gist-id)]
-            ;                            (if (is-pinned? current-gist)
-            ;                              (unpin-gist current-gist)
-            ;                              (pin-gist current-gist))
-            ;                            )} (if (is-pinned? (state :current-gist-id)) "UNP!N" "P!N"))
-            ;
-            ;(dom/span nil "|")
+            (dom/button #js {:id "pin"
+                             :title "Pin current gist for this session"
+                             :disabled (if (and (nil? (state :current-gist)) (not (= (state :mode) :new-gist)))
+                                         true
+                                         false)
+                             :onClick #(toggle-pin-gist state) } (if (contains? (state :pinned-gists) (state :current-gist-id)) "UNP!N" "P!N"))
+
+            (dom/span #js {:className "toolbar-separator"} "|")
 
             (dom/button #js {:id "log-out"
                              :title "Log out and remove autologin cookies"
@@ -495,9 +488,9 @@
 
 (defn main
   [state app-bus]
-  (let [username (getcookie "username")
-        auth-token (getcookie "auth-token")
-        last-opened-gist-id (getcookie "last-gist")]
+  (let [username (get-prefs "username")
+        auth-token (get-prefs "auth-token")
+        last-opened-gist-id (get-prefs "last-gist")]
 
     (subscribe-appbus app-bus)
 

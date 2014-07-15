@@ -1,8 +1,9 @@
 (ns cmd.core
-  (:require
-            [cmd.utils :refer [raw->clj setcookie getcookie]]
+  (:require [clojure.set :as set]
+            [cmd.utils :refer [raw->clj]]
             [cmd.lib :refer [GET PATCH POST active-requests]]
             [cmd.defs :refer [local-motd default-title default-motd-id]]
+            [alandipert.storage-atom :refer [local-storage]]
             [cljs.core.async :refer [chan close! >! <!]])
   (:require-macros
     [cljs.core.async.macros :refer [go alt!]]
@@ -36,9 +37,27 @@
 ;  :reload-gists
 ; ]
 
+(def prefs (local-storage (atom {}) :prefs))
+
+
+
+(defn set-prefs [name value] (swap! prefs assoc name value))
+
+(defn get-prefs [name] (@prefs name))
+
+
 (def state (atom {:active-requests 0
-                  :pinned-gists #{"58a15db96ca12b952f8e"}
+                  :pinned-gists (get-prefs :pinned-gists)                            ;#{"58a15db96ca12b952f8e"}
                   :messages []}))
+
+;(add-watch state :pinned-gists (fn [key ref old-state new-state]
+;                                 (let [prev-pinned (old-state :pinned-gists)
+;                                       cur-pinned (new-state :pinned-gists)
+;                                       changed (and (set/subset? prev-pinned cur-pinned) (set/subset? cur-pinned prev-pinned))]
+;                                   (if changed (set-prefs :pinned-gists cur-pinned)))))
+(add-watch state :pinned-gists (fn [key ref old-state new-state]
+                                 (set-prefs :pinned-gists (new-state :pinned-gists))))
+
 (def AppBus (chan 1))
 
 (defn set-state
@@ -184,8 +203,8 @@
   (set-state state :username username)
   (set-state state :auth-token auth-token)
   (set-state state :valid-credentials true)
-  (setcookie "username" username)
-  (setcookie "auth-token" auth-token)
+  (set-prefs "username" username)
+  (set-prefs "auth-token" auth-token)
   (go (>! AppBus [:user-is-authenticated true])))
 
 (defn unauthorized [resp]
