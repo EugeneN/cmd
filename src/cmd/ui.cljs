@@ -309,10 +309,13 @@
                           (:gists state))
             latest-created (sort (fn [a b] (> (a "created_at") (b "created_at"))) gists)
             latest-edited (sort (fn [a b] (> (a "updated_at") (b "updated_at"))) gists)
-            latest-opened-ids (state :latest-opened)
+
+            latest-opened-ids (vec (state :latest-opened))
+            latest-opened-unordered (filter (fn [gist] (some #{(gist "id")} latest-opened-ids)) gists)
             latest-opened (sort-by
-                            #(.. latest-opened-ids (indexOf (% "id")))
-                            (filter (fn [gist] (contains? latest-opened-ids (gist "id"))) (:gists state)))
+                            #((into {} (map-indexed (fn [i e] [e i]) latest-opened-ids)) (% "id"))
+                            latest-opened-unordered)
+
             pinned (sort (fn [a b] (> (gist-list-str a) (gist-list-str b))) (get-pinned-gists state))]
 
         (dom/div #js {:className "gist-select-container"}
