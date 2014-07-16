@@ -115,11 +115,8 @@
         (set-state state :current-file-id nil)))))
 
 (defn handle-auth
-  [e]
-  (let [username (.-value ($ "username"))
-        auth-token (.-value ($ "auth-token"))]
-    (authenticate username auth-token)
-    ))
+  [username password]
+  (authenticate username password))
 
 (defn toggle-gist-list-panel
   []
@@ -496,17 +493,34 @@
           (dom/div nil
             (dom/label nil "USERN@ME: ")
             (dom/input #js {:type "text"
-                            :title "Your Github username"
+                            :title "Github username"
                             :id "username"})
 
             (dom/label nil "S#CRET: ")
-            (dom/input #js {:type "text"
-                            :title "Github auth token in base64 :-P"
+            (dom/input #js {:type "password"
+                            :title "Github password"
+                            ;:value ""
+                            :onKeyUp #(when (== (.-keyCode %) 13)
+                                       (let [username-field ($ "username")
+                                             password-field ($ "auth-token")
+                                             username (.-value username-field)
+                                             password (.-value password-field)]
+                                         (do
+                                           (set! (.-value username-field) "")
+                                           (set! (.-value password-field) "")
+                                           (handle-auth username password))))
                             :id "auth-token"})
 
             (dom/button #js {:id "go"
                              :title "Log in to access and work with your gists"
-                             :onClick handle-auth} "LOG>>IN")
+                             :onClick #(let [username-field ($ "username")
+                                             password-field ($ "auth-token")
+                                             username (.-value username-field)
+                                             password (.-value password-field)]
+                                         (do
+                                           (set! (.-value username-field) "")
+                                           (set! (.-value password-field) "")
+                                           (handle-auth username password)))} "LOG>>IN")
 
             (if (error-set? state)
               (dom/span #js {:id "error-msg"}) (str (state :error)))

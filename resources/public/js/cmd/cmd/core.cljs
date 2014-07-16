@@ -102,9 +102,12 @@
         :just (cb resp)
         :nothing (cb "<Error>")))))
 
+(defn make-basic-auth-token
+  [username password]
+  (js/btoa (str username ":" password)))
 
 (defn auth-param-strict [username auth-token]
-  (js-obj "Authorization" (str "Basic " auth-token)
+  (js-obj "Authorization" (str "Basic " (make-basic-auth-token username auth-token))
           "Content-Type" "application/json"))
 
 (defn auth-param-anon [] (js-obj "Content-Type" "application/json"))
