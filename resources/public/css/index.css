@@ -350,8 +350,8 @@ label {
     display: none;
 
     /*background-color: rgb(233, 234, 236);*/
-    background-color: #000;
-    color: #fff;
+    background-color: #fff;
+    color: #000;
     padding: 10px;
     padding-bottom: 22px;
     padding-top: 0px;
@@ -366,7 +366,7 @@ label {
     -moz-box-shadow: 0px 10px 25px -5px rgba(0,0,0,0.75);
     box-shadow: 0px 10px 25px -5px rgba(0,0,0,0.75);
 
-    opacity: 0.80;
+    opacity: 1;
 }
 .gist-select-container {
     width: 100%;
@@ -415,7 +415,7 @@ label {
 }
 
 .select-panel-list li:hover {
-    background-color: #fff;
+    background-color: #ccc;
     color: #000;
     font-weight: bolder;
 }
