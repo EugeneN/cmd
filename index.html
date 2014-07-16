@@ -11,43 +11,33 @@
 
     <script id="motd" type="text/motd">
 
-# Welcome to CMD
+# Welcome to C.MD
 
-This is an *explosive* mixture of ***ClojureScript, Rx, React/Om, core.async, github CORS api, ace, pagedown, web workers etc***  crafted together to give you the *best* ***gist*** editing tool, ever... well, at least a good try :-)
+This is an *explosive* mixture of ***ClojureScript, Rx, React/Om, core.async, github CORS api, ace, marked, web workers etc***  ~~crafted~~engineered together to give you the *best* ***gist*** editing tool, ever... well, at least a good try :-)
 It's currently an alfa-quality prototype, so do not expect to much.
 
 
-To begin:
+#### What you can do next:
 
-- just provide your Github username and a **secret* to log in
+- log in with your Github credentials*
 - should you be logged in:
  - click a `:NEW_G!ST:` to set a name and then `PUSH>>` to create a new gist with whatever content is *here*
  - ...or select a gist from the list to work on it, then `PUSH>>` to save, `>>PULL` to update content from Github.
+- use `C.MD` as a beautiful *gist* viewer - just set an url hash to `#<gist-id>;p`, for example: <http://eugenen.github.io/#58a15db96ca12b952f8e;p>
 
 
 ***
 
-\* To obtain the *secret* please follow next steps:
+###### \* Sensitive data will only be sent to Github API servers over *https*. `CMD` will also remember your credentials in `localStorage`, so you will enjoy an *autologin* until you will `LOG^OUT`.
 
-- open your Github account settings on `Applications` menu topic - https://github.com/settings/applications
-- click `Generate new token` button
-- select ***only*** the `gist` scope (the last one) and click a big green `Generate token` button
-- concatenate the token with a string `:x-oauth-basic` and generate a `base64` hash of the resulting string:
- ```bash
-  $ echo <token>:x-oauth-basic | base64
- ```
 
-...then paste the hash into the `S#CRET` field and click `LOG>>IN` and you're in! :-)
-
-Why so much trouble? - becase it's a *hacker*'s editor so the login process should not be *boring* as in *common* *lame* *userspace* applications :-) The good news is that `CMD` will remember your credentials in *cookies*, so you will enjoy an *autologin* until you `LOG^OUT`.
-
-Other *hakerish* feature of `CMD` is that all error reporting and other feedback is done via `console.log()`, so feel free to open a *web inspector* panel in your browser now `:-P`
-
-:::
+<br/>
 
 ```
 (println "Heil Clojure!")
 ```
+
+
 
     </script>
     <script id="new-gist-motd" type="text/motd">

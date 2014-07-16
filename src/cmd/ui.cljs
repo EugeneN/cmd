@@ -552,6 +552,43 @@
   [state]
   (om/root console state {:target ($ "console")}))
 
+
+
+(defn set-editor-mode
+  [state]
+  (let [editor (get-state state :ace)
+        session (.. editor (getSession))
+        extension (get-state state :text-mode)]
+    (case extension
+      ".py"         (.. session (setMode "ace/mode/pyhton"))
+      ".js"         (.. session (setMode "ace/mode/javascript"))
+      ".yaml"       (.. session (setMode "ace/mode/yaml"))
+      ".coffee"     (.. session (setMode "ace/mode/coffee"))
+      ".html"       (.. session (setMode "ace/mode/html"))
+      ".xml"        (.. session (setMode "ace/mode/xml"))
+      ".css"        (.. session (setMode "ace/mode/css"))
+      ".hs"         (.. session (setMode "ace/mode/haskell"))
+      ".clj"        (.. session (setMode "ace/mode/clojure"))
+      ".cljs"       (.. session (setMode "ace/mode/clojure"))
+      ".ts"         (.. session (setMode "ace/mode/typescript"))
+      ".sql"        (.. session (setMode "ace/mode/sql"))
+      ".sh"         (.. session (setMode "ace/mode/sh"))
+      ".sass"       (.. session (setMode "ace/mode/sass"))
+      ".less"       (.. session (setMode "ace/mode/less"))
+      ".rb"         (.. session (setMode "ace/mode/ruby"))
+      ".rs"         (.. session (setMode "ace/mode/rust"))
+      ".json"       (.. session (setMode "ace/mode/json"))
+      ".ini"        (.. session (setMode "ace/mode/ini"))
+      ".go"         (.. session (setMode "ace/mode/golang"))
+      ".diff"       (.. session (setMode "ace/mode/diff"))
+      ".md"         (.. session (setMode "ace/mode/markdown"))
+      ".markdown"   (.. session (setMode "ace/mode/markdown"))
+      ".txt"        (.. session (setMode "ace/mode/text"))
+
+      (when (not (nil? extension))
+        (do (say (str "Unknown extension: " extension))))
+      )))
+
 (defn subscribe-appbus
   [app-bus]
   (go (loop [[msg payload] (<! app-bus)]
@@ -565,9 +602,12 @@
 
           :gist-loaded (let [title (get-state state :current-file-id)
                              gist-id payload]
-                         (set-input payload)
-                         (set-title title)
-                         (set-location-hash-gist-id gist-id))
+
+                         (do
+                           (set-input payload)
+                           (set-title title)
+                           (set-location-hash-gist-id gist-id)
+                           (set-editor-mode state)))
 
           :user-has-logged-out (reset-input-with-motd)
 

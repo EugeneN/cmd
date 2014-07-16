@@ -1289,7 +1289,14 @@ onmessage = function (ev) {
         highlight: function (code) { return hljs.highlightAuto(code).value; }
     });
 
-    var result = marked(ev.data);
+
+    var msg = ev.data;
+    console.log(msg.mode);
+    if (msg.mode !== ".md") {
+        var result = "<pre>" + hljs.highlightAuto(msg.data).value + "</pre>";
+    } else {
+        var result = marked(msg.data);
+    }
 
     postMessage(result);
 };

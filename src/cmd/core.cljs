@@ -24,6 +24,7 @@
 ;   :active-requests
 ;   :messages
 ;   :pinned-gists #{}
+;   :text-mode
 ; }
 
 ; AppBus
@@ -80,6 +81,7 @@
 (defn wmd->html
   [text]
   (let [worker (get-state state :worker)
+        text-mode (get-state state :text-mode)
         ch (chan 1)]
     (.addEventListener worker
                        "message"
@@ -88,7 +90,7 @@
                            (go (>! ch [:just data])
                                (close! ch))))
                        false)
-    (.postMessage worker text)
+    (.postMessage worker #js {:mode text-mode :data text})
     ch))
 
 (defn html->react [html] html)
@@ -162,6 +164,13 @@
         :nothing ((set-state state :motd local-motd)
                   (say "Sorry, can't load motd"))))))
 
+(defn guess-file-mode
+  [filename]
+  (let [ext (re-find #"\.[A-Za-z0-9]+?$" filename)]
+    (case ext
+      nil nil
+      (.. ext (toLowerCase)))))
+
 (defn load-gist
   [id]
   (go
@@ -169,8 +178,10 @@
           [maybe resp] (<! (GET url (auth-param-fallback (get-state state :username) (get-state state :auth-token))))]
       (case maybe
         :just (do (let [gist (raw->clj resp)
-                        [first-file-name _] (-> (gist "files") first)]
+                        [first-file-name _] (-> (gist "files") first)
+                        ext (guess-file-mode first-file-name)]
                     (set-state state :current-file-id first-file-name)
+                    (set-state state :text-mode ext)
                     (set-state state :current-gist gist)
                     (set-state state :current-gist-id id)
                     (set-state state :mode :edit-gist)
