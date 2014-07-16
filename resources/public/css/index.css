@@ -353,6 +353,8 @@ label {
     background-color: #000;
     color: #fff;
     padding: 10px;
+    padding-bottom: 22px;
+    padding-top: 0px;
     border: 0;
 
     z-index: 200;
@@ -383,10 +385,10 @@ label {
 }
 
 .select-panel-title {
-    font-weight: 300;
+    font-weight: 100;
     font-family: 'Source Code Pro';
     text-align: left;
-    margin: 1em 0 1em 0;
+    margin: 1em 0 1em 5px;
     font-size: 18px;
 }
 
@@ -398,6 +400,7 @@ label {
 
 .select-panel-list {
     font-size: 14px;
+    font-weight: lighter;
     padding: 0;
     margin: 0;
 }
@@ -414,6 +417,7 @@ label {
 .select-panel-list li:hover {
     background-color: #fff;
     color: #000;
+    font-weight: bolder;
 }
 
 .toolbar-separator {
