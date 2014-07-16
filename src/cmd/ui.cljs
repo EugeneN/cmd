@@ -136,11 +136,25 @@
         editor-toggler    ($ "editor-toggler")
         console-toggler   ($ "console-toggler")
         info-toggler      ($ "info-toggler")
+        zen-toggler       ($ "zen-toggler")
         toolbar           ($ "toolbar")
         console           ($ "console")
         preview           ($ "preview-container")
         editor            ($ "input")
         preview-toggler   ($ "preview-toggler")]
+
+
+    (.. js/Rx -Observable
+        (fromEvent zen-toggler "click")
+        (subscribe (fn [] (if (visible? editor)
+                            (do
+                              (hide editor)
+                              (hide console)
+                              (hide toolbar))
+                            (do
+                              (show editor)
+                              (show console)
+                              (show toolbar))))))
 
     (.. js/Rx -Observable
       (fromEvent toolbar-toggler "click")
