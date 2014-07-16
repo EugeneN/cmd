@@ -883,7 +883,6 @@ var worker_11063 = (new Worker("resources/public/js/worker.js"));cmd.core.set_st
 cmd.ui.setup_ace.call(null);
 cmd.ui.setup_editor_listeners.call(null);
 cmd.ui.setup_toolbar_listeners.call(null);
-cmd.ui.setup_keyboard_listeners.call(null);
 cmd.core.authenticate.call(null,username,auth_token);
 cmd.ui.render_toolbar.call(null,state);
 cmd.ui.render_console.call(null,state);

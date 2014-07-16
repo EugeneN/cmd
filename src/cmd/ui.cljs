@@ -605,7 +605,7 @@
     (setup-ace)
     (setup-editor-listeners)
     (setup-toolbar-listeners)
-    (setup-keyboard-listeners)
+    ;(setup-keyboard-listeners)
 
     (authenticate username auth-token)
 
