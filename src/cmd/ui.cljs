@@ -556,10 +556,12 @@
   [app-bus]
   (go (loop [[msg payload] (<! app-bus)]
         (case msg
-          :user-is-authenticated (case payload
-                                   true (do (load-initial-content)
-                                            (load-gists))
-                                   false (load-initial-content))
+          :user-is-authenticated (do
+                                   (case payload
+                                     true (do (load-initial-content)
+                                              (load-gists))
+                                     false (load-initial-content))
+                                   (say "Login ok. Welcome aboard :-)"))
 
           :gist-loaded (let [title (get-state state :current-file-id)
                              gist-id payload]
