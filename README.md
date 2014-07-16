@@ -1,14 +1,13 @@
 
-# C.MD
+# Welcome to C.MD
 
 This is an *explosive* mixture of ***ClojureScript, Rx, React/Om, core.async, github CORS api, ace, marked, web workers etc***  ~~crafted~~engineered together to give you the *best* ***gist*** editing tool, ever... well, at least a good try :-)
 It's currently an alfa-quality prototype, so do not expect to much.
 
-Check out a demo: <http://eugenen.github.io/>
 
-#### What you can do with the demo:
+#### What you can do next:
 
-- just provide your Github username and a **secret* to log in
+- log in with your Github credentials*
 - should you be logged in:
  - click a `:NEW_G!ST:` to set a name and then `PUSH>>` to create a new gist with whatever content is *here*
  - ...or select a gist from the list to work on it, then `PUSH>>` to save, `>>PULL` to update content from Github.
@@ -17,30 +16,11 @@ Check out a demo: <http://eugenen.github.io/>
 
 ***
 
-\* To obtain the *secret* please follow next steps:
-
-- open your Github account settings on `Applications` menu topic - https://github.com/settings/applications
-- click `Generate new token` button
-- select ***only*** the `gist` scope (the last one) and click a big green `Generate token` button
-- concatenate the token with a string `:x-oauth-basic` and generate a `base64` hash of the resulting string:
- ```bash
-  $ echo <token>:x-oauth-basic | base64
- ```
-
-...then paste the hash into the `S#CRET` field and click `LOG>>IN` and you're in! :-)
-
-Why so much trouble? - becase it's a *hacker*'s editor so the login process should not be *boring* as in *common*, *lame* *userspace* applications :-) The good news is that `CMD` will remember your credentials in *cookies*, so you will enjoy an *autologin* until you `LOG^OUT`.
+###### \* Sensitive data will only be sent to Github API servers, of course over *https*. `CMD` will also remember your credentials in `localStorage`, so you will enjoy an *autologin* until you will `LOG^OUT`.
 
 
-:::
+<br/>
 
 ```
 (println "Heil Clojure!")
 ```
-
-##### *Easter cat*
-
-<img src=http://thecatapi.com/api/images/get?format=src&type=gif>
-
-
-    
