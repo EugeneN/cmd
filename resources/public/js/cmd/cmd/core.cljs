@@ -251,12 +251,12 @@
 (defn error-set? [state]
   (state :error))
 
-; # <gist-id> ; [tep]
+; #! <gist-id> ; [tep]
 (defn parse-location-hash
   []
   (let [hash (.. js/document -location -hash)]
-    (if (> (count hash) 1)
-      (zipmap [:gist-id :panels] (.split (subs hash 1) ";"))
+    (if (> (count hash) 2)
+      (zipmap [:gist-id :panels] (.split (subs hash 2) ";"))
       {})))
 
 (defn get-gist-id-from-location-hash []
@@ -275,7 +275,7 @@
   (let [gist-id (or (hash-hash :gist-id) "")
         panels (hash-hash :panels)
         chunks (if (nil? panels) [gist-id] [gist-id panels])]
-    (set! (.. js/document -location -hash) (clojure.string/join ";" chunks))))
+    (set! (.. js/document -location -hash) (str "!" (clojure.string/join ";" chunks)))))
 
 (defn set-location-hash-gist-id
   [gist-id]

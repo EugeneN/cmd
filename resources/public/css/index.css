@@ -54,7 +54,7 @@ body {
     text-align: justify;
     font-family: Times, serif;
     font-size: 20px;
-    background-color: rgb(246, 247, 249);
+    /*background-color: rgb(246, 247, 249);*/
     color: rgb(44, 63, 81);
     word-wrap: break-word;
     word-break: break-word;
@@ -255,7 +255,7 @@ label {
     margin: 0;
     padding: 0;
 
-    background-color: rgb(246, 247, 249);
+    /*background-color: rgb(246, 247, 249);*/
     color: rgb(44, 63, 81);
 
     vertical-align: top;
@@ -422,4 +422,16 @@ label {
 
 .toolbar-separator {
     color: #000 !important;
+}
+
+#comments {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 300px;
+    padding: 1em;
+    display: none;
+    background-color: #fff;
+    overflow: auto;
+    height: 100vh;
 }

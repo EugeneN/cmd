@@ -200,10 +200,12 @@
         console-toggler   ($ "console-toggler")
         info-toggler      ($ "info-toggler")
         zen-toggler       ($ "zen-toggler")
+        comments-toggler  ($ "comments-toggler")
         toolbar           ($ "toolbar")
         console           ($ "console")
         preview           ($ "preview-container")
         editor            ($ "input")
+        comments          ($ "comments")
         preview-toggler   ($ "preview-toggler")]
 
 
@@ -241,6 +243,12 @@
     (.. js/Rx -Observable
       (fromEvent info-toggler "click")
       (subscribe #(say (str "No info available currently"))))
+
+    (.. js/Rx -Observable
+        (fromEvent comments-toggler "click")
+        (subscribe #(do
+                     (if (visible? editor) (toggle-slide-left editor))
+                     (jq-toggle comments))))
 
 
     (.. js/Rx -Observable
@@ -589,6 +597,10 @@
         (do (say (str "Unknown extension: " extension))))
       )))
 
+(defn reset-disqus-thread
+  [state]
+  (js/reset_disqus (get-state state :current-gist-id) (.. js/document -location -href)))
+
 (defn subscribe-appbus
   [app-bus]
   (go (loop [[msg payload] (<! app-bus)]
@@ -607,7 +619,9 @@
                            (set-input payload)
                            (set-title title)
                            (set-location-hash-gist-id gist-id)
-                           (set-editor-mode state)))
+                           (set-editor-mode state)
+                           (reset-disqus-thread state)
+                           ))
 
           :user-has-logged-out (reset-input-with-motd)
 
