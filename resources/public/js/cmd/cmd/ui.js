@@ -279,7 +279,8 @@ cmd.ui.setup_toolbar_listeners = (function setup_toolbar_listeners(){var toolbar
 return (function (){if(cljs.core.truth_(cmd.ui.visible_QMARK_.call(null,editor)))
 {cmd.ui.hide.call(null,editor);
 cmd.ui.hide.call(null,console);
-return cmd.ui.hide.call(null,toolbar);
+cmd.ui.hide.call(null,toolbar);
+return cmd.ui.hide.call(null,comments);
 } else
 {cmd.ui.show.call(null,editor);
 cmd.ui.show.call(null,console);
@@ -398,7 +399,7 @@ cmd.ui.setup_panels = (function setup_panels(){var x = (function (){var or__3481
 } else
 {return cmd.defs.all_panels;
 }
-})();var y = clojure.set.intersection.call(null,cmd.defs.all_panels,x);var no_flags_set = cljs.core._EQ_.call(null,0,cljs.core.count.call(null,y));var panels_to_hide = ((no_flags_set)?cljs.core.PersistentHashSet.EMPTY:clojure.set.difference.call(null,cmd.defs.all_panels,y));var toolbar = cmd.ui.$.call(null,"toolbar");var console = cmd.ui.$.call(null,"console");var preview = cmd.ui.$.call(null,"preview-container");var editor = cmd.ui.$.call(null,"input");if(cljs.core.truth_(cljs.core.some.call(null,new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 1, ["t",null], null), null),panels_to_hide)))
+})();var panels_to_show = clojure.set.intersection.call(null,cmd.defs.all_panels,x);var no_flags_set = cljs.core._EQ_.call(null,0,cljs.core.count.call(null,panels_to_show));var panels_to_hide = ((no_flags_set)?cljs.core.PersistentHashSet.EMPTY:clojure.set.difference.call(null,cmd.defs.all_panels,panels_to_show));var toolbar = cmd.ui.$.call(null,"toolbar");var console = cmd.ui.$.call(null,"console");var comments = cmd.ui.$.call(null,"comments");var preview = cmd.ui.$.call(null,"preview-container");var editor = cmd.ui.$.call(null,"input");if(cljs.core.truth_(cljs.core.some.call(null,new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 1, ["t",null], null), null),panels_to_hide)))
 {cmd.ui.hide.call(null,toolbar);
 } else
 {}
@@ -407,7 +408,16 @@ if(cljs.core.truth_(cljs.core.some.call(null,new cljs.core.PersistentHashSet(nul
 } else
 {}
 if(cljs.core.truth_(cljs.core.some.call(null,new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 1, ["p",null], null), null),panels_to_hide)))
-{return cmd.ui.hide.call(null,preview);
+{cmd.ui.hide.call(null,preview);
+} else
+{}
+if(cljs.core.truth_((function (){var and__3469__auto__ = cljs.core.some.call(null,new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 1, ["e",null], null), null),panels_to_hide);if(cljs.core.truth_(and__3469__auto__))
+{return cljs.core.some.call(null,new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 1, ["p",null], null), null),panels_to_show);
+} else
+{return and__3469__auto__;
+}
+})()))
+{return cmd.ui.jq_toggle.call(null,comments);
 } else
 {return null;
 }

@@ -215,7 +215,8 @@
                             (do
                               (hide editor)
                               (hide console)
-                              (hide toolbar))
+                              (hide toolbar)
+                              (hide comments))
                             (do
                               (show editor)
                               (show console)
@@ -320,16 +321,20 @@
 (defn setup-panels
   []
   (let [x                 (or (get-panels-from-location-hash) all-panels)
-        y                 (clojure.set/intersection all-panels x)
-        no-flags-set      (= 0 (count y))
-        panels-to-hide    (if no-flags-set #{} (clojure.set/difference all-panels y))
+        panels-to-show    (clojure.set/intersection all-panels x)
+        no-flags-set      (= 0 (count panels-to-show))
+        panels-to-hide    (if no-flags-set #{} (clojure.set/difference all-panels panels-to-show))
         toolbar           ($ "toolbar")
         console           ($ "console")
+        comments          ($ "comments")
         preview           ($ "preview-container")
         editor            ($ "input")]
     (if (some #{"t"} panels-to-hide) (hide toolbar))
     (if (some #{"e"} panels-to-hide) (hide editor))
     (if (some #{"p"} panels-to-hide) (hide preview))
+
+    (if (and (some #{"e"} panels-to-hide) (some #{"p"} panels-to-show)) (jq-toggle comments))
+
     ;(if (and (not no-flags-set) (not (some #{"c"} panels-to-hide))) (jq-toggle console))
   ))
 
