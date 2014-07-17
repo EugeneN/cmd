@@ -255,8 +255,10 @@
 (defn parse-location-hash
   []
   (let [hash (.. js/document -location -hash)]
-    (if (> (count hash) 2)
-      (zipmap [:gist-id :panels] (.split (subs hash 2) ";"))
+    (if (> (count hash) 1)
+      (if (== 1 (.. hash (indexOf "!")))
+        (zipmap [:gist-id :panels] (.split (subs hash 2) ";"))
+        (zipmap [:gist-id :panels] (.split (subs hash 1) ";")))
       {})))
 
 (defn get-gist-id-from-location-hash []

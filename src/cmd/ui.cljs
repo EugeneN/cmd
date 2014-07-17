@@ -219,6 +219,7 @@
                               (hide comments))
                             (do
                               (show editor)
+                              (hide comments)
                               (show console)
                               (show toolbar))))))
 
@@ -239,7 +240,10 @@
 
     (.. js/Rx -Observable
       (fromEvent editor-toggler "click")
-      (subscribe #(toggle-slide-left editor)))
+      (subscribe #(do
+                   (let [comments ($ "comments")]
+                     (if (visible? comments) (jq-toggle comments)))
+                   (toggle-slide-left editor))))
 
     (.. js/Rx -Observable
       (fromEvent info-toggler "click")
