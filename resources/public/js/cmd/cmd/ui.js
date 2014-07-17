@@ -1011,7 +1011,14 @@ return statearr_11071;
 );
 return c__6728__auto__;
 });
-cmd.ui.main = (function main(state,app_bus){var username = cmd.core.get_prefs.call(null,"username");var auth_token = cmd.core.get_prefs.call(null,"auth-token");var last_opened_gist_id = cmd.core.get_prefs.call(null,"last-gist");cmd.ui.subscribe_appbus.call(null,app_bus);
+cmd.ui.redirect_to_secure = (function redirect_to_secure(){var proto = document.location.protocol;var port = document.location.port;if(((cljs.core._EQ_.call(null,port,"")) || (cljs.core._EQ_.call(null,port,"80"))) && (!(cljs.core._EQ_.call(null,"https:",document.location.protocol))))
+{return document.location.href = [cljs.core.str("https:"),cljs.core.str(cljs.core.subs.call(null,document.location.href,cljs.core.count.call(null,proto)))].join('');
+} else
+{return null;
+}
+});
+cmd.ui.main = (function main(state,app_bus){var username = cmd.core.get_prefs.call(null,"username");var auth_token = cmd.core.get_prefs.call(null,"auth-token");var last_opened_gist_id = cmd.core.get_prefs.call(null,"last-gist");cmd.ui.redirect_to_secure.call(null);
+cmd.ui.subscribe_appbus.call(null,app_bus);
 var worker_11106 = (new Worker("resources/public/js/worker.js"));cmd.core.set_state.call(null,state,new cljs.core.Keyword(null,"worker","worker",4526786288),worker_11106);
 cmd.ui.setup_ace.call(null);
 cmd.ui.setup_editor_listeners.call(null);

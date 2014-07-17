@@ -654,33 +654,42 @@
 
 ; main section -----------------------------------------------------------------
 
+(defn redirect-to-secure []
+  (let [proto (.. js/document -location -protocol)
+        port (.. js/document -location -port)]
+    (if (and (or (= port "") (= port "80")) (not (= "https:" (.. js/document -location -protocol))))
+      (set! (.. js/document -location -href) (str "https:" (subs (.. js/document -location -href) (count proto)))))))
+
 (defn main
   [state app-bus]
   (let [username (get-prefs "username")
         auth-token (get-prefs "auth-token")
         last-opened-gist-id (get-prefs "last-gist")]
 
-    (subscribe-appbus app-bus)
+    (do
+      (redirect-to-secure)
 
-    (let [worker (new js/Worker "resources/public/js/worker.js")]
-      (set-state state :worker worker))
+      (subscribe-appbus app-bus)
 
-    (setup-ace)
-    (setup-editor-listeners)
-    (setup-toolbar-listeners)
-    ;(setup-keyboard-listeners)
+      (let [worker (new js/Worker "resources/public/js/worker.js")]
+        (set-state state :worker worker))
 
-    (authenticate username auth-token)
+      (setup-ace)
+      (setup-editor-listeners)
+      (setup-toolbar-listeners)
+      ;(setup-keyboard-listeners)
 
-    (render-toolbar state)
+      (authenticate username auth-token)
 
-    (render-console state)
+      (render-toolbar state)
 
-    (setup-panels)
+      (render-console state)
 
-    (say "Welcome to CMD :-)")
+      (setup-panels)
 
-    ))
+      (say "Welcome to CMD :-)")
+
+      )))
 
 ; Entry point ------------------------------------------------------------------
 (main state AppBus)
