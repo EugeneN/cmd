@@ -28,11 +28,15 @@
   [suffix]
   (str "https://api.github.com" suffix))
 
+(defn api-url-anticache
+  [suffix]
+  (str "https://api.github.com" suffix "?anticache=" (.random js/Math)))
+
 (defn GET [url auth-param]
   (let [ch (chan 1)]
     (do
       (active+1)
-      (io/send (api-url url)
+      (io/send (api-url-anticache url)
              (partial resp-handler ch)
              "GET"
              nil
